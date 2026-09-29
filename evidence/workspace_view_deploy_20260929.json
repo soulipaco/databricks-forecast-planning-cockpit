@@ -1,0 +1,30 @@
+[
+  {
+    "view": "mlops_dev.nyc311_forecast.v_forecast_detail",
+    "query_id": "01f1bbfb-4603-14ba-a535-438e0120f00e",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 16.563000000081956,
+    "checked_at_utc": "2026-09-29T11:45:46.413782+00:00"
+  },
+  {
+    "view": "mlops_dev.nyc311_forecast.v_planning_gap",
+    "query_id": "01f1bbfb-4f54-1a13-99d6-5a39012c5234",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.155999999959022,
+    "checked_at_utc": "2026-09-29T11:45:48.565382+00:00"
+  },
+  {
+    "view": "mlops_dev.nyc311_forecast.v_model_leaderboard_cells",
+    "query_id": "01f1bbfb-509c-186c-8947-559111af7e3b",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.4530000002123415,
+    "checked_at_utc": "2026-09-29T11:45:51.024170+00:00"
+  },
+  {
+    "view": "mlops_dev.nyc311_forecast.v_run_health",
+    "query_id": "01f1bbfb-5212-1af5-8ca2-222b69164b7b",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 1.6409999998286366,
+    "checked_at_utc": "2026-09-29T11:45:52.661169+00:00"
+  }
+]

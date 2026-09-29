@@ -1,5 +1,5 @@
 -- P05 scaffold, contract v1. Render {{catalog}} and {{schema}} from validated
--- SQL identifiers before execution. This file has not been run in Databricks.
+-- SQL identifiers before execution. Deployed and queried on 2026-09-29.
 -- All dashboard datasets must bind run_id and origin; views alone are not a
 -- permission or freshness boundary. No view invokes a forecasting model.
 

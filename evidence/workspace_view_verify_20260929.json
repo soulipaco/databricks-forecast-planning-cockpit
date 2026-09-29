@@ -1,0 +1,22 @@
+[
+  {
+    "view": "v_forecast_detail",
+    "query_id": "01f1bbfb-62ce-170c-a496-c371b9f28035",
+    "rows": 0
+  },
+  {
+    "view": "v_planning_gap",
+    "query_id": "01f1bbfb-64a1-17f3-92a5-2c34db940509",
+    "rows": 0
+  },
+  {
+    "view": "v_model_leaderboard_cells",
+    "query_id": "01f1bbfb-65f9-1513-b7dd-6fde67f9358e",
+    "rows": 0
+  },
+  {
+    "view": "v_run_health",
+    "query_id": "01f1bbfb-672a-13a9-8288-f93fdfe0427d",
+    "rows": 0
+  }
+]
