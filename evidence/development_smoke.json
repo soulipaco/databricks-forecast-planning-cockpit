@@ -1,0 +1,1488 @@
+{
+  "code_sha": "465aa7ba6c7264bb82be844b8d5f0f47c5d28458",
+  "generated_at_utc": "2026-09-29T10:40:06.926174+00:00",
+  "horizon_days": 28,
+  "origin": "2024-10-31",
+  "prophet_parameter_source": "fixed_smoke_values_not_tuned",
+  "prophet_parameters": {
+    "changepoint_prior_scale": 0.05,
+    "seasonality_mode": "additive",
+    "seasonality_prior_scale": 1.0
+  },
+  "results": [
+    {
+      "forecast": [
+        {
+          "actual": 205,
+          "ds": "2024-11-01",
+          "lead_day": 1,
+          "lower": null,
+          "prediction": 148.0,
+          "upper": null
+        },
+        {
+          "actual": 164,
+          "ds": "2024-11-02",
+          "lead_day": 2,
+          "lower": null,
+          "prediction": 167.0,
+          "upper": null
+        },
+        {
+          "actual": 189,
+          "ds": "2024-11-03",
+          "lead_day": 3,
+          "lower": null,
+          "prediction": 189.0,
+          "upper": null
+        },
+        {
+          "actual": 189,
+          "ds": "2024-11-04",
+          "lead_day": 4,
+          "lower": null,
+          "prediction": 245.0,
+          "upper": null
+        },
+        {
+          "actual": 206,
+          "ds": "2024-11-05",
+          "lead_day": 5,
+          "lower": null,
+          "prediction": 173.0,
+          "upper": null
+        },
+        {
+          "actual": 189,
+          "ds": "2024-11-06",
+          "lead_day": 6,
+          "lower": null,
+          "prediction": 207.0,
+          "upper": null
+        },
+        {
+          "actual": 169,
+          "ds": "2024-11-07",
+          "lead_day": 7,
+          "lower": null,
+          "prediction": 212.0,
+          "upper": null
+        },
+        {
+          "actual": 204,
+          "ds": "2024-11-08",
+          "lead_day": 8,
+          "lower": null,
+          "prediction": 148.0,
+          "upper": null
+        },
+        {
+          "actual": 202,
+          "ds": "2024-11-09",
+          "lead_day": 9,
+          "lower": null,
+          "prediction": 167.0,
+          "upper": null
+        },
+        {
+          "actual": 209,
+          "ds": "2024-11-10",
+          "lead_day": 10,
+          "lower": null,
+          "prediction": 189.0,
+          "upper": null
+        },
+        {
+          "actual": 155,
+          "ds": "2024-11-11",
+          "lead_day": 11,
+          "lower": null,
+          "prediction": 245.0,
+          "upper": null
+        },
+        {
+          "actual": 208,
+          "ds": "2024-11-12",
+          "lead_day": 12,
+          "lower": null,
+          "prediction": 173.0,
+          "upper": null
+        },
+        {
+          "actual": 179,
+          "ds": "2024-11-13",
+          "lead_day": 13,
+          "lower": null,
+          "prediction": 207.0,
+          "upper": null
+        },
+        {
+          "actual": 190,
+          "ds": "2024-11-14",
+          "lead_day": 14,
+          "lower": null,
+          "prediction": 212.0,
+          "upper": null
+        },
+        {
+          "actual": 215,
+          "ds": "2024-11-15",
+          "lead_day": 15,
+          "lower": null,
+          "prediction": 148.0,
+          "upper": null
+        },
+        {
+          "actual": 184,
+          "ds": "2024-11-16",
+          "lead_day": 16,
+          "lower": null,
+          "prediction": 167.0,
+          "upper": null
+        },
+        {
+          "actual": 209,
+          "ds": "2024-11-17",
+          "lead_day": 17,
+          "lower": null,
+          "prediction": 189.0,
+          "upper": null
+        },
+        {
+          "actual": 258,
+          "ds": "2024-11-18",
+          "lead_day": 18,
+          "lower": null,
+          "prediction": 245.0,
+          "upper": null
+        },
+        {
+          "actual": 255,
+          "ds": "2024-11-19",
+          "lead_day": 19,
+          "lower": null,
+          "prediction": 173.0,
+          "upper": null
+        },
+        {
+          "actual": 214,
+          "ds": "2024-11-20",
+          "lead_day": 20,
+          "lower": null,
+          "prediction": 207.0,
+          "upper": null
+        },
+        {
+          "actual": 155,
+          "ds": "2024-11-21",
+          "lead_day": 21,
+          "lower": null,
+          "prediction": 212.0,
+          "upper": null
+        },
+        {
+          "actual": 176,
+          "ds": "2024-11-22",
+          "lead_day": 22,
+          "lower": null,
+          "prediction": 148.0,
+          "upper": null
+        },
+        {
+          "actual": 179,
+          "ds": "2024-11-23",
+          "lead_day": 23,
+          "lower": null,
+          "prediction": 167.0,
+          "upper": null
+        },
+        {
+          "actual": 187,
+          "ds": "2024-11-24",
+          "lead_day": 24,
+          "lower": null,
+          "prediction": 189.0,
+          "upper": null
+        },
+        {
+          "actual": 193,
+          "ds": "2024-11-25",
+          "lead_day": 25,
+          "lower": null,
+          "prediction": 245.0,
+          "upper": null
+        },
+        {
+          "actual": 180,
+          "ds": "2024-11-26",
+          "lead_day": 26,
+          "lower": null,
+          "prediction": 173.0,
+          "upper": null
+        },
+        {
+          "actual": 150,
+          "ds": "2024-11-27",
+          "lead_day": 27,
+          "lower": null,
+          "prediction": 207.0,
+          "upper": null
+        },
+        {
+          "actual": 155,
+          "ds": "2024-11-28",
+          "lead_day": 28,
+          "lower": null,
+          "prediction": 212.0,
+          "upper": null
+        }
+      ],
+      "metrics": {
+        "abs_error_sum": 974.0,
+        "actual_sum": 5368.0,
+        "interval_hits": 0,
+        "interval_n": 0,
+        "interval_score_sum": 0.0,
+        "interval_width_sum": 0.0,
+        "mase": 1.2641323071197148,
+        "mase_denominator": 27.517463235294116,
+        "n": 28,
+        "signed_bias": -0.0007451564828614009,
+        "signed_error_sum": -4.0,
+        "wape": 0.18144560357675113
+      },
+      "series_id": "BRONX|Illegal Parking",
+      "smoke_label": "snaive7_smoke",
+      "wall_seconds": 0.0017574997618794441
+    },
+    {
+      "forecast": [
+        {
+          "actual": 205,
+          "ds": "2024-11-01",
+          "lead_day": 1,
+          "lower": 164.36608163528473,
+          "prediction": 199.62713089555137,
+          "upper": 232.15042937364765
+        },
+        {
+          "actual": 164,
+          "ds": "2024-11-02",
+          "lead_day": 2,
+          "lower": 155.21862245708118,
+          "prediction": 186.35286230686282,
+          "upper": 219.62331029491259
+        },
+        {
+          "actual": 189,
+          "ds": "2024-11-03",
+          "lead_day": 3,
+          "lower": 163.44840459234348,
+          "prediction": 195.28017164153133,
+          "upper": 230.9195104845266
+        },
+        {
+          "actual": 189,
+          "ds": "2024-11-04",
+          "lead_day": 4,
+          "lower": 166.50884334855473,
+          "prediction": 200.09337171396973,
+          "upper": 231.83367110633597
+        },
+        {
+          "actual": 206,
+          "ds": "2024-11-05",
+          "lead_day": 5,
+          "lower": 166.9473598982247,
+          "prediction": 200.72605408287137,
+          "upper": 232.3928906195314
+        },
+        {
+          "actual": 189,
+          "ds": "2024-11-06",
+          "lead_day": 6,
+          "lower": 160.41416292199006,
+          "prediction": 192.9830360319731,
+          "upper": 223.63393168330555
+        },
+        {
+          "actual": 169,
+          "ds": "2024-11-07",
+          "lead_day": 7,
+          "lower": 168.2528362183679,
+          "prediction": 202.01208815337733,
+          "upper": 237.71027337708622
+        },
+        {
+          "actual": 204,
+          "ds": "2024-11-08",
+          "lead_day": 8,
+          "lower": 164.44576216310452,
+          "prediction": 195.7062583879624,
+          "upper": 226.8837856501205
+        },
+        {
+          "actual": 202,
+          "ds": "2024-11-09",
+          "lead_day": 9,
+          "lower": 148.53689905978175,
+          "prediction": 182.4531891274791,
+          "upper": 213.33752575948668
+        },
+        {
+          "actual": 209,
+          "ds": "2024-11-10",
+          "lead_day": 10,
+          "lower": 159.3855898439354,
+          "prediction": 191.47105696202493,
+          "upper": 224.95296078833942
+        },
+        {
+          "actual": 155,
+          "ds": "2024-11-11",
+          "lead_day": 11,
+          "lower": 165.10494387029684,
+          "prediction": 196.4400036891435,
+          "upper": 232.07097337625444
+        },
+        {
+          "actual": 208,
+          "ds": "2024-11-12",
+          "lead_day": 12,
+          "lower": 163.80467829763919,
+          "prediction": 197.2879615656257,
+          "upper": 229.35790485165182
+        },
+        {
+          "actual": 179,
+          "ds": "2024-11-13",
+          "lead_day": 13,
+          "lower": 155.41723042589936,
+          "prediction": 189.81275617748355,
+          "upper": 221.3556435365879
+        },
+        {
+          "actual": 190,
+          "ds": "2024-11-14",
+          "lead_day": 14,
+          "lower": 165.7428037316865,
+          "prediction": 199.15401017031988,
+          "upper": 231.35759731289502
+        },
+        {
+          "actual": 215,
+          "ds": "2024-11-15",
+          "lead_day": 15,
+          "lower": 160.91746720405064,
+          "prediction": 193.19565916360904,
+          "upper": 228.93830365467775
+        },
+        {
+          "actual": 184,
+          "ds": "2024-11-16",
+          "lead_day": 16,
+          "lower": 147.78474005791836,
+          "prediction": 180.3154719600841,
+          "upper": 212.84777992749036
+        },
+        {
+          "actual": 209,
+          "ds": "2024-11-17",
+          "lead_day": 17,
+          "lower": 157.0474901722995,
+          "prediction": 189.72120028401787,
+          "upper": 223.99994725959516
+        },
+        {
+          "actual": 258,
+          "ds": "2024-11-18",
+          "lead_day": 18,
+          "lower": 163.11999048592253,
+          "prediction": 195.08222255348178,
+          "upper": 228.98557023147407
+        },
+        {
+          "actual": 255,
+          "ds": "2024-11-19",
+          "lead_day": 19,
+          "lower": 161.72033869934984,
+          "prediction": 196.31558086575353,
+          "upper": 228.70236491747687
+        },
+        {
+          "actual": 214,
+          "ds": "2024-11-20",
+          "lead_day": 20,
+          "lower": 156.0506764947708,
+          "prediction": 189.2082911388367,
+          "upper": 221.93989858106735
+        },
+        {
+          "actual": 155,
+          "ds": "2024-11-21",
+          "lead_day": 21,
+          "lower": 166.18822371220736,
+          "prediction": 198.88944662347345,
+          "upper": 233.8342170667464
+        },
+        {
+          "actual": 176,
+          "ds": "2024-11-22",
+          "lead_day": 22,
+          "lower": 158.33103785166156,
+          "prediction": 193.2329235058917,
+          "upper": 227.01064451231545
+        },
+        {
+          "actual": 179,
+          "ds": "2024-11-23",
+          "lead_day": 23,
+          "lower": 150.1453205808062,
+          "prediction": 180.6070785345919,
+          "upper": 214.0447465771954
+        },
+        {
+          "actual": 187,
+          "ds": "2024-11-24",
+          "lead_day": 24,
+          "lower": 156.73960136762486,
+          "prediction": 190.21106213787155,
+          "upper": 221.87052873438057
+        },
+        {
+          "actual": 193,
+          "ds": "2024-11-25",
+          "lead_day": 25,
+          "lower": 161.988586615845,
+          "prediction": 195.70661015363194,
+          "upper": 229.038471781834
+        },
+        {
+          "actual": 180,
+          "ds": "2024-11-26",
+          "lead_day": 26,
+          "lower": 165.38321410639404,
+          "prediction": 197.00421230852936,
+          "upper": 229.64274332447135
+        },
+        {
+          "actual": 150,
+          "ds": "2024-11-27",
+          "lead_day": 27,
+          "lower": 159.25982162942992,
+          "prediction": 189.88553664460852,
+          "upper": 223.94613405761433
+        },
+        {
+          "actual": 155,
+          "ds": "2024-11-28",
+          "lead_day": 28,
+          "lower": 168.70304026964118,
+          "prediction": 199.47562960339604,
+          "upper": 231.52784421856276
+        }
+      ],
+      "metrics": {
+        "abs_error_sum": 566.0307224093578,
+        "actual_sum": 5368.0,
+        "interval_hits": 22,
+        "interval_n": 28,
+        "interval_score_sum": 2838.616778673715,
+        "interval_width_sum": 1842.9358353474715,
+        "mase": 0.7346383193223618,
+        "mase_denominator": 27.517463235294116,
+        "n": 28,
+        "signed_bias": 0.009361191576742478,
+        "signed_error_sum": 50.250876383953624,
+        "wape": 0.10544536557551376
+      },
+      "series_id": "BRONX|Illegal Parking",
+      "smoke_label": "prophet_fixed_smoke",
+      "wall_seconds": 2.369047099724412
+    },
+    {
+      "forecast": [
+        {
+          "actual": 539,
+          "ds": "2024-11-01",
+          "lead_day": 1,
+          "lower": null,
+          "prediction": 477.0,
+          "upper": null
+        },
+        {
+          "actual": 480,
+          "ds": "2024-11-02",
+          "lead_day": 2,
+          "lower": null,
+          "prediction": 500.0,
+          "upper": null
+        },
+        {
+          "actual": 484,
+          "ds": "2024-11-03",
+          "lead_day": 3,
+          "lower": null,
+          "prediction": 483.0,
+          "upper": null
+        },
+        {
+          "actual": 562,
+          "ds": "2024-11-04",
+          "lead_day": 4,
+          "lower": null,
+          "prediction": 555.0,
+          "upper": null
+        },
+        {
+          "actual": 509,
+          "ds": "2024-11-05",
+          "lead_day": 5,
+          "lower": null,
+          "prediction": 604.0,
+          "upper": null
+        },
+        {
+          "actual": 523,
+          "ds": "2024-11-06",
+          "lead_day": 6,
+          "lower": null,
+          "prediction": 540.0,
+          "upper": null
+        },
+        {
+          "actual": 625,
+          "ds": "2024-11-07",
+          "lead_day": 7,
+          "lower": null,
+          "prediction": 583.0,
+          "upper": null
+        },
+        {
+          "actual": 540,
+          "ds": "2024-11-08",
+          "lead_day": 8,
+          "lower": null,
+          "prediction": 477.0,
+          "upper": null
+        },
+        {
+          "actual": 442,
+          "ds": "2024-11-09",
+          "lead_day": 9,
+          "lower": null,
+          "prediction": 500.0,
+          "upper": null
+        },
+        {
+          "actual": 501,
+          "ds": "2024-11-10",
+          "lead_day": 10,
+          "lower": null,
+          "prediction": 483.0,
+          "upper": null
+        },
+        {
+          "actual": 475,
+          "ds": "2024-11-11",
+          "lead_day": 11,
+          "lower": null,
+          "prediction": 555.0,
+          "upper": null
+        },
+        {
+          "actual": 586,
+          "ds": "2024-11-12",
+          "lead_day": 12,
+          "lower": null,
+          "prediction": 604.0,
+          "upper": null
+        },
+        {
+          "actual": 471,
+          "ds": "2024-11-13",
+          "lead_day": 13,
+          "lower": null,
+          "prediction": 540.0,
+          "upper": null
+        },
+        {
+          "actual": 584,
+          "ds": "2024-11-14",
+          "lead_day": 14,
+          "lower": null,
+          "prediction": 583.0,
+          "upper": null
+        },
+        {
+          "actual": 527,
+          "ds": "2024-11-15",
+          "lead_day": 15,
+          "lower": null,
+          "prediction": 477.0,
+          "upper": null
+        },
+        {
+          "actual": 511,
+          "ds": "2024-11-16",
+          "lead_day": 16,
+          "lower": null,
+          "prediction": 500.0,
+          "upper": null
+        },
+        {
+          "actual": 523,
+          "ds": "2024-11-17",
+          "lead_day": 17,
+          "lower": null,
+          "prediction": 483.0,
+          "upper": null
+        },
+        {
+          "actual": 637,
+          "ds": "2024-11-18",
+          "lead_day": 18,
+          "lower": null,
+          "prediction": 555.0,
+          "upper": null
+        },
+        {
+          "actual": 669,
+          "ds": "2024-11-19",
+          "lead_day": 19,
+          "lower": null,
+          "prediction": 604.0,
+          "upper": null
+        },
+        {
+          "actual": 662,
+          "ds": "2024-11-20",
+          "lead_day": 20,
+          "lower": null,
+          "prediction": 540.0,
+          "upper": null
+        },
+        {
+          "actual": 481,
+          "ds": "2024-11-21",
+          "lead_day": 21,
+          "lower": null,
+          "prediction": 583.0,
+          "upper": null
+        },
+        {
+          "actual": 556,
+          "ds": "2024-11-22",
+          "lead_day": 22,
+          "lower": null,
+          "prediction": 477.0,
+          "upper": null
+        },
+        {
+          "actual": 504,
+          "ds": "2024-11-23",
+          "lead_day": 23,
+          "lower": null,
+          "prediction": 500.0,
+          "upper": null
+        },
+        {
+          "actual": 537,
+          "ds": "2024-11-24",
+          "lead_day": 24,
+          "lower": null,
+          "prediction": 483.0,
+          "upper": null
+        },
+        {
+          "actual": 548,
+          "ds": "2024-11-25",
+          "lead_day": 25,
+          "lower": null,
+          "prediction": 555.0,
+          "upper": null
+        },
+        {
+          "actual": 632,
+          "ds": "2024-11-26",
+          "lead_day": 26,
+          "lower": null,
+          "prediction": 604.0,
+          "upper": null
+        },
+        {
+          "actual": 519,
+          "ds": "2024-11-27",
+          "lead_day": 27,
+          "lower": null,
+          "prediction": 540.0,
+          "upper": null
+        },
+        {
+          "actual": 351,
+          "ds": "2024-11-28",
+          "lead_day": 28,
+          "lower": null,
+          "prediction": 583.0,
+          "upper": null
+        }
+      ],
+      "metrics": {
+        "abs_error_sum": 1448.0,
+        "actual_sum": 14978.0,
+        "interval_hits": 0,
+        "interval_n": 0,
+        "interval_score_sum": 0.0,
+        "interval_width_sum": 0.0,
+        "mase": 0.7462022606448484,
+        "mase_denominator": 69.3033088235294,
+        "n": 28,
+        "signed_bias": -0.0006676458806249165,
+        "signed_error_sum": -10.0,
+        "wape": 0.09667512351448791
+      },
+      "series_id": "BROOKLYN|Illegal Parking",
+      "smoke_label": "snaive7_smoke",
+      "wall_seconds": 0.0019576000049710274
+    },
+    {
+      "forecast": [
+        {
+          "actual": 539,
+          "ds": "2024-11-01",
+          "lead_day": 1,
+          "lower": 518.6196713762951,
+          "prediction": 594.8439478135509,
+          "upper": 674.3014057777581
+        },
+        {
+          "actual": 480,
+          "ds": "2024-11-02",
+          "lead_day": 2,
+          "lower": 421.95149606672817,
+          "prediction": 502.9526836085596,
+          "upper": 588.2024796425441
+        },
+        {
+          "actual": 484,
+          "ds": "2024-11-03",
+          "lead_day": 3,
+          "lower": 454.99610211300666,
+          "prediction": 532.5760986095171,
+          "upper": 617.2231464701041
+        },
+        {
+          "actual": 562,
+          "ds": "2024-11-04",
+          "lead_day": 4,
+          "lower": 512.2379435453345,
+          "prediction": 594.3427478069775,
+          "upper": 676.8667023659308
+        },
+        {
+          "actual": 509,
+          "ds": "2024-11-05",
+          "lead_day": 5,
+          "lower": 527.0885334523431,
+          "prediction": 609.1133879484515,
+          "upper": 684.5130563025383
+        },
+        {
+          "actual": 523,
+          "ds": "2024-11-06",
+          "lead_day": 6,
+          "lower": 510.13883653786564,
+          "prediction": 591.0354915932584,
+          "upper": 666.5223710167105
+        },
+        {
+          "actual": 625,
+          "ds": "2024-11-07",
+          "lead_day": 7,
+          "lower": 537.9410570896667,
+          "prediction": 614.324494952957,
+          "upper": 701.2791305159193
+        },
+        {
+          "actual": 540,
+          "ds": "2024-11-08",
+          "lead_day": 8,
+          "lower": 501.2860335200994,
+          "prediction": 582.1257506652444,
+          "upper": 659.2625840483291
+        },
+        {
+          "actual": 442,
+          "ds": "2024-11-09",
+          "lead_day": 9,
+          "lower": 409.9670650782253,
+          "prediction": 488.6196466605684,
+          "upper": 569.8677815795936
+        },
+        {
+          "actual": 501,
+          "ds": "2024-11-10",
+          "lead_day": 10,
+          "lower": 439.0700060844271,
+          "prediction": 517.0817431027173,
+          "upper": 598.8589818380444
+        },
+        {
+          "actual": 475,
+          "ds": "2024-11-11",
+          "lead_day": 11,
+          "lower": 494.25414560423064,
+          "prediction": 578.1538096189526,
+          "upper": 656.336751160898
+        },
+        {
+          "actual": 586,
+          "ds": "2024-11-12",
+          "lead_day": 12,
+          "lower": 518.625829668306,
+          "prediction": 592.6977368560405,
+          "upper": 671.0763731733434
+        },
+        {
+          "actual": 471,
+          "ds": "2024-11-13",
+          "lead_day": 13,
+          "lower": 494.02300908386013,
+          "prediction": 574.8501829615013,
+          "upper": 655.594349809461
+        },
+        {
+          "actual": 584,
+          "ds": "2024-11-14",
+          "lead_day": 14,
+          "lower": 521.6140738247178,
+          "prediction": 598.8042461557285,
+          "upper": 679.3223091825337
+        },
+        {
+          "actual": 527,
+          "ds": "2024-11-15",
+          "lead_day": 15,
+          "lower": 494.4487853768728,
+          "prediction": 567.6721221674901,
+          "upper": 641.7684111246348
+        },
+        {
+          "actual": 511,
+          "ds": "2024-11-16",
+          "lead_day": 16,
+          "lower": 397.4690927658719,
+          "prediction": 475.5911884955518,
+          "upper": 551.0849350149772
+        },
+        {
+          "actual": 523,
+          "ds": "2024-11-17",
+          "lead_day": 17,
+          "lower": 424.22367319341237,
+          "prediction": 505.7853419504409,
+          "upper": 586.9784551062226
+        },
+        {
+          "actual": 637,
+          "ds": "2024-11-18",
+          "lead_day": 18,
+          "lower": 487.9960605306367,
+          "prediction": 568.8374404963356,
+          "upper": 651.5764648421272
+        },
+        {
+          "actual": 669,
+          "ds": "2024-11-19",
+          "lead_day": 19,
+          "lower": 503.43013623852863,
+          "prediction": 585.5447873492444,
+          "upper": 664.1829001938231
+        },
+        {
+          "actual": 662,
+          "ds": "2024-11-20",
+          "lead_day": 20,
+          "lower": 484.2637095480003,
+          "prediction": 569.9754778885174,
+          "upper": 645.6070122126856
+        },
+        {
+          "actual": 481,
+          "ds": "2024-11-21",
+          "lead_day": 21,
+          "lower": 514.45368015281,
+          "prediction": 596.2518575516682,
+          "upper": 678.8431937892674
+        },
+        {
+          "actual": 556,
+          "ds": "2024-11-22",
+          "lead_day": 22,
+          "lower": 485.2273780193485,
+          "prediction": 567.4150046229986,
+          "upper": 646.7966307362516
+        },
+        {
+          "actual": 504,
+          "ds": "2024-11-23",
+          "lead_day": 23,
+          "lower": 401.82216493665663,
+          "prediction": 477.5326342740245,
+          "upper": 561.731754013307
+        },
+        {
+          "actual": 537,
+          "ds": "2024-11-24",
+          "lead_day": 24,
+          "lower": 435.18754049860814,
+          "prediction": 509.76220510774743,
+          "upper": 589.4928391322253
+        },
+        {
+          "actual": 548,
+          "ds": "2024-11-25",
+          "lead_day": 25,
+          "lower": 491.84515108684997,
+          "prediction": 574.6250355616936,
+          "upper": 657.7124356062101
+        },
+        {
+          "actual": 632,
+          "ds": "2024-11-26",
+          "lead_day": 26,
+          "lower": 512.3884404987311,
+          "prediction": 592.8633270709112,
+          "upper": 672.5578237807705
+        },
+        {
+          "actual": 519,
+          "ds": "2024-11-27",
+          "lead_day": 27,
+          "lower": 494.7774905727412,
+          "prediction": 578.4978771396381,
+          "upper": 661.1551350248577
+        },
+        {
+          "actual": 351,
+          "ds": "2024-11-28",
+          "lead_day": 28,
+          "lower": 527.5780415496191,
+          "prediction": 605.6126976311432,
+          "upper": 685.4886809511511
+        }
+      ],
+      "metrics": {
+        "abs_error_sum": 1569.0551704899694,
+        "actual_sum": 14978.0,
+        "interval_hits": 21,
+        "interval_n": 28,
+        "interval_score_sum": 7393.353920761968,
+        "interval_width_sum": 4477.278946398425,
+        "mase": 0.8085859912265906,
+        "mase_denominator": 69.3033088235294,
+        "n": 28,
+        "signed_bias": 0.05137461381101816,
+        "signed_error_sum": 769.48896566143,
+        "wape": 0.10475732210508543
+      },
+      "series_id": "BROOKLYN|Illegal Parking",
+      "smoke_label": "prophet_fixed_smoke",
+      "wall_seconds": 0.47114980034530163
+    },
+    {
+      "forecast": [
+        {
+          "actual": 191,
+          "ds": "2024-11-01",
+          "lead_day": 1,
+          "lower": null,
+          "prediction": 203.0,
+          "upper": null
+        },
+        {
+          "actual": 160,
+          "ds": "2024-11-02",
+          "lead_day": 2,
+          "lower": null,
+          "prediction": 310.0,
+          "upper": null
+        },
+        {
+          "actual": 126,
+          "ds": "2024-11-03",
+          "lead_day": 3,
+          "lower": null,
+          "prediction": 189.0,
+          "upper": null
+        },
+        {
+          "actual": 178,
+          "ds": "2024-11-04",
+          "lead_day": 4,
+          "lower": null,
+          "prediction": 233.0,
+          "upper": null
+        },
+        {
+          "actual": 212,
+          "ds": "2024-11-05",
+          "lead_day": 5,
+          "lower": null,
+          "prediction": 186.0,
+          "upper": null
+        },
+        {
+          "actual": 184,
+          "ds": "2024-11-06",
+          "lead_day": 6,
+          "lower": null,
+          "prediction": 266.0,
+          "upper": null
+        },
+        {
+          "actual": 211,
+          "ds": "2024-11-07",
+          "lead_day": 7,
+          "lower": null,
+          "prediction": 224.0,
+          "upper": null
+        },
+        {
+          "actual": 201,
+          "ds": "2024-11-08",
+          "lead_day": 8,
+          "lower": null,
+          "prediction": 203.0,
+          "upper": null
+        },
+        {
+          "actual": 186,
+          "ds": "2024-11-09",
+          "lead_day": 9,
+          "lower": null,
+          "prediction": 310.0,
+          "upper": null
+        },
+        {
+          "actual": 137,
+          "ds": "2024-11-10",
+          "lead_day": 10,
+          "lower": null,
+          "prediction": 189.0,
+          "upper": null
+        },
+        {
+          "actual": 153,
+          "ds": "2024-11-11",
+          "lead_day": 11,
+          "lower": null,
+          "prediction": 233.0,
+          "upper": null
+        },
+        {
+          "actual": 154,
+          "ds": "2024-11-12",
+          "lead_day": 12,
+          "lower": null,
+          "prediction": 186.0,
+          "upper": null
+        },
+        {
+          "actual": 187,
+          "ds": "2024-11-13",
+          "lead_day": 13,
+          "lower": null,
+          "prediction": 266.0,
+          "upper": null
+        },
+        {
+          "actual": 199,
+          "ds": "2024-11-14",
+          "lead_day": 14,
+          "lower": null,
+          "prediction": 224.0,
+          "upper": null
+        },
+        {
+          "actual": 209,
+          "ds": "2024-11-15",
+          "lead_day": 15,
+          "lower": null,
+          "prediction": 203.0,
+          "upper": null
+        },
+        {
+          "actual": 200,
+          "ds": "2024-11-16",
+          "lead_day": 16,
+          "lower": null,
+          "prediction": 310.0,
+          "upper": null
+        },
+        {
+          "actual": 174,
+          "ds": "2024-11-17",
+          "lead_day": 17,
+          "lower": null,
+          "prediction": 189.0,
+          "upper": null
+        },
+        {
+          "actual": 184,
+          "ds": "2024-11-18",
+          "lead_day": 18,
+          "lower": null,
+          "prediction": 233.0,
+          "upper": null
+        },
+        {
+          "actual": 225,
+          "ds": "2024-11-19",
+          "lead_day": 19,
+          "lower": null,
+          "prediction": 186.0,
+          "upper": null
+        },
+        {
+          "actual": 258,
+          "ds": "2024-11-20",
+          "lead_day": 20,
+          "lower": null,
+          "prediction": 266.0,
+          "upper": null
+        },
+        {
+          "actual": 123,
+          "ds": "2024-11-21",
+          "lead_day": 21,
+          "lower": null,
+          "prediction": 224.0,
+          "upper": null
+        },
+        {
+          "actual": 123,
+          "ds": "2024-11-22",
+          "lead_day": 22,
+          "lower": null,
+          "prediction": 203.0,
+          "upper": null
+        },
+        {
+          "actual": 201,
+          "ds": "2024-11-23",
+          "lead_day": 23,
+          "lower": null,
+          "prediction": 310.0,
+          "upper": null
+        },
+        {
+          "actual": 208,
+          "ds": "2024-11-24",
+          "lead_day": 24,
+          "lower": null,
+          "prediction": 189.0,
+          "upper": null
+        },
+        {
+          "actual": 224,
+          "ds": "2024-11-25",
+          "lead_day": 25,
+          "lower": null,
+          "prediction": 233.0,
+          "upper": null
+        },
+        {
+          "actual": 167,
+          "ds": "2024-11-26",
+          "lead_day": 26,
+          "lower": null,
+          "prediction": 186.0,
+          "upper": null
+        },
+        {
+          "actual": 171,
+          "ds": "2024-11-27",
+          "lead_day": 27,
+          "lower": null,
+          "prediction": 266.0,
+          "upper": null
+        },
+        {
+          "actual": 76,
+          "ds": "2024-11-28",
+          "lead_day": 28,
+          "lower": null,
+          "prediction": 224.0,
+          "upper": null
+        }
+      ],
+      "metrics": {
+        "abs_error_sum": 1602.0,
+        "actual_sum": 5022.0,
+        "interval_hits": 0,
+        "interval_n": 0,
+        "interval_score_sum": 0.0,
+        "interval_width_sum": 0.0,
+        "mase": 1.6788700268931134,
+        "mase_denominator": 34.07904411764706,
+        "n": 28,
+        "signed_bias": 0.2831541218637993,
+        "signed_error_sum": 1422.0,
+        "wape": 0.31899641577060933
+      },
+      "series_id": "MANHATTAN|Illegal Parking",
+      "smoke_label": "snaive7_smoke",
+      "wall_seconds": 0.002320399973541498
+    },
+    {
+      "forecast": [
+        {
+          "actual": 191,
+          "ds": "2024-11-01",
+          "lead_day": 1,
+          "lower": 204.801924561638,
+          "prediction": 244.1369298951371,
+          "upper": 285.8269242730424
+        },
+        {
+          "actual": 160,
+          "ds": "2024-11-02",
+          "lead_day": 2,
+          "lower": 163.46656544325091,
+          "prediction": 205.3830025039782,
+          "upper": 242.29071103099665
+        },
+        {
+          "actual": 126,
+          "ds": "2024-11-03",
+          "lead_day": 3,
+          "lower": 162.44901868255607,
+          "prediction": 203.18871735301238,
+          "upper": 239.49273926772813
+        },
+        {
+          "actual": 178,
+          "ds": "2024-11-04",
+          "lead_day": 4,
+          "lower": 189.6026447523337,
+          "prediction": 229.4927591729307,
+          "upper": 266.58222607642995
+        },
+        {
+          "actual": 212,
+          "ds": "2024-11-05",
+          "lead_day": 5,
+          "lower": 202.15118663017287,
+          "prediction": 241.3124452651026,
+          "upper": 278.56003727543873
+        },
+        {
+          "actual": 184,
+          "ds": "2024-11-06",
+          "lead_day": 6,
+          "lower": 203.0158171530793,
+          "prediction": 242.43564003472463,
+          "upper": 281.99544850714557
+        },
+        {
+          "actual": 211,
+          "ds": "2024-11-07",
+          "lead_day": 7,
+          "lower": 207.33617531824228,
+          "prediction": 245.49510088451268,
+          "upper": 286.7035485454082
+        },
+        {
+          "actual": 201,
+          "ds": "2024-11-08",
+          "lead_day": 8,
+          "lower": 195.00561201375052,
+          "prediction": 233.83450741292526,
+          "upper": 273.0928107611139
+        },
+        {
+          "actual": 186,
+          "ds": "2024-11-09",
+          "lead_day": 9,
+          "lower": 151.95608901582457,
+          "prediction": 193.5357112891755,
+          "upper": 232.3335569652274
+        },
+        {
+          "actual": 137,
+          "ds": "2024-11-10",
+          "lead_day": 10,
+          "lower": 151.57878400183353,
+          "prediction": 190.05591567107354,
+          "upper": 227.80593111422434
+        },
+        {
+          "actual": 153,
+          "ds": "2024-11-11",
+          "lead_day": 11,
+          "lower": 176.67002490360363,
+          "prediction": 215.36172517143476,
+          "upper": 250.78548763491338
+        },
+        {
+          "actual": 154,
+          "ds": "2024-11-12",
+          "lead_day": 12,
+          "lower": 186.391030772071,
+          "prediction": 226.49128392129998,
+          "upper": 262.8664520586182
+        },
+        {
+          "actual": 187,
+          "ds": "2024-11-13",
+          "lead_day": 13,
+          "lower": 189.83331604679063,
+          "prediction": 227.24560573284776,
+          "upper": 266.80959091503985
+        },
+        {
+          "actual": 199,
+          "ds": "2024-11-14",
+          "lead_day": 14,
+          "lower": 189.35624838265701,
+          "prediction": 230.2625274035255,
+          "upper": 268.27022657911624
+        },
+        {
+          "actual": 209,
+          "ds": "2024-11-15",
+          "lead_day": 15,
+          "lower": 179.824472423232,
+          "prediction": 218.88254943226187,
+          "upper": 254.83035218003988
+        },
+        {
+          "actual": 200,
+          "ds": "2024-11-16",
+          "lead_day": 16,
+          "lower": 141.47251980547085,
+          "prediction": 179.1761085594494,
+          "upper": 218.126096504899
+        },
+        {
+          "actual": 174,
+          "ds": "2024-11-17",
+          "lead_day": 17,
+          "lower": 139.05754317879666,
+          "prediction": 176.58099250313407,
+          "upper": 214.4498637007234
+        },
+        {
+          "actual": 184,
+          "ds": "2024-11-18",
+          "lead_day": 18,
+          "lower": 166.18436867746837,
+          "prediction": 203.0368337792416,
+          "upper": 243.1373456188605
+        },
+        {
+          "actual": 225,
+          "ds": "2024-11-19",
+          "lead_day": 19,
+          "lower": 176.54024422692575,
+          "prediction": 215.54789046905572,
+          "upper": 255.85909744084498
+        },
+        {
+          "actual": 258,
+          "ds": "2024-11-20",
+          "lead_day": 20,
+          "lower": 178.77575253261685,
+          "prediction": 217.87520289607977,
+          "upper": 256.61154751417274
+        },
+        {
+          "actual": 123,
+          "ds": "2024-11-21",
+          "lead_day": 21,
+          "lower": 186.2375531106797,
+          "prediction": 222.6115372167738,
+          "upper": 263.11213497626557
+        },
+        {
+          "actual": 123,
+          "ds": "2024-11-22",
+          "lead_day": 22,
+          "lower": 174.67957137358283,
+          "prediction": 213.04835566132928,
+          "upper": 253.14127505961488
+        },
+        {
+          "actual": 201,
+          "ds": "2024-11-23",
+          "lead_day": 23,
+          "lower": 137.39449360684583,
+          "prediction": 175.2043294261358,
+          "upper": 214.84686521965122
+        },
+        {
+          "actual": 208,
+          "ds": "2024-11-24",
+          "lead_day": 24,
+          "lower": 135.4224765684111,
+          "prediction": 174.4640730399571,
+          "upper": 214.50188978270313
+        },
+        {
+          "actual": 224,
+          "ds": "2024-11-25",
+          "lead_day": 25,
+          "lower": 163.52392864767822,
+          "prediction": 202.71400322617816,
+          "upper": 242.58588247678517
+        },
+        {
+          "actual": 167,
+          "ds": "2024-11-26",
+          "lead_day": 26,
+          "lower": 177.54607704061985,
+          "prediction": 216.90649483272497,
+          "upper": 256.28938141450317
+        },
+        {
+          "actual": 171,
+          "ds": "2024-11-27",
+          "lead_day": 27,
+          "lower": 181.71956663574466,
+          "prediction": 220.75338701433074,
+          "upper": 263.3293949796939
+        },
+        {
+          "actual": 76,
+          "ds": "2024-11-28",
+          "lead_day": 28,
+          "lower": 188.5773976856584,
+          "prediction": 226.8022153613297,
+          "upper": 267.3654013308806
+        }
+      ],
+      "metrics": {
+        "abs_error_sum": 1271.8726298959507,
+        "actual_sum": 5022.0,
+        "interval_hits": 13,
+        "interval_n": 28,
+        "interval_score_sum": 6260.609262505241,
+        "interval_width_sum": 2181.0318160125457,
+        "mase": 1.3329018953545753,
+        "mase_denominator": 34.07904411764706,
+        "n": 28,
+        "signed_bias": 0.19311745223609372,
+        "signed_error_sum": 969.8358451296626,
+        "wape": 0.2532601811819894
+      },
+      "series_id": "MANHATTAN|Illegal Parking",
+      "smoke_label": "prophet_fixed_smoke",
+      "wall_seconds": 0.4216414000838995
+    }
+  ],
+  "run_id": "development-smoke-465aa7ba6c72",
+  "selection_manifest": "data\\series_manifest\\selection-v1.json",
+  "silver_snapshot_id": "development-silver-20260929",
+  "status": "smoke_only_not_benchmark"
+}
