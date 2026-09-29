@@ -1,0 +1,4 @@
+phase,model_id,execution_surface,successful_cells,median_wall_seconds_per_cell,total_wall_seconds,median_warehouse_execution_ms,cached_results,note
+final_fit_and_predict,snaive7,local Python process,252,0.0010889999102801085,0.3072768999263644,,0,No fitting
+final_fit_and_predict,prophet_tuned,local Python process,252,0.25516270007938147,68.83297559991479,,0,"Refit with frozen parameters; excludes the separate 20-trial tuning cost; one local machine, not comparable to SQL wall time"
+final_fit_and_predict,ai_forecast_v2,Databricks serverless SQL warehouse (trial),252,5.280999999959022,1390.8920000004582,4630.5,0,Client wall time includes warehouse queue and network; warehouse execution time is from query history

@@ -56,21 +56,24 @@ def render(summary: dict, output: Path) -> None:
     m = summary["models"]
     fig.suptitle("NYC 311 daily requests, 2025 backtest: error by series and model",
                  x=0.03, ha="left", fontsize=16, color=ink, weight="bold")
-    ax.set_title(
+    fig.text(
+        0.03, 0.945,
         "Median series WAPE: v2 {:.1%} · Prophet {:.1%} · naïve {:.1%}. "
         "Sorted by v2 minus Prophet (v2 relatively best at the bottom).".format(
             m["ai_forecast_v2"]["primary_median_series_wape"],
             m["prophet_tuned"]["primary_median_series_wape"],
             m["snaive7"]["primary_median_series_wape"]),
-        loc="left", fontsize=10.5, color=muted, pad=34)
-    ax.legend(loc="lower left", bbox_to_anchor=(0, 1.0), ncol=3, frameon=False,
-              fontsize=10, labelcolor=ink, handletextpad=0.3, columnspacing=1.6)
+        fontsize=10.5, color=muted)
+    handles, labels = ax.get_legend_handles_labels()
+    fig.legend(handles, labels, loc="upper left", bbox_to_anchor=(0.025, 0.935), ncol=3,
+               frameon=False, fontsize=10, labelcolor=ink, handletextpad=0.3,
+               columnspacing=1.6)
     fig.text(0.03, 0.012,
              f"Source: NYC Open Data 311 (erm2-nwe9); run {summary['run_id']}. "
              f"{summary['paired_series_origin_pairs']}/{summary['expected_series_origin_pairs']}"
              " paired series-origins. Retrospective backtest; v2 pretraining corpus unknown.",
              fontsize=8.5, color=muted)
-    fig.tight_layout(rect=(0, 0.03, 1, 0.97))
+    fig.tight_layout(rect=(0, 0.03, 1, 0.9))
     fig.savefig(output, facecolor="white")
 
 

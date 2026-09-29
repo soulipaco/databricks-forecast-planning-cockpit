@@ -1,0 +1,33 @@
+{
+  "code_sha_by_source": {
+    "native": "aeea7734d3c926b88b9553b1f383f94e6d569120",
+    "two_model": "10cc5e39cfde2b846eca6ecd2454a51490b029bb"
+  },
+  "combined_sha256": "d8003e9e7ea5c795b0281dd6a9efd2640008fc43103797cc0504aacae845fa6d",
+  "created_at_utc": "2026-09-29T18:59:43.596695+00:00",
+  "featured_series": {
+    "median_native_minus_prophet": "MANHATTAN|HEAT/HOT WATER",
+    "worst_native_minus_prophet": "BROOKLYN|HEAT/HOT WATER"
+  },
+  "final_run_id": "final-three-model-a8c5bcf1ed7d",
+  "release_id": "nyc311-benchmark-v1.0-rc1",
+  "silver_sha256": "1c59885b2db584c0d3372793039889e36f7bf94d7d02b50dbcbe0459108e575e",
+  "silver_snapshot_id": "evaluation-silver-20260929",
+  "source_run_sha256": {
+    "native": "f1ed7d67e7a80245b8cc432610f4063c7c906b959d11b4ea076ea970900500ed",
+    "two_model": "a8c5bcb99a57c0170d57bf1c0ddbc0243ed280f4293c10918ffb2df500160986"
+  },
+  "source_runs": {
+    "native": "final-native-v2-aeea7734d3c9",
+    "two_model": "final-local-10cc5e39cfde"
+  },
+  "status": "release_candidate_unpublished",
+  "summary_sha256": "cb513a34f7f1eb688e466bc221006c7dc60efba407a7d9650647705b2bd44d69",
+  "tables": {
+    "failures.csv": "19caa170c0881a090daaf4cfc9e52195a3cfd7593830383c7a68601081e3fef3",
+    "leaderboard.csv": "c695ad2b51ca60e26d1aa565f0bd5efa98924d933f84a91aded22542a26fabb1",
+    "prediction_sample.csv": "8209da8d9b1a9561b9a7b3e5217e6ffb1d8497e59be5a9181131031bdb08dc19",
+    "runtime.csv": "08f3f34ce1328903c636fda024f2f7d110bb0f2d0ab8792b290ebbb31ecd7dfd",
+    "series_scores.csv": "5492c997ab41c19414f8b8cad9b526a3f412cdfa2220563ecd1a88e69f44baf6"
+  }
+}

@@ -35,3 +35,11 @@
 - Development extract: `uv run nyc311 ingest --start 2024-01-01 --end 2025-01-01 --snapshot-id development-2024-20260929 --page-size 5000`.
 - Silver materialization: `uv run nyc311 materialize-development --selection-snapshot data/snapshots/selection-2021-2023-20260929 --development-snapshot data/snapshots/development-2024-20260929 --series-manifest data/series_manifest/selection-v1.json --snapshot-id development-silver-20260929`.
 - Local checks: partition reconciliation, payload hashes, idempotent selection manifest and unit tests. Workspace checks: 30,681 Silver rows, 5,088,270 requests and 40 zero-filled days loaded and verified in Delta; 48 reconciled source partition records and 1,245 candidate-series decisions (21 selected) loaded and verified with zero missing or extra rows. The metadata load was repeated idempotently. Query IDs and payload hashes are in `evidence/workspace_silver_load_20260929.json`, `evidence/workspace_metadata_load_20260929.json` and `evidence/workspace_metadata_reload_20260929.json`.
+
+## 2025 evaluation extract (after protocol freeze)
+
+- Retrieved only after the protocol freeze (`evidence/freeze_manifest.json`, tag `protocol-v1.0-frozen`). Command: `uv run nyc311 ingest --start 2025-01-01 --end 2026-01-01 --snapshot-id evaluation-2025-20260929` (default page size 1000; about 13 minutes).
+- 12/12 monthly partitions reconciled: 3,655,041 source requests in 164,706 aggregate rows. The snapshot manifest SHA-256 is `f5899994…`.
+- Final Silver `evaluation-silver-20260929` covers 2021-01-01 to 2025-12-31: 38,346 series-days (21 × 1,826) with 40 zero-filled days, none in 2025. Payload SHA-256 is `1c59885b…`. Its 30,681 rows for 2021–2024 are identical to the development Silver. `materialize_evaluation` refuses to run without the frozen manifest.
+- Borough exclusions across 2021–2025: 6,962 missing and 23,714 `UNSPECIFIED`.
+- Loaded into the trial workspace Delta table with zero missing, extra or changed rows (`evidence/trial/workspace_evaluation_silver_load_20260929.json`).

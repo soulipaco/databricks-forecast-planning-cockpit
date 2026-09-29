@@ -2,7 +2,26 @@
 
 **Question:** Can one Databricks SQL forecasting function be competitive with a tuned Prophet pipeline while requiring less model-specific engineering?
 
-This repository is an **in-progress portfolio implementation** of a planned benchmark and planning dashboard. A full **2024 two-model development diagnostic** is verified; the three-model benchmark, 2025 evaluation and public release remain incomplete. An unpublished development dashboard draft exists. The question above is a test, not a conclusion.
+This repository is a **reproducible portfolio benchmark** (release candidate `nyc311-benchmark-v1.0-rc1`, not yet published). The protocol was frozen and hash-locked before any 2025 data was retrieved; all three models were then evaluated on twelve 2025 month-end origins.
+
+## Result
+
+On 21 NYC 311 series × 12 origins × 28 days (252/252 paired series-origins, 21,168 predictions per the [arithmetic check](evidence/final_prediction_arithmetic_20260929.json)):
+
+| Model | Median series WAPE (primary) | Pooled WAPE | Signed bias | 80% interval coverage |
+|---|---|---|---|---|
+| Weekly seasonal naïve | 25.0% | 32.4% | -4.8% | n/a |
+| Tuned Prophet (20 trials/series) | 19.5% | 34.2% | 0.5% | 77.7% |
+| Databricks `ai_forecast` v2 | **17.1%** | **25.3%** | -14.3% | 77.9% |
+
+- `ai_forecast` v2 had the lowest error: 12.4% lower median series WAPE than tuned Prophet, and the lowest WAPE on 17 of 21 series.
+- It **systematically under-forecast**: pooled bias -14.3% versus Prophet's 0.5%, concentrated in heating and residential-noise series. Under the pre-registered rule (error no more than 5% worse **and** absolute bias no more than 2 points worse) it is therefore **not** "practically competitive" despite the accuracy lead.
+- Tuned Prophet beat naïve on the median series but not on pooled volume-weighted WAPE, driven by large errors on high-volume residential-noise series.
+- Runtime is not a like-for-like comparison: v2 took a median 5.3 s per series-origin through a serverless SQL warehouse; Prophet refits took 0.26 s locally, excluding its separate tuning. No monetary cost was measured.
+
+![Series-level 2025 WAPE by model](portfolio/final_benchmark_2025.png)
+
+Limitations: a retrospective backtest on a current snapshot of one public dataset; the v2 foundation model's pretraining corpus is unknown and may include public NYC data; v2 ran in a Databricks trial workspace because Free Edition cannot enable the network access its runtime needs ([decision record](docs/adr/native_v2_runtime_blocker.md)). All figures trace to [`evidence/leaderboard.csv`](evidence/leaderboard.csv), [`series_scores.csv`](evidence/series_scores.csv) and the [release manifest](evidence/release_manifest.json).
 
 **For:** BI and analytics engineers deciding how much custom forecasting code a daily planning workload needs. **Start with:** the [benchmark protocol](03_BENCHMARK_PROTOCOL.md), then inspect the [evidence guide](evidence/README.md) as outputs become available.
 
@@ -16,17 +35,30 @@ The intended product is a code-managed Databricks AI/BI dashboard that reads sto
 
 ## Current status and evidence
 
-The supplied documents are a build specification. See [PROJECT_STATE.md](PROJECT_STATE.md) for the implementation ledger. Until a release has passed the [evidence gates](08_EVIDENCE_RELEASE.md), this README makes no performance, speed, cost, or deployment claim.
+See [PROJECT_STATE.md](PROJECT_STATE.md) for the implementation ledger and [the validation report](evidence/validation_report.md) for each release gate.
 
-| Item | Current status | Where to inspect later |
+| Item | Status | Evidence |
 |---|---|---|
-| Method and intended comparison | 2024 two-model development executed; three-model protocol freeze pending | [Protocol](03_BENCHMARK_PROTOCOL.md) |
-| Real source snapshot and selected series | Development data verified locally and in workspace; final 2025 holdout unopened | [Data card](evidence/data_card.md) and workspace load evidence |
-| Three-model forecast and score tables | Pending; [2024 two-model diagnostic](evidence/development_two_model_diagnostic_20260929.json) verified separately | `evidence/leaderboard.csv`, `series_scores.csv`, `failures.csv` |
-| Workspace dashboard inspection | Unpublished development-data, two-model coverage and paired-score draft API verified; visual check deferred and full planning product pending | [Dashboard evidence](evidence/workspace_dashboard_paired_scores_20260929.json), release validation report and screenshots |
-| Public result and reproducible release | Pending | Release manifest, claims ledger, chart data and code |
+| Data 2021–2025 | 60/60 monthly partitions reconciled; 2025 retrieved only after freeze | [Data card](evidence/data_card.md), `data/silver/evaluation-silver-20260929/manifest.json` |
+| Protocol freeze | Frozen and hash-locked at `c5fdacc`, tag `protocol-v1.0-frozen`; deviations D1–D3 registered before freeze | [Freeze manifest](evidence/freeze_manifest.json), [protocol](03_BENCHMARK_PROTOCOL.md) |
+| Three-model final benchmark | 756/756 cells, 0 failures, 0 cached SQL results; arithmetic independently recomputed | [Leaderboard](evidence/leaderboard.csv), [series scores](evidence/series_scores.csv), [failures](evidence/failures.csv), [runtime](evidence/runtime.csv) |
+| Claims | Five draft claims awaiting independent review | [Claims ledger](evidence/claims.csv) |
+| Dashboard | Unpublished development draft; final pages and visual inspection pending (deferred by owner) | [Dashboard evidence](evidence/workspace_dashboard_paired_scores_20260929.json) |
+| Public release | Not published; owner decision | — |
 
-The [evidence directory](evidence/README.md) contains source and workspace validation records, development smoke results, and benchmark templates. It contains no final benchmark outputs. Synthetic fixtures used for local tests must stay visibly labelled and excluded from result claims.
+## Reproduce the final benchmark
+
+From a clean checkout at the release commit (`uv sync --all-extras`), with a Databricks workspace where `ai_forecast` v2 works and a local config such as `conf/trial.local.yaml` (gitignored):
+
+```bash
+uv run python -m nyc311_forecast.final_benchmark verify-freeze
+uv run --extra prophet python -m nyc311_forecast.final_benchmark local --output <new-local.json>
+uv run --extra platform --extra prophet python -m nyc311_forecast.final_benchmark native --config conf/trial.local.yaml --output <new-native.json>
+uv run python -m nyc311_forecast.final_benchmark combine --local <new-local.json> --native <new-native.json> --output <combined.json> --summary <summary.json>
+uv run python scripts/verify_development_predictions.py --input <combined.json> --silver data/silver/evaluation-silver-20260929/daily_requests.jsonl --output <check.json>
+```
+
+Each stage refuses to run if any frozen input changed. Native v2 results can differ slightly between executions; the protocol's repeatability check has not yet been run.
 
 ## Repository guide
 
@@ -40,7 +72,7 @@ The [evidence directory](evidence/README.md) contains source and workspace valid
 
 The companion [Prophet forecasting MLOps repository](https://github.com/soulipaco/prophet-forecasting-mlops) was audited at commit `b2538be9d19abb191a2c8cf3306709e0cf7a2a0f`; the minimal attributed adaptation is described in [the adapter decision](docs/adr/prophet_adapter.md).
 
-## Reproduction status
+## Development history
 
 The current CLI implements local `doctor` configuration validation, `ingest` aggregate extraction, `select-series` for an exactly complete 2021–2023 snapshot, `materialize-development` for the verified 2021–2024 daily spine, `deploy-tables` for the ten Delta contracts, `deploy-views` for five read-only serving views, and `smoke` for the pinned Databricks v2 capability check. `doctor` reports whether workspace inputs are present; it **does not verify workspace access**. The authenticated `smoke` query failed during the managed runtime's dependency installation; no native forecast result exists. `freeze` checks every protocol-freeze prerequisite and writes a hash manifest only when none is missing; against the current two-model run it refuses, listing the absent `ai_forecast_v2` candidate and 84/126 three-model cells ([readiness evidence](evidence/freeze_readiness_20260929.json)). The other CLI commands in [the backlog](05_BACKLOG_PARALLEL_WORK.md)—including `tune`, `benchmark`, `evaluate`, `export-evidence` and `validate-release`—are proposed and not implemented. Do not treat those examples as runnable instructions. A separate `scripts/tune_development.py` entry point is implemented for checkpointed, development-only Prophet tuning.
 

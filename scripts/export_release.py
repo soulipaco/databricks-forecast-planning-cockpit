@@ -124,8 +124,13 @@ def export(combined_path: Path, summary_path: Path, out: Path, release_id: str) 
             "total_wall_seconds": sum(walls) if walls else None,
             "median_warehouse_execution_ms": median(exec_ms) if exec_ms else None,
             "cached_results": sum(1 for q in metrics if q.get("result_from_cache")),
-            "note": "Wall time includes queue/network for SQL; excludes Prophet tuning cost"
-            if model != "snaive7" else "No fitting",
+            "note": {
+                "snaive7": "No fitting",
+                "prophet_tuned": "Refit with frozen parameters; excludes the separate 20-trial "
+                                 "tuning cost; one local machine, not comparable to SQL wall time",
+                "ai_forecast_v2": "Client wall time includes warehouse queue and network; "
+                                  "warehouse execution time is from query history",
+            }[model],
         })
     _write_csv(out / "runtime.csv", runtime)
 
