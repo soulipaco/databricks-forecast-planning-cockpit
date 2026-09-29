@@ -1,0 +1,242 @@
+{
+  "expected_series_origin_pairs": 252,
+  "frozen_development_champion_policy": {
+    "median_series_wape": 0.17062674435244246,
+    "pooled_wape": 0.2529391123123343
+  },
+  "limitations": [
+    "Retrospective backtest on a current NYC Open Data snapshot, not as-published vintages.",
+    "Native v2 ran in a Databricks trial workspace; naive and Prophet ran locally.",
+    "The v2 foundation model's pretraining corpus is unknown; public NYC data may overlap.",
+    "One dataset, 21 series, 12 origins; no universal winner or equivalence claim."
+  ],
+  "models": {
+    "ai_forecast_v2": {
+      "complete_cells": 252,
+      "expected_cells": 252,
+      "interval_coverage": 0.7791950113378685,
+      "interval_hits": 5498,
+      "interval_n": 7056,
+      "mean_interval_width": 154.86203050586371,
+      "median_cell_mase": 0.7502920421838217,
+      "paired_abs_error_sum": 381516.41009140015,
+      "paired_actual_sum": 1508333.0,
+      "paired_pooled_wape": 0.2529391123123343,
+      "paired_signed_bias": -0.14267571959402503,
+      "paired_signed_error_sum": -215202.49616241455,
+      "pooled_wape_by_lead_window": {
+        "1-28": 0.2529391123123343,
+        "1-7": 0.2480904484726222,
+        "15-28": 0.23848998133215768,
+        "8-14": 0.28433307159483096
+      },
+      "primary_median_series_wape": 0.17062674435244246
+    },
+    "prophet_tuned": {
+      "complete_cells": 252,
+      "expected_cells": 252,
+      "interval_coverage": 0.7765022675736961,
+      "interval_hits": 5479,
+      "interval_n": 7056,
+      "mean_interval_width": 180.16637558229073,
+      "median_cell_mase": 0.8681501019176463,
+      "paired_abs_error_sum": 515485.5981880948,
+      "paired_actual_sum": 1508333.0,
+      "paired_pooled_wape": 0.3417584831652525,
+      "paired_signed_bias": 0.004986148599833525,
+      "paired_signed_error_sum": 7520.7724760327,
+      "pooled_wape_by_lead_window": {
+        "1-28": 0.34175848316525353,
+        "1-7": 0.31617146838804816,
+        "15-28": 0.35017642308161173,
+        "8-14": 0.3515352376662018
+      },
+      "primary_median_series_wape": 0.19467516276281463
+    },
+    "snaive7": {
+      "complete_cells": 252,
+      "expected_cells": 252,
+      "interval_coverage": null,
+      "interval_hits": 0,
+      "interval_n": 0,
+      "mean_interval_width": null,
+      "median_cell_mase": 0.9875745508564497,
+      "paired_abs_error_sum": 488237.0,
+      "paired_actual_sum": 1508333.0,
+      "paired_pooled_wape": 0.3236931102084221,
+      "paired_signed_bias": -0.04842498307734432,
+      "paired_signed_error_sum": -73041.0,
+      "pooled_wape_by_lead_window": {
+        "1-28": 0.3236931102084221,
+        "1-7": 0.2805085203107453,
+        "15-28": 0.35583470864717376,
+        "8-14": 0.30717286724293313
+      },
+      "primary_median_series_wape": 0.24997081484940462
+    }
+  },
+  "paired_series_origin_pairs": 252,
+  "per_series": [
+    {
+      "ai_forecast_v2_wape": 0.11506695872808963,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.12642412562263658,
+      "series_id": "BRONX|Illegal Parking",
+      "snaive7_wape": 0.14329773699834225
+    },
+    {
+      "ai_forecast_v2_wape": 0.11039243132885826,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.11801090443129152,
+      "series_id": "BROOKLYN|Illegal Parking",
+      "snaive7_wape": 0.138969220501995
+    },
+    {
+      "ai_forecast_v2_wape": 0.14086145391854096,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.1942627314470733,
+      "series_id": "MANHATTAN|Illegal Parking",
+      "snaive7_wape": 0.19192461182467555
+    },
+    {
+      "ai_forecast_v2_wape": 0.08922440343039578,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.09868527081776406,
+      "series_id": "QUEENS|Illegal Parking",
+      "snaive7_wape": 0.11217662003077253
+    },
+    {
+      "ai_forecast_v2_wape": 0.16411328082849175,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.15880862606704602,
+      "series_id": "STATEN ISLAND|Illegal Parking",
+      "snaive7_wape": 0.21607665028308343
+    },
+    {
+      "ai_forecast_v2_wape": 0.6013178492034247,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 1.0359227090243028,
+      "series_id": "BRONX|Noise - Residential",
+      "snaive7_wape": 0.7473043539801536
+    },
+    {
+      "ai_forecast_v2_wape": 0.1160658361619374,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.1678391723312618,
+      "series_id": "BROOKLYN|Noise - Residential",
+      "snaive7_wape": 0.16823038011880023
+    },
+    {
+      "ai_forecast_v2_wape": 0.1313686066989394,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.13402487370251864,
+      "series_id": "MANHATTAN|Noise - Residential",
+      "snaive7_wape": 0.17348040600029901
+    },
+    {
+      "ai_forecast_v2_wape": 0.1574955804866245,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.2563989741801334,
+      "series_id": "QUEENS|Noise - Residential",
+      "snaive7_wape": 0.24997081484940462
+    },
+    {
+      "ai_forecast_v2_wape": 0.3632225964079562,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.4320229233914508,
+      "series_id": "BRONX|HEAT/HOT WATER",
+      "snaive7_wape": 0.4448304825901038
+    },
+    {
+      "ai_forecast_v2_wape": 0.39656843752481147,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.38788764163948686,
+      "series_id": "BROOKLYN|HEAT/HOT WATER",
+      "snaive7_wape": 0.4801000563144178
+    },
+    {
+      "ai_forecast_v2_wape": 0.37973180384412186,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.4229657490590759,
+      "series_id": "MANHATTAN|HEAT/HOT WATER",
+      "snaive7_wape": 0.4312957888261283
+    },
+    {
+      "ai_forecast_v2_wape": 0.3875911389313146,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.4371429365447488,
+      "series_id": "QUEENS|HEAT/HOT WATER",
+      "snaive7_wape": 0.4681987545272154
+    },
+    {
+      "ai_forecast_v2_wape": 0.3461428729599911,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.5074777103359738,
+      "series_id": "BRONX|Noise - Street/Sidewalk",
+      "snaive7_wape": 0.5127489298343569
+    },
+    {
+      "ai_forecast_v2_wape": 0.280178762106157,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.4118637247227626,
+      "series_id": "BROOKLYN|Noise - Street/Sidewalk",
+      "snaive7_wape": 0.41302016302016303
+    },
+    {
+      "ai_forecast_v2_wape": 0.2678699422994039,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.34442593203869626,
+      "series_id": "MANHATTAN|Noise - Street/Sidewalk",
+      "snaive7_wape": 0.3520492230680989
+    },
+    {
+      "ai_forecast_v2_wape": 0.29794685979047564,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.3613125556319331,
+      "series_id": "QUEENS|Noise - Street/Sidewalk",
+      "snaive7_wape": 0.392547750756706
+    },
+    {
+      "ai_forecast_v2_wape": 0.1465103158780768,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.1501829761670829,
+      "series_id": "BRONX|UNSANITARY CONDITION",
+      "snaive7_wape": 0.22096040626133542
+    },
+    {
+      "ai_forecast_v2_wape": 0.16299908424903284,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.1612646782450371,
+      "series_id": "BROOKLYN|UNSANITARY CONDITION",
+      "snaive7_wape": 0.23540593573706156
+    },
+    {
+      "ai_forecast_v2_wape": 0.17062674435244246,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.17420549753780729,
+      "series_id": "MANHATTAN|UNSANITARY CONDITION",
+      "snaive7_wape": 0.23340376826906145
+    },
+    {
+      "ai_forecast_v2_wape": 0.20057171668674947,
+      "development_champion": "ai_forecast_v2",
+      "prophet_tuned_wape": 0.19467516276281463,
+      "series_id": "QUEENS|UNSANITARY CONDITION",
+      "snaive7_wape": 0.2678294834669001
+    }
+  ],
+  "practically_competitive_rule": {
+    "abs_bias_gap_pp": 13.768957099419152,
+    "meets_practically_competitive_rule": false,
+    "native_cell_coverage": 1.0,
+    "primary_wape_relative_to_prophet": -0.12353100451582477
+  },
+  "run_id": "final-three-model-a8c5bcf1ed7d",
+  "series_lowest_wape_counts": {
+    "ai_forecast_v2": 17,
+    "prophet_tuned": 4,
+    "snaive7": 0
+  },
+  "status": "final_three_model_benchmark_summary",
+  "unrestricted_comparison": true
+}

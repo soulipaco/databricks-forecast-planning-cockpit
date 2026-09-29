@@ -11,6 +11,7 @@ from pathlib import Path
 EXPECTED_CELLS = {
     "partial_two_model_development_not_benchmark": 84,
     "three_model_development_not_benchmark": 126,
+    "final_three_model_benchmark": 756,
 }
 SILVER = Path(__file__).resolve().parents[1] / (
     "data/silver/development-silver-20260929/daily_requests.jsonl"
@@ -101,10 +102,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--silver", type=Path, default=SILVER)
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError("Evidence output already exists")
-    result = verify(json.loads(args.input.read_text(encoding="utf-8")))
+    result = verify(json.loads(args.input.read_text(encoding="utf-8")), args.silver)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
