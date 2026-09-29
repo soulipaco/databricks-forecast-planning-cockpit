@@ -24,8 +24,8 @@ def source_sql(path: str, table: str) -> str:
 
 
 def persist_table(api, warehouse_id: str, target: str, path: str, table: str,
-                  run_id: str, expected_rows: int) -> dict:
-    if table not in FIELDS or not RUN_ID.fullmatch(run_id):
+                  run_id: str, expected_rows: int, run_pattern=RUN_ID) -> dict:
+    if table not in FIELDS or not run_pattern.fullmatch(run_id):
         raise ValueError("Invalid table/run scope")
     source = source_sql(path, table)
     fields, keys = FIELDS[table], KEYS[table]

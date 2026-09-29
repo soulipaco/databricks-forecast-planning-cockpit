@@ -1,0 +1,64 @@
+{
+  "status": "verified_final_three_model_persisted",
+  "run_id": "final-three-model-a8c5bcf1ed7d",
+  "stage_id": "final-three-model-a8c5bcf1ed7d",
+  "source_sha256": "d8003e9e7ea5c795b0281dd6a9efd2640008fc43103797cc0504aacae845fa6d",
+  "expected_cells": 756,
+  "complete_cells": 756,
+  "failed_cells": 0,
+  "silver_snapshot_id": "evaluation-silver-20260929",
+  "results": [
+    {
+      "table": "workspace.nyc311_forecast.forecast_runs",
+      "expected_rows": 1,
+      "persisted_rows": 1,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc3a-c084-1921-8b07-cfeeeab961d5",
+        "duplicates": "01f1bc3a-c500-125a-b958-bb266e3bc911",
+        "merge": "01f1bc3a-c5da-1ecb-8759-f0400658efb0",
+        "readback": "01f1bc3a-c7ce-1386-9284-9aac87989cb7"
+      }
+    },
+    {
+      "table": "workspace.nyc311_forecast.forecast_attempts",
+      "expected_rows": 756,
+      "persisted_rows": 756,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc3a-c98e-11f0-ba19-f45064bc7bfd",
+        "duplicates": "01f1bc3a-ca60-1b21-a8c8-b311bc928e3a",
+        "merge": "01f1bc3a-cb15-1e68-a889-de2ffa333c91",
+        "readback": "01f1bc3a-cc9a-1850-a45a-03d57a355daf"
+      }
+    },
+    {
+      "table": "workspace.nyc311_forecast.forecast_values",
+      "expected_rows": 21168,
+      "persisted_rows": 21168,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc3a-d8fb-183f-a987-79a770f24fb6",
+        "duplicates": "01f1bc3a-da83-1cb6-9d6b-735135ae8543",
+        "merge": "01f1bc3a-db50-1894-b091-15ad0488d4ee",
+        "readback": "01f1bc3a-dd40-1860-bfb7-a372abb76552"
+      }
+    },
+    {
+      "table": "workspace.nyc311_forecast.evaluation_cells",
+      "expected_rows": 756,
+      "persisted_rows": 756,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc3a-dee7-1cd6-9efc-8fbd04734858",
+        "duplicates": "01f1bc3a-df8b-1867-8aec-6639e3550236",
+        "merge": "01f1bc3a-e047-1210-9a63-6314cebe3655",
+        "readback": "01f1bc3a-e1ab-185f-a31b-13adfa0f7adc"
+      }
+    }
+  ]
+}

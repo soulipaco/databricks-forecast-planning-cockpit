@@ -1,0 +1,37 @@
+[
+  {
+    "view": "workspace.nyc311_forecast.v_forecast_detail",
+    "query_id": "01f1bc3a-b55e-16f7-85c6-217f10e2f8ef",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 4.671000000089407,
+    "checked_at_utc": "2026-09-29T19:19:39.213334+00:00"
+  },
+  {
+    "view": "workspace.nyc311_forecast.v_planning_gap",
+    "query_id": "01f1bc3a-b7bc-171c-833c-f329d423f21f",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 1.2820000001229346,
+    "checked_at_utc": "2026-09-29T19:19:40.498844+00:00"
+  },
+  {
+    "view": "workspace.nyc311_forecast.v_model_leaderboard_cells",
+    "query_id": "01f1bc3a-b881-10da-ade4-7c373a5516f2",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 1.0779999997466803,
+    "checked_at_utc": "2026-09-29T19:19:41.569123+00:00"
+  },
+  {
+    "view": "workspace.nyc311_forecast.v_run_health",
+    "query_id": "01f1bc3a-b923-11c5-ae66-7e8ecbfaa7bf",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 1.0309999999590218,
+    "checked_at_utc": "2026-09-29T19:19:42.597976+00:00"
+  },
+  {
+    "view": "workspace.nyc311_forecast.v_data_quality",
+    "query_id": "01f1bc3a-b9bc-1dc3-9538-0fbcaecc6cc3",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 0.9380000000819564,
+    "checked_at_utc": "2026-09-29T19:19:43.546875+00:00"
+  }
+]

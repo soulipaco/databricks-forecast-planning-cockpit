@@ -1,0 +1,36 @@
+{
+  "status": "sql_recompute_of_headline",
+  "run_id": "final-three-model-a8c5bcf1ed7d",
+  "query_id": "01f1bc3a-f9c0-124d-8082-50f59a0fc612",
+  "sql": "sql/final_leaderboard.sql",
+  "rows": [
+    {
+      "model_id": "ai_forecast_v2",
+      "median_series_wape": 0.17062674435244246,
+      "pooled_wape": 0.2529391123123343,
+      "signed_bias": -0.14267571959402503,
+      "interval_coverage": 0.7791950113378685,
+      "paired_cells": 252,
+      "matches_python_summary": true
+    },
+    {
+      "model_id": "prophet_tuned",
+      "median_series_wape": 0.19467516276281463,
+      "pooled_wape": 0.3417584831652523,
+      "signed_bias": 0.00498614859983354,
+      "interval_coverage": 0.7765022675736961,
+      "paired_cells": 252,
+      "matches_python_summary": true
+    },
+    {
+      "model_id": "snaive7",
+      "median_series_wape": 0.24997081484940462,
+      "pooled_wape": 0.3236931102084221,
+      "signed_bias": -0.04842498307734432,
+      "interval_coverage": null,
+      "paired_cells": 252,
+      "matches_python_summary": true
+    }
+  ],
+  "all_match": true
+}
