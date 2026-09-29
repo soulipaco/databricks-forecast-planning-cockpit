@@ -23,3 +23,11 @@ The owner asked whether `onnxruntime` could be uploaded as a wheel. [Unity Catal
 ## Next bounded test
 
 Treat native v2 as blocked in the current Free Edition workspace and keep the three-way benchmark unreleased. The owner need not install anything or keep searching for the absent preview. If an independently confirmed Free Edition entitlement/egress change later occurs, run **one** `uv run nyc311 smoke --config conf/local.yaml`; retain its query ID and 28-row validation result or new exact error. Optional LinkedIn identity verification is an owner choice, not a guaranteed fix or prerequisite to use the existing dashboard/data work.
+
+## Independent re-check (2026-09-29, Claude Code session)
+
+At the owner's request the blocker was re-verified from scratch rather than relying on the entries above. Details: `evidence/v2_independent_recheck_20260929.json`.
+
+- A third warehouse smoke (`01f1bc22-fcda-1ec7-85de-f1cc214c89de`) failed identically. Its installation log shows pip connect timeouts to `pypi.org`, confirming a network cause.
+- `ai_forecast` through serverless **job** compute (`spark.sql`) fails earlier with `UNSUPPORTED_FEATURE.AI_FUNCTION_PREVIEW`, so job environments, which can install PyPI packages, are not a route to v2.
+- `version => '1'` succeeds on the same warehouse in 10 s with 28 rows. This is a feasibility fact for a possible protocol revision, not v2 evidence.

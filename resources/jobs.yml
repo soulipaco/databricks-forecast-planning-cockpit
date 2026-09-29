@@ -41,3 +41,22 @@ resources:
             client: "3"
             dependencies:
               - ../dist/*.whl
+
+    v2_probe:
+      name: nyc311_v2_probe
+      description: >-
+        Diagnostic: the pinned ai_forecast v2 synthetic smoke executed through serverless
+        job compute instead of the SQL warehouse. No project data, no 2025 data.
+      max_concurrent_runs: 1
+      timeout_seconds: 1800
+      tasks:
+        - task_key: v2_smoke
+          environment_key: nyc311
+          spark_python_task:
+            python_file: ../jobs/v2_probe.py
+      environments:
+        - environment_key: nyc311
+          spec:
+            client: "3"
+            dependencies:
+              - ../dist/*.whl

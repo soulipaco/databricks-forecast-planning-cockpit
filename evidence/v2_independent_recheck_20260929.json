@@ -1,0 +1,27 @@
+{
+  "purpose": "Independent re-verification of the ai_forecast v2 blocker (Claude Code session), at the owner's request not to rely on earlier findings",
+  "docs_checked": "ai_forecast reference (last updated 2026-09-18): v2 Beta, requires Pro or Serverless SQL warehouse and Predictive AI Functions preview; version defaults to 1; horizon right-exclusive",
+  "attempts": [
+    {
+      "surface": "Free Edition serverless SQL warehouse",
+      "query_id": "01f1bc22-fcda-1ec7-85de-f1cc214c89de",
+      "sql": "src/nyc311_forecast/platform/smoke.py SMOKE_SQL (version => '2')",
+      "result": "FAILED after ~230 s",
+      "error": "ISOLATION_ENVIRONMENT_USER_ERROR.NO_MATCHING_DISTRIBUTION; installation log: two ConnectTimeoutError 'Connection to pypi.org timed out. (connect timeout=15)' for /simple/onnxruntime/, then no matching distribution for onnxruntime==1.20.1",
+      "interpretation": "Confirmed: isolated SQL environment has no egress to pypi.org; not a Python-version or wheel-compatibility failure"
+    },
+    {
+      "surface": "Serverless job compute, spark.sql (job 433147636942594, run 148968652767082)",
+      "result": "FAILED at analysis",
+      "error": "[UNSUPPORTED_FEATURE.AI_FUNCTION_PREVIEW] AI function ai_forecast is in preview and currently disabled in this environment. SQLSTATE 0A000",
+      "interpretation": "ai_forecast is not available outside the SQL warehouse; this route is closed even though job environments can install PyPI packages"
+    },
+    {
+      "surface": "Free Edition serverless SQL warehouse, version => '1' feasibility probe (NOT a v2 result)",
+      "query_id": "01f1bc23-f43a-1595-9c07-b369ca050e9f",
+      "result": "SUCCEEDED in 10.1 s; 28 rows 2025-01-01..2025-01-28; columns ds, y_forecast, y_upper, y_lower",
+      "interpretation": "The warehouse can run ai_forecast v1. Recorded only to inform a protocol decision; never labeled or used as v2"
+    }
+  ],
+  "conclusion": "v2 remains blocked in this Free Edition workspace by missing egress from the SQL isolated environment. Remaining routes: owner LinkedIn identity verification (documented to grant outbound internet; effect on the SQL isolated environment unverified) or a non-Free-Edition workspace."
+}
