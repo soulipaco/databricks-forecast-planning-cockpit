@@ -1,24 +1,43 @@
 # Can one Databricks SQL function replace a forecasting pipeline?
 
-A frozen-protocol benchmark of Databricks **`ai_forecast` v2** against a **tuned Prophet** pipeline and a **weekly seasonal naïve** baseline, on daily NYC 311 service-request counts. Data lands in Unity Catalog Delta tables, and results are served through a code-managed AI/BI dashboard.
+[![CI](https://github.com/soulipaco/databricks-forecast-planning-cockpit/actions/workflows/ci.yml/badge.svg)](https://github.com/soulipaco/databricks-forecast-planning-cockpit/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-informational.svg)](LICENSE)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](pyproject.toml)
+[![Protocol](https://img.shields.io/badge/protocol-frozen%20before%202025-success.svg)](evidence/freeze_manifest.json)
+[![Cells](https://img.shields.io/badge/scored%20cells-756%2F756-success.svg)](evidence/leaderboard.csv)
+
+> A frozen-protocol benchmark of Databricks **`ai_forecast` v2** against a **tuned Prophet** pipeline and a **weekly seasonal baseline** on NYC 311 daily service requests. It covers 21 series, 12 monthly forecast origins in 2025 and a 28-day horizon, with every prediction stored in Delta and served through a code-managed AI/BI dashboard.
+
+**The one-line SQL function was the most accurate model, and it still failed the test.** It had the lowest error on 17 of 21 series, but it forecast 14% less demand than actually arrived. The rule for "competitive" was written down before any 2025 data was downloaded, and it requires both accuracy and low bias.
+
+![28-day forecasts against actual demand](portfolio/hero_forecasts.png)
+
+*Above: the two heating series that the protocol's featured-series rule selects, forecast on 30 Nov 2025. The v2 forecast (blue) follows the level well, but in Brooklyn it sits under almost every cold-weather spike.*
 
 ## Result
 
-21 series × 12 monthly origins in 2025 × 28-day horizon: 252 of 252 paired series-origins complete, 21,168 predictions per model set, no failures.
+![Error and bias by model](portfolio/scoreboard.png)
 
-| Model | Median series WAPE (primary) | Pooled WAPE | Signed bias | 80% interval coverage |
-|---|---|---|---|---|
-| Weekly seasonal naïve | 25.0% | 32.4% | −4.8% | n/a |
-| Tuned Prophet (20 trials/series) | 19.5% | 34.2% | +0.5% | 77.7% |
-| Databricks `ai_forecast` v2 | **17.1%** | **25.3%** | −14.3% | 77.9% |
+| Model | Median series WAPE (primary) | Pooled WAPE | Signed bias | 80% interval coverage | Most accurate on |
+|---|---|---|---|---|---|
+| Weekly seasonal naïve | 25.0% | 32.4% | −4.8% | n/a | 0 / 21 series |
+| Tuned Prophet (20 trials/series) | 19.5% | 34.2% | +0.5% | 77.7% | 4 / 21 |
+| Databricks `ai_forecast` v2 | **17.1%** | **25.3%** | −14.3% | 77.9% | **17 / 21** |
 
-- **Lowest error:** `ai_forecast` v2 had a 12% lower median series WAPE than tuned Prophet and was the most accurate model on 17 of 21 series.
-- **But it forecast too low:** its pooled bias was −14.3% of actual volume, against +0.5% for Prophet. For heating and residential-noise complaints the shortfall was about 25%.
-- **Verdict under the pre-registered rule:** "practically competitive" was fixed before 2025 data was retrieved: error no more than 5% worse than Prophet **and** absolute bias no more than 2 points worse. v2 therefore does **not** qualify, despite its accuracy lead.
-- **Prophet vs baseline:** Prophet beat naïve on the median series but not on volume-weighted (pooled) WAPE, because of large errors on high-volume residential-noise series.
-- **Runtime is not like-for-like:** v2 took a median 5.3 s per series-origin in a serverless SQL warehouse, and Prophet refits took 0.26 s locally, excluding the separate tuning. No monetary cost was measured.
+- **Verdict under the pre-registered rule:** "practically competitive" means error no more than 5% worse than Prophet **and** absolute bias no more than 2 points worse. v2 is 12% better on error but 13.8 points worse on bias, so it does **not** qualify.
+- **The shortfall is not one bad month.** v2 was below actual demand at every one of the 12 origins, most sharply in winter:
+
+![Signed bias by forecast origin](portfolio/bias_by_origin.png)
+
+- **One series behaves like a different process.** Bronx residential-noise complaints jump to as much as eight times their usual monthly volume, for example about 52,000 in January 2025 against roughly 6,000 normally. That series produces Prophet's worst errors (above 100% WAPE) and dominates the volume-weighted figures. This is why the protocol ranks models by the *median* series.
+- **Runtime is not like-for-like.** v2 took a median of 5.3 s per series-origin in a serverless SQL warehouse, and Prophet refits took 0.26 s locally, excluding the separate tuning. No monetary cost was measured.
+
+<details>
+<summary>Error for every series (21 × 3 models)</summary>
 
 ![2025 WAPE by series and model](portfolio/final_benchmark_2025.png)
+
+</details>
 
 Every number above is recomputed three ways: the Python summary, SQL over the persisted Delta tables, and plain arithmetic on [`evidence/series_scores.csv`](evidence/series_scores.csv). See [`evidence/`](evidence/README.md).
 
@@ -34,18 +53,26 @@ Every model received exactly the last 1,095 days before each origin. The baselin
 
 ## Architecture
 
+```mermaid
+flowchart LR
+  A["NYC Open Data<br/>311 API"] --> B["Monthly aggregate<br/>snapshots<br/>(reconciled, hashed)"]
+  B --> C["Daily Silver<br/>21 series × 1,826 days"]
+  C --> D[("Unity Catalog<br/>Delta: daily_requests")]
+  D --> E["ai_forecast v2<br/>serverless SQL warehouse"]
+  C --> F["Weekly naïve +<br/>tuned Prophet<br/>(Python)"]
+  E --> G["Fixed-grid scoring<br/>failures kept"]
+  F --> G
+  G --> H[("Delta: runs, attempts,<br/>forecasts, score cells")]
+  H --> I["AI/BI dashboard<br/>(reads stored rows only)"]
+  G --> J["evidence/<br/>leaderboard, claims,<br/>release manifest"]
 ```
-NYC Open Data (SODA API)
-  → monthly aggregate snapshots, reconciled and hashed        src/nyc311_forecast/ingest
-  → daily Silver series (21 × 1,826 days)                     src/nyc311_forecast/data
-  → Unity Catalog Delta: daily_requests                       sql/tables.sql, scripts/load_workspace_silver.py
-  → models
-      weekly naïve, Prophet (pinned adapter)                  src/nyc311_forecast/models
-      ai_forecast(..., version => '2') in a SQL warehouse     src/nyc311_forecast/platform/native_sql.py
-  → scoring on a fixed grid, failures kept                    src/nyc311_forecast/evaluation
-  → Delta: forecast_runs / attempts / values / evaluation_cells
-  → serving views and AI/BI dashboard (reads stored rows)     sql/views.sql, dashboards/
-```
+
+| Stage | Code |
+|---|---|
+| Extraction and snapshots | `src/nyc311_forecast/ingest`, `src/nyc311_forecast/data` |
+| Models | `src/nyc311_forecast/models`, `src/nyc311_forecast/platform/native_sql.py` |
+| Scoring, freeze gate, final stages | `src/nyc311_forecast/evaluation`, `freeze.py`, `final_benchmark.py` |
+| Delta and dashboard | `sql/`, `scripts/persist_final.py`, `dashboards/` |
 
 Deployment is code-managed: a Databricks Asset Bundle ([`databricks.yml`](databricks.yml)) defines unscheduled, single-run serverless jobs. One of them reproduces the Silver payload byte-for-byte in the workspace.
 
