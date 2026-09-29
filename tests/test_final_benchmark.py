@@ -61,3 +61,17 @@ def test_summary_scores_paired_cells_windows_and_frozen_policy():
     # Policy mixes Prophet (0.2) on A and naive (0.3) on B from frozen development choices.
     assert summary["frozen_development_champion_policy"]["pooled_wape"] == pytest.approx(0.25)
     assert summary["series_lowest_wape_counts"]["ai_forecast_v2"] == 2
+
+
+def test_final_inputs_use_2025_silver_with_development_tuning_lineage():
+    from nyc311_forecast.development_compare import SILVER_PATH, load_inputs
+    from nyc311_forecast.final_benchmark import EVAL_SILVER
+
+    series_ids, by_series, parameters, provenance = load_inputs(
+        silver_path=EVAL_SILVER, last_year=2025, tuning_silver_path=SILVER_PATH
+    )
+    assert provenance["silver_snapshot_id"] == "evaluation-silver-20260929"
+    assert len(parameters) == 21
+    assert max(row["ds"] for row in by_series[series_ids[0]]).isoformat() == "2025-12-31"
+    with pytest.raises(ValueError, match="after 2024"):
+        load_inputs(silver_path=EVAL_SILVER)

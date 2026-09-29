@@ -16,7 +16,7 @@ from pathlib import Path
 from statistics import median
 
 from nyc311_forecast.config import MODELS, load_config
-from nyc311_forecast.development_compare import ROOT, load_inputs, run_comparison
+from nyc311_forecast.development_compare import ROOT, SILVER_PATH, load_inputs, run_comparison
 from nyc311_forecast.development_native import (
     query_metrics,
     run_native,
@@ -75,7 +75,7 @@ def run_local(output: Path) -> dict:
     freeze = verify_freeze()
     code_sha = _code_sha()
     series_ids, by_series, parameters, provenance = load_inputs(
-        silver_path=EVAL_SILVER, last_year=2025
+        silver_path=EVAL_SILVER, last_year=2025, tuning_silver_path=SILVER_PATH
     )
     result = run_comparison(series_ids, by_series, parameters, origins=FINAL_ORIGINS,
                             status=LOCAL_STATUS)
@@ -105,7 +105,7 @@ def run_final_native(config_path: Path, output: Path) -> dict:
     if config.workspace_host and client.config.host.rstrip("/") != config.workspace_host.rstrip("/"):
         raise ValueError("Authenticated workspace host differs from config")
     series_ids, by_series, _parameters, provenance = load_inputs(
-        silver_path=EVAL_SILVER, last_year=2025
+        silver_path=EVAL_SILVER, last_year=2025, tuning_silver_path=SILVER_PATH
     )
     run_id = f"final-native-v2-{code_sha[:12]}"
     started = datetime.now(UTC)

@@ -16,7 +16,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--silver-dir", type=Path, default=SILVER)
     args = parser.parse_args()
+    silver = args.silver_dir
     if args.output.exists():
         raise ValueError("Output evidence file already exists")
     config = load_config(args.config)
@@ -30,7 +32,11 @@ def main() -> None:
         )
     ):
         raise ValueError("Workspace host, profile, warehouse, catalog and schema are required")
-    manifest = json.loads((SILVER / "manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads((silver / "manifest.json").read_text(encoding="utf-8"))
+    local_rows = [
+        json.loads(line) for line in (silver / "daily_requests.jsonl").open(encoding="utf-8")
+    ]
+    last_date = max(row["ds"] for row in local_rows)
     client = WorkspaceClient(profile=config.workspace_profile)
     if client.config.host.rstrip("/") != config.workspace_host.rstrip("/"):
         raise ValueError("Authenticated workspace host differs from config")
@@ -47,15 +53,13 @@ FROM read_files('{volume_file}', format => 'json',
     preflight_sql = f"""WITH source AS ({source})
 SELECT COUNT(*), COUNT(DISTINCT concat_ws('|', snapshot_id, series_id, CAST(ds AS STRING))),
   SUM(y), SUM(CAST(is_zero_filled AS INT)),
-  SUM(CASE WHEN snapshot_id = '{snapshot_id}' AND ds BETWEEN DATE '2021-01-01' AND DATE '2024-12-31' THEN 0 ELSE 1 END)
+  SUM(CASE WHEN snapshot_id = '{snapshot_id}' AND ds BETWEEN DATE '2021-01-01' AND DATE '{last_date}' THEN 0 ELSE 1 END)
 FROM source"""
     preflight_id, preflight_data = run_query(
         client.statement_execution, config.warehouse_id, preflight_sql
     )
     rows, distinct_keys, requests, zero_filled, invalid = map(int, preflight_data[0])
-    expected_requests = sum(
-        json.loads(line)["y"] for line in (SILVER / "daily_requests.jsonl").open(encoding="utf-8")
-    )
+    expected_requests = sum(row["y"] for row in local_rows)
     if (rows, distinct_keys, requests, zero_filled, invalid) != (
         manifest["row_count"],
         manifest["row_count"],

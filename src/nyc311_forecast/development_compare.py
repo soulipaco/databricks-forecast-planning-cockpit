@@ -41,6 +41,7 @@ def load_inputs(
     tuning_dir: Path = TUNING_DIR,
     *,
     last_year: int = 2024,
+    tuning_silver_path: Path | None = None,
 ) -> tuple[tuple[str, ...], dict[str, list[dict]], dict[str, ProphetParameters], dict]:
     """Require complete 20-trial checkpoints and matching immutable inputs."""
     selection = json.loads(selection_path.read_text(encoding="utf-8"))
@@ -50,6 +51,10 @@ def load_inputs(
     silver_manifest = json.loads((silver_path.parent / "manifest.json").read_text(encoding="utf-8"))
     tuning_manifest = json.loads((tuning_dir / "manifest.json").read_text(encoding="utf-8"))
     selection_sha, silver_sha = _sha(selection_path), _sha(silver_path)
+    tuning_silver_path = tuning_silver_path or silver_path
+    tuning_silver_id = json.loads(
+        (tuning_silver_path.parent / "manifest.json").read_text(encoding="utf-8")
+    ).get("snapshot_id")
     if (
         silver_manifest.get("status") != "complete"
         or silver_manifest.get("series_manifest_hash") != selection_sha
@@ -62,8 +67,9 @@ def load_inputs(
         or tuning_manifest.get("seed") != 42
         or tuning_manifest.get("series_ids") != list(series_ids)
         or tuning_manifest.get("selection_sha256") != selection_sha
-        or tuning_manifest.get("silver_sha256") != silver_sha
-        or tuning_manifest.get("silver_snapshot_id") != silver_manifest.get("snapshot_id")
+        # Tuning is tied to the development Silver it ran on, even for a later final run.
+        or tuning_manifest.get("silver_sha256") != _sha(tuning_silver_path)
+        or tuning_manifest.get("silver_snapshot_id") != tuning_silver_id
         or tuning_manifest.get("inner_origins") != ["2024-01-31", "2024-05-31", "2024-09-30"]
     ):
         raise ValueError("Tuning manifest does not match registered full development run")
