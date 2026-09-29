@@ -1,0 +1,10 @@
+{
+  "workspace": "Databricks trial workspace (non-Free-Edition), profile nyc311-trial; host kept out of public evidence",
+  "warehouse": "Serverless Starter Warehouse, type PRO, serverless, size Small",
+  "preview": "Owner reported Predictive AI Functions preview enabled",
+  "query_id": "01f1bc26-3a8f-18ab-a0f6-7bebac6962eb",
+  "sql": "src/nyc311_forecast/platform/smoke.py SMOKE_SQL (version => '2')",
+  "result": "FAILED",
+  "error": "ISOLATION_ENVIRONMENT_USER_ERROR.NO_MATCHING_DISTRIBUTION; installation log: two ConnectTimeoutError to pypi.org (/simple/onnxruntime/), then no matching distribution for onnxruntime==1.20.1",
+  "interpretation": "Same failure as Free Edition. A default trial workspace also gives the SQL isolated environment no internet egress. Databricks UDF documentation states internet dependency installation on serverless SQL warehouses requires the Public Preview 'Enable networking for isolated workloads in Serverless SQL Warehouses'. Whether that toggle also governs ai_forecast's managed dependency install is unverified until it is enabled and one smoke is rerun."
+}
