@@ -23,5 +23,7 @@ First public release: the frozen protocol v1.0 benchmark and its evidence.
 
 ### Notes
 
+- Evidence files record the release ID `nyc311-benchmark-v1.0-rc1`, which was published unchanged as tag `v1.0.0`.
+
 - `ai_forecast` v2 could not run in Databricks Free Edition. It ran in a trial workspace; see `docs/adr/native_v2_runtime_blocker.md`.
 - Git history was rewritten before publication to remove a private workspace host and private working files (`docs/history_rewrite.md`).

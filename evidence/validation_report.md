@@ -1,6 +1,6 @@
 # Validation report — pre-release status
 
-**Status:** Release candidate `nyc311-benchmark-v1.0-rc1`, 29 September 2026. Rows added after the final benchmark are marked (final). Not a release sign-off: independent review, dashboard inspection and public-asset review remain open.
+**Status:** Release `v1.0.0`, 29 September 2026. Rows added after the final benchmark are marked (final). Not a release sign-off: independent review, dashboard inspection and public-asset review remain open.
 
 | Gate/check | Environment | Exact command or inspection | Actual outcome | Evidence reference | Status |
 |---|---|---|---|---|---|
