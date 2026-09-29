@@ -42,9 +42,10 @@ See [PROJECT_STATE.md](PROJECT_STATE.md) for the implementation ledger and [the 
 | Data 2021–2025 | 60/60 monthly partitions reconciled; 2025 retrieved only after freeze | [Data card](evidence/data_card.md), `data/silver/evaluation-silver-20260929/manifest.json` |
 | Protocol freeze | Frozen and hash-locked at `c5fdacc`, tag `protocol-v1.0-frozen`; deviations D1–D3 registered before freeze | [Freeze manifest](evidence/freeze_manifest.json), [protocol](03_BENCHMARK_PROTOCOL.md) |
 | Three-model final benchmark | 756/756 cells, 0 failures, 0 cached SQL results; arithmetic independently recomputed | [Leaderboard](evidence/leaderboard.csv), [series scores](evidence/series_scores.csv), [failures](evidence/failures.csv), [runtime](evidence/runtime.csv) |
-| Claims | Five draft claims awaiting independent review | [Claims ledger](evidence/claims.csv) |
-| Dashboard | Unpublished development draft; final pages and visual inspection pending (deferred by owner) | [Dashboard evidence](evidence/workspace_dashboard_paired_scores_20260929.json) |
-| Public release | Not published; owner decision | — |
+| Claims | Five claims verified three ways (Python, SQL on Delta, plain CSV); self-review, no independent human reviewer | [Claims ledger](evidence/claims.csv) |
+| Final run in Delta | 1 run, 756 attempts, 21,168 forecasts, 756 score cells; exact readback | [Persistence evidence](evidence/trial/workspace_final_persist_20260929.json) |
+| Dashboard | Code-managed AI/BI results dashboard ([definition](dashboards/final_benchmark.lvdash.json)) deployed as an unpublished draft in the trial workspace; datasets API-verified; owner opened it | [Dashboard evidence](evidence/trial/workspace_final_dashboard_v2_20260929.json) |
+| Public release | Not published; Git history rewritten to remove a private workspace host ([SHA map](docs/history_rewrite.md)) | — |
 
 ## Reproduce the final benchmark
 

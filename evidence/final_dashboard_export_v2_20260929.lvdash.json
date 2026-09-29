@@ -4,43 +4,80 @@
       "name": "leaderboard",
       "displayName": "Paired leaderboard",
       "queryLines": [
-        "SELECT CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, * FROM (WITH paired AS (\n  SELECT series_id, origin\n  FROM evaluation_cells\n  WHERE run_id = 'final-three-model-a8c5bcf1ed7d' AND paired_status = 'complete'\n  GROUP BY series_id, origin\n  HAVING COUNT(DISTINCT model_id) = 3\n), cells AS (\n  SELECT ec.*\n  FROM evaluation_cells AS ec\n  JOIN paired AS p ON p.series_id = ec.series_id AND p.origin = ec.origin\n  WHERE ec.run_id = 'final-three-model-a8c5bcf1ed7d'\n), series_wape AS (\n  SELECT model_id, series_id, SUM(abs_error_sum) / SUM(actual_sum) AS wape\n  FROM cells GROUP BY model_id, series_id\n), medians AS (\n  SELECT model_id, percentile_cont(0.5) WITHIN GROUP (ORDER BY wape) AS median_series_wape\n  FROM series_wape GROUP BY model_id\n), pooled AS (\n  SELECT model_id,\n    SUM(abs_error_sum) / SUM(actual_sum) AS pooled_wape,\n    SUM(signed_error_sum) / SUM(actual_sum) AS signed_bias,\n    SUM(interval_hits) / NULLIF(SUM(interval_n), 0) AS interval_coverage,\n    COUNT(*) AS paired_cells\n  FROM cells GROUP BY model_id\n)\nSELECT m.model_id, m.median_series_wape, p.pooled_wape, p.signed_bias,\n  p.interval_coverage, p.paired_cells\nFROM medians AS m JOIN pooled AS p USING (model_id)\nORDER BY m.median_series_wape) ORDER BY median_series_wape"
-      ]
+        "SELECT CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, * FROM (WITH paired AS (\n",
+        "  SELECT series_id, origin\n",
+        "  FROM evaluation_cells\n",
+        "  WHERE run_id = 'final-three-model-a8c5bcf1ed7d' AND paired_status = 'complete'\n",
+        "  GROUP BY series_id, origin\n",
+        "  HAVING COUNT(DISTINCT model_id) = 3\n",
+        "), cells AS (\n",
+        "  SELECT ec.*\n",
+        "  FROM evaluation_cells AS ec\n",
+        "  JOIN paired AS p ON p.series_id = ec.series_id AND p.origin = ec.origin\n",
+        "  WHERE ec.run_id = 'final-three-model-a8c5bcf1ed7d'\n",
+        "), series_wape AS (\n",
+        "  SELECT model_id, series_id, SUM(abs_error_sum) / SUM(actual_sum) AS wape\n",
+        "  FROM cells GROUP BY model_id, series_id\n",
+        "), medians AS (\n",
+        "  SELECT model_id, percentile_cont(0.5) WITHIN GROUP (ORDER BY wape) AS median_series_wape\n",
+        "  FROM series_wape GROUP BY model_id\n",
+        "), pooled AS (\n",
+        "  SELECT model_id,\n",
+        "    SUM(abs_error_sum) / SUM(actual_sum) AS pooled_wape,\n",
+        "    SUM(signed_error_sum) / SUM(actual_sum) AS signed_bias,\n",
+        "    SUM(interval_hits) / NULLIF(SUM(interval_n), 0) AS interval_coverage,\n",
+        "    COUNT(*) AS paired_cells\n",
+        "  FROM cells GROUP BY model_id\n",
+        ")\n",
+        "SELECT m.model_id, m.median_series_wape, p.pooled_wape, p.signed_bias,\n",
+        "  p.interval_coverage, p.paired_cells\n",
+        "FROM medians AS m JOIN pooled AS p USING (model_id)\n",
+        "ORDER BY m.median_series_wape) ORDER BY median_series_wape"
+      ],
+      "catalog": "workspace",
+      "schema": "nyc311_forecast"
     },
     {
       "name": "series_wape",
       "displayName": "Series WAPE by model",
       "queryLines": [
         "WITH paired AS (SELECT series_id, origin FROM evaluation_cells WHERE run_id = 'final-three-model-a8c5bcf1ed7d' AND paired_status = 'complete' GROUP BY series_id, origin HAVING COUNT(DISTINCT model_id) = 3), cells AS (SELECT ec.* FROM evaluation_cells ec JOIN paired p ON p.series_id = ec.series_id AND p.origin = ec.origin WHERE ec.run_id = 'final-three-model-a8c5bcf1ed7d') SELECT series_id, CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, SUM(abs_error_sum) / SUM(actual_sum) AS wape FROM cells GROUP BY series_id, model_id ORDER BY series_id, model"
-      ]
+      ],
+      "catalog": "workspace",
+      "schema": "nyc311_forecast"
     },
     {
       "name": "origin_wape",
       "displayName": "Pooled WAPE by forecast origin",
       "queryLines": [
         "WITH paired AS (SELECT series_id, origin FROM evaluation_cells WHERE run_id = 'final-three-model-a8c5bcf1ed7d' AND paired_status = 'complete' GROUP BY series_id, origin HAVING COUNT(DISTINCT model_id) = 3), cells AS (SELECT ec.* FROM evaluation_cells ec JOIN paired p ON p.series_id = ec.series_id AND p.origin = ec.origin WHERE ec.run_id = 'final-three-model-a8c5bcf1ed7d') SELECT origin, CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, SUM(abs_error_sum) / SUM(actual_sum) AS wape, SUM(signed_error_sum) / SUM(actual_sum) AS signed_bias FROM cells GROUP BY origin, model_id ORDER BY origin, model"
-      ]
+      ],
+      "catalog": "workspace",
+      "schema": "nyc311_forecast"
     },
     {
       "name": "run_health",
       "displayName": "Run health",
       "queryLines": [
         "SELECT CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, COUNT(*) AS attempts, SUM(CASE WHEN status = 'success' THEN 1 ELSE 0 END) AS successful, SUM(CASE WHEN status <> 'success' THEN 1 ELSE 0 END) AS failed, percentile_cont(0.5) WITHIN GROUP (ORDER BY wall_seconds) AS median_wall_seconds, percentile_cont(0.5) WITHIN GROUP (ORDER BY compute_seconds) AS median_warehouse_seconds FROM forecast_attempts WHERE run_id = 'final-three-model-a8c5bcf1ed7d' GROUP BY model_id ORDER BY model"
-      ]
+      ],
+      "catalog": "workspace",
+      "schema": "nyc311_forecast"
     },
     {
       "name": "featured_forecast",
       "displayName": "Featured series, final origin",
       "queryLines": [
         "SELECT ds, CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, prediction AS requests FROM forecast_values WHERE run_id = 'final-three-model-a8c5bcf1ed7d' AND series_id = 'MANHATTAN|HEAT/HOT WATER' AND origin = DATE '2025-11-30' UNION ALL SELECT fv.ds, 'Actual requests' AS model, CAST(dr.y AS DOUBLE) FROM forecast_values fv JOIN forecast_runs fr ON fr.run_id = fv.run_id JOIN daily_requests dr ON dr.snapshot_id = fr.snapshot_id AND dr.series_id = fv.series_id AND dr.ds = fv.ds WHERE fv.run_id = 'final-three-model-a8c5bcf1ed7d' AND fv.series_id = 'MANHATTAN|HEAT/HOT WATER' AND fv.origin = DATE '2025-11-30' AND fv.model_id = 'snaive7' ORDER BY ds, model"
-      ]
+      ],
+      "catalog": "workspace",
+      "schema": "nyc311_forecast"
     }
   ],
   "pages": [
     {
       "name": "results",
       "displayName": "2025 results",
-      "pageType": "PAGE_TYPE_CANVAS",
       "layout": [
         {
           "widget": {
@@ -535,7 +572,8 @@
             "height": 3
           }
         }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
     }
   ]
 }

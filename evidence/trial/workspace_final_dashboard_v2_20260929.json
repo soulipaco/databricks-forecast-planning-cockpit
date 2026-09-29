@@ -1,0 +1,33 @@
+{
+  "status": "final_dashboard_draft_api_verified",
+  "run_id": "final-three-model-a8c5bcf1ed7d",
+  "dashboard_id": "01f1bc3b3d191456bb127fd54dc67e77",
+  "display_name": "NYC 311 forecast benchmark: 2025 results",
+  "definition": "dashboards\\final_benchmark.lvdash.json",
+  "definition_sha256": "52cf98d407493cbb8b0ec7c0066b39b180d60ce0a18b7dafbdb09049b7ee655e",
+  "export_sha256": "84c22e30a8d2a5168116f1e19e5af5909cad3412c5bd38ca65dd0d69528a36ea",
+  "dataset_checks": {
+    "leaderboard": {
+      "query_id": "01f1bc3c-039d-135b-9cac-f5a087145e48",
+      "rows": 3
+    },
+    "series_wape": {
+      "query_id": "01f1bc3c-0433-1ffa-857e-a0b38a300549",
+      "rows": 63
+    },
+    "origin_wape": {
+      "query_id": "01f1bc3c-04a1-1c57-b3e9-59341d1eade4",
+      "rows": 36
+    },
+    "run_health": {
+      "query_id": "01f1bc3c-050a-19b6-a3ab-f6b57e2d96b0",
+      "rows": 3
+    },
+    "featured_forecast": {
+      "query_id": "01f1bc3c-056c-1633-a8b5-06af1d17147b",
+      "rows": 112
+    }
+  },
+  "published": false,
+  "workspace": "trial workspace; host kept out of public evidence"
+}
