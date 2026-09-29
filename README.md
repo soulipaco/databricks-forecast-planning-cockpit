@@ -8,7 +8,7 @@
 
 > A frozen-protocol benchmark of Databricks **`ai_forecast` v2** against a **tuned Prophet** pipeline and a **weekly seasonal baseline** on NYC 311 daily service requests. It covers 21 series, 12 monthly forecast origins in 2025 and a 28-day horizon, with every prediction stored in Delta and served through a code-managed AI/BI dashboard.
 
-**The one-line SQL function was the most accurate model, and it still failed the test.** It had the lowest error on 17 of 21 series, but it forecast 14% less demand than actually arrived. The rule for "competitive" was written down before any 2025 data was downloaded, and it requires both accuracy and low bias.
+**One SQL function, with no training code and no tuning, was more accurate than a tuned Prophet pipeline.** It had the lowest error on 17 of 21 series. The one thing to watch is bias: it forecast about 14% less demand than actually arrived. Under the stricter rule written down before any 2025 data was downloaded, which requires low bias as well as accuracy, it therefore does not yet qualify as a drop-in replacement. A bias check or calibration closes that gap.
 
 ![28-day forecasts against actual demand](portfolio/hero_forecasts.png)
 
