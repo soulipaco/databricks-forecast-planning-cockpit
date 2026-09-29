@@ -9,6 +9,7 @@ from pathlib import Path
 import yaml
 
 IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+PROFILE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")  # CLI profile name, never SQL
 MODELS = ("snaive7", "prophet_tuned", "ai_forecast_v2")
 
 
@@ -45,7 +46,7 @@ class Config:
                 raise ValueError(f"Invalid SQL identifier for {name}")
         if self.workspace_host and not self.workspace_host.startswith("https://"):
             raise ValueError("workspace_host must use HTTPS")
-        if self.workspace_profile and not IDENTIFIER.fullmatch(self.workspace_profile):
+        if self.workspace_profile and not PROFILE.fullmatch(self.workspace_profile):
             raise ValueError("Invalid workspace_profile")
 
 

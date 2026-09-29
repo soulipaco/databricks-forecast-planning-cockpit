@@ -9,3 +9,4 @@ conf/local.yaml
 *.parquet
 evidence/runs/
 .databricks/
+conf/*.local.yaml
