@@ -1,0 +1,36 @@
+{
+  "status": "verified",
+  "query_id": "01f1bc0e-a2e2-1233-9f6b-ecd5b81843bf",
+  "rows": [
+    {
+      "snapshot_id": "development-2024-20260929",
+      "data_kind": "source_partitions",
+      "expected_partitions": 12,
+      "observed_partitions": 12,
+      "reconciled_partitions": 12,
+      "request_count": 3456769,
+      "series_days": null,
+      "zero_filled_days": null
+    },
+    {
+      "snapshot_id": "development-silver-20260929",
+      "data_kind": "selected_series_silver",
+      "expected_partitions": null,
+      "observed_partitions": null,
+      "reconciled_partitions": null,
+      "request_count": 5088270,
+      "series_days": 30681,
+      "zero_filled_days": 40
+    },
+    {
+      "snapshot_id": "selection-2021-2023-20260929",
+      "data_kind": "source_partitions",
+      "expected_partitions": 36,
+      "observed_partitions": 36,
+      "reconciled_partitions": 36,
+      "request_count": 9615565,
+      "series_days": null,
+      "zero_filled_days": null
+    }
+  ]
+}

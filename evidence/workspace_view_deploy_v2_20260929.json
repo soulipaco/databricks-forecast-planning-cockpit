@@ -1,0 +1,37 @@
+[
+  {
+    "view": "mlops_dev.nyc311_forecast.v_forecast_detail",
+    "query_id": "01f1bc0e-8a39-14e6-9a30-c62a32eacee3",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.671000000089407,
+    "checked_at_utc": "2026-09-29T14:03:27.706658+00:00"
+  },
+  {
+    "view": "mlops_dev.nyc311_forecast.v_planning_gap",
+    "query_id": "01f1bc0e-8b99-170d-ab9e-32fe19543216",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 1.6570000001229346,
+    "checked_at_utc": "2026-09-29T14:03:29.368948+00:00"
+  },
+  {
+    "view": "mlops_dev.nyc311_forecast.v_model_leaderboard_cells",
+    "query_id": "01f1bc0e-8c8a-1c69-8205-a718550e7c5e",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 1.4529999997466803,
+    "checked_at_utc": "2026-09-29T14:03:30.827755+00:00"
+  },
+  {
+    "view": "mlops_dev.nyc311_forecast.v_run_health",
+    "query_id": "01f1bc0e-8d66-18cf-8ace-cf0a6eae377a",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 1.3590000001713634,
+    "checked_at_utc": "2026-09-29T14:03:32.178529+00:00"
+  },
+  {
+    "view": "mlops_dev.nyc311_forecast.v_data_quality",
+    "query_id": "01f1bc0e-8e39-106f-b0e7-306d133f42ec",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 1.0159999998286366,
+    "checked_at_utc": "2026-09-29T14:03:33.195100+00:00"
+  }
+]

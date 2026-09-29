@@ -1,6 +1,6 @@
 # Dashboard assets
 
-`planning_dashboard.skeleton.json` is a **parseable design/query manifest**, not a Databricks dashboard export. Its SQL names the required run and origin parameters explicitly; the serving views in `sql/views.sql` retain forecast vintage keys. The four views have been deployed and queried in the project schema, but contain no forecast results yet. The `SYNTHETIC DEMO` label applies whenever fixtures are shown. The planning page must display “Illustrative capacity, not NYC staffing data” beside its chart.
+`planning_dashboard.skeleton.json` is a **parseable design/query manifest**, not a Databricks dashboard export. Its SQL names the required run and origin parameters explicitly; the serving views in `sql/views.sql` retain forecast vintage keys. Five views have been deployed and queried in the project schema: four forecast views are empty until model runs are persisted, while `v_data_quality` has three reconciled source/Silver rows. The `SYNTHETIC DEMO` label applies whenever fixtures are shown. The planning page must display “Illustrative capacity, not NYC staffing data” beside its chart.
 
 Do not pass `planning_dashboard.skeleton.json` to a bundle `dashboard.file_path` or describe it as deployed. It remains the proposed four-page planning product.
 

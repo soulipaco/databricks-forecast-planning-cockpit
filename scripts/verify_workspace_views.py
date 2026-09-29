@@ -16,6 +16,7 @@ VIEWS = (
     "v_planning_gap",
     "v_model_leaderboard_cells",
     "v_run_health",
+    "v_data_quality",
 )
 
 

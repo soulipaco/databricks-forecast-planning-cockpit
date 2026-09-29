@@ -1,0 +1,27 @@
+[
+  {
+    "view": "v_forecast_detail",
+    "query_id": "01f1bc0e-a6ac-1e99-879b-b11471e5fc7a",
+    "rows": 0
+  },
+  {
+    "view": "v_planning_gap",
+    "query_id": "01f1bc0e-a79a-14ef-835d-6821c7618add",
+    "rows": 0
+  },
+  {
+    "view": "v_model_leaderboard_cells",
+    "query_id": "01f1bc0e-a86e-1be2-af9a-ba416647f041",
+    "rows": 0
+  },
+  {
+    "view": "v_run_health",
+    "query_id": "01f1bc0e-a928-10ed-aa54-66d2f083a8ff",
+    "rows": 0
+  },
+  {
+    "view": "v_data_quality",
+    "query_id": "01f1bc0e-a9c6-12fa-855f-874f253fa751",
+    "rows": 3
+  }
+]

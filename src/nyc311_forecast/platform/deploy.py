@@ -29,10 +29,10 @@ def view_statements(path: Path, *, catalog: str, schema: str) -> list[str]:
         line for line in sql.splitlines() if not line.lstrip().startswith("--")
     )
     statements = [part.strip() for part in without_comments.split(";") if part.strip()]
-    if len(statements) != 4 or any(
+    if len(statements) != 5 or any(
         not part.startswith("CREATE OR REPLACE VIEW") for part in statements
     ):
-        raise ValueError("Expected exactly four contract CREATE OR REPLACE VIEW statements")
+        raise ValueError("Expected exactly five contract CREATE OR REPLACE VIEW statements")
     return statements
 
 

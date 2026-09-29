@@ -251,7 +251,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         return (
             0
-            if len(results) == 4 and all(r["status"] == "StatementState.SUCCEEDED" for r in results)
+            if len(results) == 5 and all(r["status"] == "StatementState.SUCCEEDED" for r in results)
             else 1
         )
     return 2
