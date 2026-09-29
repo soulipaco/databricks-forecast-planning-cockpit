@@ -100,24 +100,35 @@ Deployment is code-managed: a Databricks Asset Bundle ([`databricks.yml`](databr
 | `docs/adr/` | Decision records |
 | `tests/` | 85 tests: leakage, splits, metrics, contracts, retry policy, freeze gate, persistence |
 
-## Reproduce
+## Quick start
+
+Local validation needs no Databricks account. It installs the locked environment, runs the 85 tests, and checks that every frozen input still matches its hash:
 
 ```bash
+git clone https://github.com/soulipaco/databricks-forecast-planning-cockpit.git
+cd databricks-forecast-planning-cockpit
 uv sync --all-extras
 uv run pytest -q
 uv run python -m nyc311_forecast.final_benchmark verify-freeze
 ```
 
-The final run needs a Databricks workspace where v2 works, and a local, untracked config (for example `conf/trial.local.yaml`) with `workspace_host`, `workspace_profile`, `warehouse_id`, `catalog` and `schema`:
+Recompute every published score from the stored predictions:
+
+```bash
+uv run python scripts/verify_development_predictions.py --input evidence/final_three_model_20260929.json --silver data/silver/evaluation-silver-20260929/daily_requests.jsonl --output check.json
+```
+
+### Re-run the final benchmark
+
+This needs a Databricks workspace where v2 works (see above), plus a local, untracked config such as `conf/trial.local.yaml` with `workspace_host`, `workspace_profile`, `warehouse_id`, `catalog` and `schema`:
 
 ```bash
 uv run --extra prophet python -m nyc311_forecast.final_benchmark local --output <local.json>
 uv run --extra platform --extra prophet python -m nyc311_forecast.final_benchmark native --config conf/trial.local.yaml --output <native.json>
 uv run python -m nyc311_forecast.final_benchmark combine --local <local.json> --native <native.json> --output <combined.json> --summary <summary.json>
-uv run python scripts/verify_development_predictions.py --input <combined.json> --silver data/silver/evaluation-silver-20260929/daily_requests.jsonl --output <check.json>
 ```
 
-In a three-repeat test, v2 produced identical outputs. Prophet's point forecasts were identical, but its interval bounds vary slightly because they are sampled.
+Each stage refuses to run if a frozen input has changed. In a three-repeat test, v2 produced identical outputs. Prophet's point forecasts were identical, but its interval bounds vary slightly because they are sampled.
 
 ## Limitations
 
