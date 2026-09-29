@@ -60,3 +60,18 @@ resources:
             client: "3"
             dependencies:
               - ../dist/*.whl
+
+    egress_probe:
+      name: nyc311_egress_probe
+      description: Diagnostic record of outbound HTTPS reachability from serverless job compute.
+      max_concurrent_runs: 1
+      timeout_seconds: 600
+      tasks:
+        - task_key: egress
+          environment_key: plain
+          spark_python_task:
+            python_file: ../jobs/egress_probe.py
+      environments:
+        - environment_key: plain
+          spec:
+            client: "3"
