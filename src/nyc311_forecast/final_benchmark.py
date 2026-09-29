@@ -29,7 +29,7 @@ from nyc311_forecast.evaluation.splits import FINAL_ORIGINS
 
 FREEZE = ROOT / "evidence/freeze_manifest.json"
 FROZEN_FILES = {
-    "protocol": ROOT / "03_BENCHMARK_PROTOCOL.md",
+    "protocol": ROOT / "docs/design/03_BENCHMARK_PROTOCOL.md",
     "config": ROOT / "conf/benchmark.yaml",
     "series_manifest": ROOT / "data/series_manifest/selection-v1.json",
     "tuning_manifest": ROOT / "evidence/development_tuning_full_20260929/manifest.json",

@@ -1,7 +1,7 @@
 """Export the minimum release evidence tables from the stored final benchmark artifacts.
 
 Every number is derived from `final_three_model_*.json` and its summary; nothing is typed in.
-Featured-series selection follows 08_EVIDENCE_RELEASE.md deterministically.
+Featured-series selection follows docs/design/08_EVIDENCE_RELEASE.md deterministically.
 """
 
 from __future__ import annotations

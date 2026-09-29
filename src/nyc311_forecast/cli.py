@@ -62,7 +62,7 @@ def main(argv: list[str] | None = None) -> int:
         "--tuning-dir", type=Path, default=Path("evidence/development_tuning_full_20260929")
     )
     freeze.add_argument("--development-run", type=Path, required=True)
-    freeze.add_argument("--protocol", type=Path, default=Path("03_BENCHMARK_PROTOCOL.md"))
+    freeze.add_argument("--protocol", type=Path, default=Path("docs/design/03_BENCHMARK_PROTOCOL.md"))
     freeze.add_argument("--output", type=Path, default=Path("evidence/freeze_manifest.json"))
     freeze.add_argument(
         "--check-only", action="store_true", help="Report blockers without writing a manifest"

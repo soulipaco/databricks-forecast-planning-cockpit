@@ -55,7 +55,7 @@ M3 scaffolding and M4 narrative/visual planning run alongside M1/M2. The totals 
 
 Technical success means the benchmark is fair and reproducible, every model attempt is accounted for, and the dashboard leads to a correctly qualified planning interpretation. It does not require a particular winner.
 
-Portfolio success means an unfamiliar reader can understand the decision in 30 seconds, inspect the evidence in five minutes, and identify how to reproduce it. Communication success targets are in `09_LINKEDIN_LAUNCH_STRATEGY.md`; visibility cannot be guaranteed.
+Portfolio success means an unfamiliar reader can understand the decision in 30 seconds, inspect the evidence in five minutes, and identify how to reproduce it.
 
 ## Principal risks and responses
 

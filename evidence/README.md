@@ -1,23 +1,39 @@
-# Evidence workspace
+# Evidence
 
-This directory contains a verified local [data card](data_card.md), workspace validation records and release templates. No three-model benchmark result is recorded. `development_smoke.json` and `development_slice_20260929.json` are adapter integration checks with fixed, untuned Prophet settings; both are excluded from benchmark claims. The latter covers the two registered 2024 development origins for three series and stores all local forecast rows, scores and attempts. Do not interpret an empty CSV as a zero result or a passed gate.
+Every published number traces through `claim → table cell → metric calculation → prediction rows → run manifest → code/config/protocol → source snapshot` ([release gates](../docs/design/08_EVIDENCE_RELEASE.md)).
 
-`development_tuning_full_20260929/` holds 21 per-series checkpoints with 20 completed Prophet trials each, using three 2024 inner origins. `development_two_model_full_20260929.json` contains the complete 2024 development output for weekly naive and tuned Prophet: 84 model cells and 2,352 forecast rows. `development_two_model_diagnostic_20260929.json` contains paired ratio-of-sums statistics and the actual/error numerators; `workspace_development_score_reconcile_20260929.json` verifies those sums in the serving view. `workspace_development_two_model_persist_20260929.json` and its repeat record exact Delta readback. `workspace_dashboard_development_20260929.json` records the unpublished dashboard API check. Every one of these is explicitly a **two-model, 2024 development artifact**, not the three-model benchmark or 2025 holdout evaluation.
+## Start here
 
-`development_prediction_arithmetic_20260929.json` records an independent recomputation of absolute error, actual volume, signed error and interval measures from all 2,352 prediction rows against the 84 stored score cells. The source is `scripts/verify_development_predictions.py`.
+| File | What it is |
+|---|---|
+| [`leaderboard.csv`](leaderboard.csv) | Final paired scores per model, with numerators and denominators |
+| [`series_scores.csv`](series_scores.csv) | All 756 series × origin × model score cells |
+| [`failures.csv`](failures.csv) | Every failed attempt (none in the final run) |
+| [`runtime.csv`](runtime.csv) | Per-model wall and warehouse time, cache check |
+| [`prediction_sample.csv`](prediction_sample.csv) | Rows behind the featured series |
+| [`claims.csv`](claims.csv) | Each public claim with its calculation and review status |
+| [`release_manifest.json`](release_manifest.json) | Release ID, run IDs and SHA-256 of every table |
+| [`validation_report.md`](validation_report.md) | Each release gate: command, outcome, status |
+| [`data_card.md`](data_card.md) | Source, extraction, selection and data limitations |
 
-`workspace_dashboard_paired_scores_20260929.json` is the latest unpublished dashboard API verification: both models have 42 paired 2024 development cells, and its score dataset agrees with the local and workspace numerator/denominator evidence. The older `workspace_dashboard_development_20260929.json` preserves the preceding coverage-only draft.
+## Final benchmark (2025)
 
-For a release, trace each public claim through `claim → chart/table cell → metric calculation → prediction rows → run manifest → code/config/protocol → source snapshot`. The required artifacts and gates are defined in [08_EVIDENCE_RELEASE.md](../08_EVIDENCE_RELEASE.md). Only publish result assets after the release run and independent review have been completed.
+- `freeze_manifest.json`: protocol freeze, with hashes of the protocol, config, series manifest, tuning and development run.
+- `final_local_20260929.json` and `final_native_v2_20260929.json`: raw runs (naïve and Prophet locally, `ai_forecast` v2 in a SQL warehouse), with all attempts, query IDs and every prediction.
+- `final_three_model_20260929.json` and `final_three_model_summary_20260929.json`: combined grid and summary.
+- `final_prediction_arithmetic_20260929.json`: independent recomputation of all 756 cells from 21,168 prediction rows.
+- `repeatability_20260929.json`: three repeats on three series.
+- `trial/`: Delta loads, persistence readback, SQL recomputation of the headline and the dashboard deployment in the trial workspace.
 
-## Claims ledger
+## Development (2024)
 
-`claims.csv` starts with headers only. Add one row for each discrete claim before using it in a README, chart, post or demo. Keep `status` as `draft` until the cited calculation has been reproduced and a reviewer has inspected the full population and limitations. Record the same claim ID in the asset source or caption. Unsupported claims stay out of public copy.
+- `development_tuning_full_20260929/`: 20 Optuna trials per series on three inner origins (420 trials).
+- `development_two_model_*`, `development_native_v2_full_20260929.json`, `development_three_model_*`: 2024 development runs used for the champion policy and the freeze.
+- `freeze_readiness_*`: the freeze gate refusing on the two-model run, then passing on the three-model run.
+- `development_slice_20260929.json`: an early three-series adapter check with fixed, untuned Prophet settings. It is used as a test fixture and is excluded from all claims.
 
-Fields: `claim_id`, `wording`, `claim_type`, `evidence_artifact`, `calculation_reference`, `release_id`, `run_id`, `population_and_denominator`, `limitations`, `reviewer`, `status`, `reviewed_at_utc`.
+## Native v2 access
 
-Examples of claims requiring evidence: relative WAPE differences, series wins, runtime comparisons, engineering effort, dashboard behavior and capacity effects. The [release guide](../08_EVIDENCE_RELEASE.md) gives safe pre-evidence wording.
+`workspace_v2_smoke_20260929.json`, `v2_independent_recheck_20260929.json`, `v2_trial_workspace_smoke_20260929.json` and `workspace_v2_smoke_trial_20260929.json` record why v2 failed in Free Edition and what made it work in the trial workspace ([decision record](../docs/adr/native_v2_runtime_blocker.md)).
 
-## Data and validation records
-
-`data_card.md` records the real 2021–2024 development source and Silver checks. `validation_report.md` records the current pre-release status of each check; it is not a release sign-off. `freeze_readiness_20260929.json` is the refused freeze check, and `workspace_bundle_jobs_20260929.json` records the bundle deployment and serverless job runs (Silver reproduction passed; freeze gate blocked). Mark checks `passed`, `failed` or `blocked` with exact evidence; never turn an unavailable workspace check into a pass. Keep private workspace URLs, tokens and account details out of these public files.
+Workspace hosts, tokens and account identifiers are deliberately kept out of these files.

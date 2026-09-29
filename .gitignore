@@ -10,3 +10,21 @@ conf/local.yaml
 evidence/runs/
 .databricks/
 conf/*.local.yaml
+
+# Private working files: AI-agent instructions, planning prompts, launch drafts and ledger
+00_START_HERE.md
+05_BACKLOG_PARALLEL_WORK.md
+09_LINKEDIN_LAUNCH_STRATEGY.md
+10_POST_DRAFTS_ASSET_BRIEFS.md
+12_HARNESS_PROMPTS.md
+AGENTS.md
+CLAUDE.md
+PROJECT_STATE.md
+portfolio/launch_metrics.csv
+portfolio/measurement_guide.md
+portfolio/carousel_wireframe.md
+portfolio/launch_posts_final.md
+
+# Regenerable workspace staging copies (scripts rebuild them before each Delta load)
+data/workspace_stage/*
+!data/workspace_stage/development-metadata-20260929/

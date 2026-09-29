@@ -4,7 +4,7 @@
 
 - Working repository: `databricks-forecast-planning-cockpit`, newly initialized; source package is separate from the existing Prophet repository.
 - Shell: PowerShell on Windows. Python installed: 3.11.9; `uv` 0.9.18 can resolve a Python 3.12 runtime. Git 2.47.1 and Databricks CLI 0.280.0 are installed.
-- Project targets Python 3.12. Dependency resolution, tests and build are recorded in `PROJECT_STATE.md` after execution.
+- Project targets Python 3.12. Dependency resolution, tests and build are recorded in `evidence/validation_report.md`.
 
 ## Workspace
 

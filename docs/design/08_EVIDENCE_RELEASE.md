@@ -107,7 +107,7 @@ Review exports at phone width and full resolution. Check clipping, legend, zero/
 
 ## Independent review prompt
 
-Ask a fresh reviewer or separate harness session to challenge the result using `12_HARNESS_PROMPTS.md`. It must inspect code and evidence, not only the README. Resolve substantive issues before launching. This is a methodological review, not proof of statistical certainty.
+Ask a fresh reviewer to challenge the result. It must inspect code and evidence, not only the README. Resolve substantive issues before launching. This is a methodological review, not proof of statistical certainty.
 
 ## Release sequencing
 

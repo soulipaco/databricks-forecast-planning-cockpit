@@ -1,4 +1,4 @@
-# Proposed stage names follow 07_WORKSPACE_OPERATIONS.md. No schedules or triggers.
+# Proposed stage names follow docs/design/07_WORKSPACE_OPERATIONS.md. No schedules or triggers.
 resources:
   jobs:
     prepare_data:

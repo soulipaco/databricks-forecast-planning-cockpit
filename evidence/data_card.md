@@ -18,7 +18,7 @@
 - Target: count of service-request records grouped by date, borough and original `complaint_type`. It is not total call/contact volume. A sampled 2023-01-01 raw-key check found 6,209 records and 6,209 distinct `unique_key` values; this is not a full duplicate audit.
 - Mapping: exact complaint type, version `exact-complaint-type-v1`, no aliases.
 - Aggregate extraction: 36/36 monthly partitions reconciled; 480,313 aggregate rows sum to 9,615,565 source requests. Unknown borough groups stay in the source payload and are quarantined in selection. Zero filling applies only after a complete partition is verified.
-- Selection: the fixed 2021–2023 thresholds in `02_DATA_SPEC.md` selected 21 borough × family series in five families. The full candidate list and reasons are in `data/series_manifest/selection-v1.json` (SHA-256 `6a859a26fa3092f357e2757f6978a76061cd887ae9d5468b3df8e368a75e57b0`).
+- Selection: the fixed 2021–2023 thresholds in [`02_DATA_SPEC.md`](../docs/design/02_DATA_SPEC.md) selected 21 borough × family series in five families. The full candidate list and reasons are in `data/series_manifest/selection-v1.json` (SHA-256 `6a859a26fa3092f357e2757f6978a76061cd887ae9d5468b3df8e368a75e57b0`).
 
 ## Completeness and limitations
 

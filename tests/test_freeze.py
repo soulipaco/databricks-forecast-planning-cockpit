@@ -122,7 +122,7 @@ def test_real_two_model_development_artifact_is_blocked_only_by_missing_v2(tmp_p
         series_manifest=ROOT / "data/series_manifest/selection-v1.json",
         tuning_dir=ROOT / "evidence/development_tuning_full_20260929",
         development_run=ROOT / "evidence/development_two_model_full_20260929.json",
-        protocol_path=ROOT / "03_BENCHMARK_PROTOCOL.md",
+        protocol_path=ROOT / "docs/design/03_BENCHMARK_PROTOCOL.md",
         freeze_manifest=tmp_path / "freeze_manifest.json",
     )
     assert report["n_series"] == 21
