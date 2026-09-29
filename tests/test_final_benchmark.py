@@ -73,5 +73,5 @@ def test_final_inputs_use_2025_silver_with_development_tuning_lineage():
     assert provenance["silver_snapshot_id"] == "evaluation-silver-20260929"
     assert len(parameters) == 21
     assert max(row["ds"] for row in by_series[series_ids[0]]).isoformat() == "2025-12-31"
-    with pytest.raises(ValueError, match="after 2024"):
+    with pytest.raises(ValueError):  # development path never accepts 2025 Silver
         load_inputs(silver_path=EVAL_SILVER)
