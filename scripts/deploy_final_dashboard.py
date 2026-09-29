@@ -118,29 +118,29 @@ def build(run: str, featured: str, summary: dict) -> dict:
                   ("pooled_wape", "Pooled WAPE"), ("signed_bias", "Signed bias"),
                   ("interval_coverage", "80% interval coverage"), ("paired_cells", "Paired cells")]
     layout = [
-        _text("title", ["# NYC 311 daily requests: 2025 forecast benchmark"], 0, 1),
-        _text("headline", [headline], 1, 2),
+        _text("title", ["# NYC 311 daily requests: 2025 forecast benchmark"], 0, 2),
+        _text("headline", [headline], 2, 2),
         _widget("leaderboard_table", "leaderboard", [c for c, _ in table_cols], {
             "version": 2, "widgetType": "table",
             "encodings": {"columns": [{"fieldName": c, "displayName": d} for c, d in table_cols]},
             "frame": {"showTitle": True,
                       "title": "Leaderboard on 252 paired series-origins (lower WAPE is better)"}},
-            0, 3, 6, 4),
+            0, 4, 6, 4),
         _widget("series_chart", "series_wape", ["series_id", "wape", "model"],
                 _chart("bar", ("series_id", "Series"), ("wape", "WAPE"), "model",
-                       "WAPE by series, 12 origins pooled", y_format=pct), 0, 7, 6, 8),
+                       "WAPE by series, 12 origins pooled", y_format=pct), 0, 8, 6, 8),
         _widget("origin_chart", "origin_wape", ["origin", "wape", "model"],
                 _chart("line", ("origin", "Forecast origin"), ("wape", "Pooled WAPE"), "model",
                        "Pooled WAPE by monthly origin", x_type="temporal", y_format=pct),
-                0, 15, 3, 6),
+                0, 16, 3, 6),
         _widget("bias_chart", "origin_wape", ["origin", "signed_bias", "model"],
                 _chart("line", ("origin", "Forecast origin"), ("signed_bias", "Signed bias"),
                        "model", "Signed bias by origin (negative = under-forecast)",
-                       x_type="temporal", y_format=pct), 3, 15, 3, 6),
+                       x_type="temporal", y_format=pct), 3, 16, 3, 6),
         _widget("featured_chart", "featured_forecast", ["ds", "requests", "model"],
                 _chart("line", ("ds", "Date"), ("requests", "Daily requests"), "model",
                        f"{featured}: forecasts from 2025-11-30 vs actual", x_type="temporal"),
-                0, 21, 6, 6),
+                0, 22, 6, 6),
         _widget("health_table", "run_health",
                 ["model", "attempts", "successful", "failed", "median_wall_seconds",
                  "median_warehouse_seconds"], {
@@ -153,14 +153,14 @@ def build(run: str, featured: str, summary: dict) -> dict:
                         {"fieldName": "median_warehouse_seconds",
                          "displayName": "Median warehouse s (v2 only)"}]},
                     "frame": {"showTitle": True, "title": "Run health (all attempts retained)"}},
-                0, 27, 6, 4),
+                0, 28, 6, 4),
         _text("method", [(
             "Method: 21 borough × problem-family series, 1,095-day history per origin, twelve "
             "month-end origins from 2024-12-31 to 2025-11-30, 28-day horizon. Protocol frozen "
             "before any 2025 data was retrieved. Prophet and naive ran locally; v2 in a "
             "serverless SQL warehouse. Runtime is not like-for-like. Retrospective backtest; "
             f"v2 pretraining corpus unknown. Run `{run}`. The dashboard reads stored results "
-            "only and never refits a model.")], 31, 3),
+            "only and never refits a model.")], 32, 3),
     ]
     return {"datasets": datasets(run, featured),
             "pages": [{"name": "results", "displayName": "2025 results",
@@ -175,6 +175,7 @@ def main() -> None:
     parser.add_argument("--release-manifest", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--export", type=Path, required=True)
+    parser.add_argument("--dashboard-id", help="Update this recorded unpublished draft")
     args = parser.parse_args()
     for path in (args.output, args.export):
         if path.exists():
@@ -216,11 +217,15 @@ def main() -> None:
                      "run_health": 3, "featured_forecast": 112}
     if {k: v["rows"] for k, v in checks.items()} != expected_rows:
         raise ValueError(f"Dashboard dataset populations differ: {checks}")
-    dashboard = client.lakeview.create(
-        Dashboard(display_name=DISPLAY_NAME, warehouse_id=config.warehouse_id,
-                  serialized_dashboard=content),
-        dataset_catalog=config.catalog, dataset_schema=config.schema,
-    )
+    body = Dashboard(display_name=DISPLAY_NAME, warehouse_id=config.warehouse_id,
+                     serialized_dashboard=content)
+    if args.dashboard_id:
+        dashboard = client.lakeview.update(args.dashboard_id, body,
+                                           dataset_catalog=config.catalog,
+                                           dataset_schema=config.schema)
+    else:
+        dashboard = client.lakeview.create(body, dataset_catalog=config.catalog,
+                                           dataset_schema=config.schema)
     stored = client.lakeview.get(dashboard.dashboard_id)
     exported = json.loads(stored.serialized_dashboard)
     if canonical_definition(exported) != canonical_definition(definition):
