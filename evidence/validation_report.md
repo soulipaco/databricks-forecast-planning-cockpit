@@ -23,7 +23,7 @@
 | Final run persisted to Delta | Trial workspace | `scripts/persist_final.py` | 1/756/21,168/756 rows; zero missing/extra on readback | `trial/workspace_final_persist_20260929.json` | passed |
 | Final dashboard | Trial workspace API | `scripts/deploy_final_dashboard.py` | Draft created; 5 datasets return expected populations; stored definition equals repository definition | `trial/workspace_final_dashboard_20260929.json` | passed (API) |
 | Repeatability (3 series × 2 dev origins × 3 repeats) | Local + trial workspace | `scripts/repeatability.py` | v2 identical across repeats (points and bounds); Prophet points identical, interval bounds vary by up to ~15 requests (sampled uncertainty); 0 cached queries | `repeatability_20260929.json` | passed (Prophet interval noise disclosed) |
-| Public asset and secret review | Local | `git grep` and `git log -S` over all commits for hosts, tokens, emails, workspace IDs, local paths | Free Edition host found in `capability_report.md` (38 commits); history rewritten with owner approval; `master` and tags now contain no host. Local pre-rewrite objects still need the owner's purge command before any mirror push | `../docs/history_rewrite.md` | passed for branch and tags |
+| Public asset and secret review | Local | `git grep` and `git log -S` over all commits for hosts, tokens, emails, workspace IDs, local paths | Free Edition host found in `capability_report.md` (38 commits); history rewritten with owner approval; `master` and tags now contain no host. Owner purged pre-rewrite objects; no host in any reachable or stored commit | `../docs/history_rewrite.md` | passed for branch and tags |
 
 ## Known deviations and corrections
 
