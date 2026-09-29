@@ -1,0 +1,14 @@
+{
+  "status": "blocked_runtime_dependency_installation",
+  "model_id": "ai_forecast_v2",
+  "result_rows": 0,
+  "warehouse_id": "c3f37b7054223373",
+  "query_ids": [
+    "01f1bbf4-5e41-113f-9e16-3e59df808595",
+    "01f1bbf5-0528-1ec3-9706-3dc43987d4d9"
+  ],
+  "error_code": "ISOLATION_ENVIRONMENT_USER_ERROR.NO_MATCHING_DISTRIBUTION",
+  "dependency": "onnxruntime==1.20.1",
+  "installation_log_observation": "Connection to pypi.org timed out on repeated attempts",
+  "interpretation": "The SQL reached managed runtime setup, but the environment could not install a dependency. Preview availability after this issue is resolved is unverified."
+}
