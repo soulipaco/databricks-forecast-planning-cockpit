@@ -1,0 +1,10 @@
+{
+  "selected_series_rows": 21,
+  "selection_manifest_sha256": "6a859a26fa3092f357e2757f6978a76061cd887ae9d5468b3df8e368a75e57b0",
+  "series_manifest_rows": 1245,
+  "series_manifest_sha256": "6c4e3588bbc5827575d24eabee1351d3509ea00d1637f05aa7a9b9d8c5ee6723",
+  "source_partitions_rows": 48,
+  "source_partitions_sha256": "08414c2d36062b88e6f5222c2d0ef4e27d72a0e6ca823f681ac9e1329812e3bb",
+  "stage_id": "development-metadata-20260929",
+  "status": "complete"
+}

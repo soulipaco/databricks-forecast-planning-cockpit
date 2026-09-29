@@ -1,0 +1,32 @@
+{
+  "status": "verified",
+  "stage_id": "development-metadata-20260929",
+  "source_partitions_sha256": "08414c2d36062b88e6f5222c2d0ef4e27d72a0e6ca823f681ac9e1329812e3bb",
+  "series_manifest_sha256": "6c4e3588bbc5827575d24eabee1351d3509ea00d1637f05aa7a9b9d8c5ee6723",
+  "results": [
+    {
+      "table": "mlops_dev.nyc311_forecast.source_partitions",
+      "rows": 48,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "count": "01f1bc0d-e970-10fa-ab61-fbaaf87c23d6",
+        "duplicates": "01f1bc0d-eac8-194f-af73-f31dbeb749c2",
+        "merge": "01f1bc0d-eb90-16fd-bec5-105a2c672936",
+        "compare": "01f1bc0d-ed0c-185d-9f3c-1eb699de7fa5"
+      }
+    },
+    {
+      "table": "mlops_dev.nyc311_forecast.series_manifest",
+      "rows": 1245,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "count": "01f1bc0d-ee57-140f-9a3b-d92da0a3e940",
+        "duplicates": "01f1bc0d-ef22-1026-9b7a-37d2de55a54f",
+        "merge": "01f1bc0d-efe7-1728-9003-2fc38202061b",
+        "compare": "01f1bc0d-f18a-1974-8108-d11a79121c4d"
+      }
+    }
+  ]
+}
