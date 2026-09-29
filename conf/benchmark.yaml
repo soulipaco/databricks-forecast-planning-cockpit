@@ -1,0 +1,7 @@
+experiment_id: nyc311-benchmark-v1
+snapshot_id: pending-real-snapshot
+protocol_version: "1.0"
+horizon_days: 28
+max_concurrency: 2
+max_retries: 2
+task_timeout_seconds: 1800
