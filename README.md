@@ -2,7 +2,7 @@
 
 **Question:** Can one Databricks SQL forecasting function be competitive with a tuned Prophet pipeline while requiring less model-specific engineering?
 
-This repository is an **in-progress portfolio implementation** of a planned benchmark and planning dashboard. It has no verified benchmark result, deployed dashboard, or public release evidence yet. The question above is a test, not a conclusion.
+This repository is an **in-progress portfolio implementation** of a planned benchmark and planning dashboard. It has no verified benchmark result, completed planning dashboard, or public release evidence yet. A limited, unpublished development-data dashboard draft exists. The question above is a test, not a conclusion.
 
 **For:** BI and analytics engineers deciding how much custom forecasting code a daily planning workload needs. **Start with:** the [benchmark protocol](03_BENCHMARK_PROTOCOL.md), then inspect the [evidence guide](evidence/README.md) as outputs become available.
 
@@ -23,7 +23,7 @@ The supplied documents are a build specification. See [PROJECT_STATE.md](PROJECT
 | Method and intended comparison | Specified; implementation and freeze pending | [Protocol](03_BENCHMARK_PROTOCOL.md) |
 | Real source snapshot and selected series | Development data verified locally and in workspace; final 2025 holdout unopened | [Data card](evidence/data_card.md) and workspace load evidence |
 | Three-model forecast and score tables | Pending | `evidence/leaderboard.csv`, `series_scores.csv`, `failures.csv` |
-| Workspace dashboard inspection | Pending | Release validation report and screenshots |
+| Workspace dashboard inspection | Limited development-data draft created/exported; visual check and full planning product pending | [Dashboard evidence](evidence/workspace_dashboard_draft_20260929.json), release validation report and screenshots |
 | Public result and reproducible release | Pending | Release manifest, claims ledger, chart data and code |
 
 The [evidence directory](evidence/README.md) contains source and workspace validation records, development smoke results, and benchmark templates. It contains no final benchmark outputs. Synthetic fixtures used for local tests must stay visibly labelled and excluded from result claims.

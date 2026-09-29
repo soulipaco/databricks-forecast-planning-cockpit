@@ -1,0 +1,15 @@
+{
+  "status": "draft_verified",
+  "dashboard_id": "01f1bc049aeb128d8436b7e841770d99",
+  "warehouse_id": "c3f37b7054223373",
+  "catalog": "mlops_dev",
+  "schema": "nyc311_forecast",
+  "definition_sha256": "f52129afd4ccba689aa30abd8e6ab58fee6509729b1cf3e353711b42dbb10736",
+  "dataset_preflight_query_id": "01f1bc04-f3ae-1f3f-a0f9-3553c3625131",
+  "dataset_rows": 21,
+  "dataset_requests": 5088270,
+  "dataset_zero_filled_days": 40,
+  "published": false,
+  "export_sha256": "e02c953f11b10ddc6fcde59d1781108eecb20a22a0a8aacd9b94fe1fe416b6b8",
+  "export_artifact": "evidence/development_readiness_export_20260929.lvdash.json"
+}

@@ -1,0 +1,158 @@
+{
+  "datasets": [
+    {
+      "name": "development_series",
+      "displayName": "Verified 2021–2024 development series",
+      "queryLines": [
+        "SELECT borough, problem_family, COUNT(*) AS observed_days, SUM(y) AS requests, SUM(CAST(is_zero_filled AS INT)) AS zero_filled_days FROM daily_requests WHERE snapshot_id = 'development-silver-20260929' GROUP BY borough, problem_family ORDER BY requests DESC"
+      ],
+      "catalog": "mlops_dev",
+      "schema": "nyc311_forecast"
+    }
+  ],
+  "pages": [
+    {
+      "name": "readiness",
+      "displayName": "Development data",
+      "layout": [
+        {
+          "widget": {
+            "name": "readiness_title",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# NYC 311 forecast planning\n",
+                "\n",
+                "Development data readiness"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "readiness_warning",
+            "multilineTextboxSpec": {
+              "lines": [
+                "**Development data only.** This draft contains no three-model benchmark, no 2025 evaluation results, and no operational staffing recommendation."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "development_series_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "development_series",
+                  "fields": [
+                    {
+                      "name": "borough",
+                      "expression": "`borough`"
+                    },
+                    {
+                      "name": "problem_family",
+                      "expression": "`problem_family`"
+                    },
+                    {
+                      "name": "observed_days",
+                      "expression": "`observed_days`"
+                    },
+                    {
+                      "name": "requests",
+                      "expression": "`requests`"
+                    },
+                    {
+                      "name": "zero_filled_days",
+                      "expression": "`zero_filled_days`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "borough",
+                    "displayName": "Borough"
+                  },
+                  {
+                    "fieldName": "problem_family",
+                    "displayName": "Problem family"
+                  },
+                  {
+                    "fieldName": "observed_days",
+                    "displayName": "Days"
+                  },
+                  {
+                    "fieldName": "requests",
+                    "displayName": "Requests"
+                  },
+                  {
+                    "fieldName": "zero_filled_days",
+                    "displayName": "Zero-filled days"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Selected development series"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#F7F9FC",
+        "dark": "#161D29"
+      },
+      "widgetBackgroundColor": {
+        "light": "#FFFFFF",
+        "dark": "#1F2937"
+      },
+      "fontColor": {
+        "light": "#17263C",
+        "dark": "#EAF0F7"
+      },
+      "selectionColor": {
+        "light": "#1764A6",
+        "dark": "#78B9EB"
+      },
+      "visualizationColors": [
+        "#496A93",
+        "#E18A39",
+        "#648C79",
+        "#A66A9D",
+        "#8F7781"
+      ],
+      "widgetHeaderAlignment": "LEFT"
+    }
+  }
+}
