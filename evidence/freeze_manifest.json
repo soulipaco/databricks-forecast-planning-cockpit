@@ -1,0 +1,19 @@
+{
+  "code_sha": "c5fdacc0d163290b7e0a23a301848a2534a2b6df",
+  "frozen_at_utc": "2026-09-29T18:15:56.113743+00:00",
+  "hashes": {
+    "config": "1185f51c6a4f2c5fd21048be5ba26b2c4b35f2fb571a10ed0dc567a1843dbb01",
+    "development_run": "8257577b47da331896366821faac72beceb2de84496903092ce9178d2aacdcc3",
+    "protocol": "23dcb0884f14551f50ac82ab7ad6833ff26360760abf1e2bf45d55d77459cde3",
+    "series_manifest": "6a859a26fa3092f357e2757f6978a76061cd887ae9d5468b3df8e368a75e57b0",
+    "tuning_manifest": "08d6e156f053e3aef2c209b241d77f2ce534492ab17b1a45dc06c2c8c86c8859"
+  },
+  "models": [
+    "snaive7",
+    "prophet_tuned",
+    "ai_forecast_v2"
+  ],
+  "n_series": 21,
+  "protocol_version": "1.0",
+  "status": "frozen"
+}
