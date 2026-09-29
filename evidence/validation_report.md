@@ -20,8 +20,8 @@
 | Jobs unscheduled and single-run | Local + workspace | `tests/test_bundle_config.py`; `databricks bundle validate -t dev` | No schedule/trigger; `max_concurrent_runs: 1`; validation OK | `workspace_bundle_jobs_20260929.json` | passed |
 | CI without secrets | Definition only | `.github/workflows/ci.yml` | No remote repository; workflow never executed | — | not run |
 | Claim-to-row trace | Local | Claims C01–C05 cite leaderboard/summary columns, which recompute from `series_scores.csv` and prediction rows | Draft; independent reviewer not yet assigned | `claims.csv` | open |
-| Native repeatability (3 series × 3 repeats) | — | Not run | Protocol robustness item pending | — | open |
-| Public asset and secret review | — | Not run | Required before publication | — | blocked |
+| Repeatability (3 series × 2 dev origins × 3 repeats) | Local + trial workspace | `scripts/repeatability.py` | v2 identical across repeats (points and bounds); Prophet points identical, interval bounds vary by up to ~15 requests (sampled uncertainty); 0 cached queries | `repeatability_20260929.json` | passed (Prophet interval noise disclosed) |
+| Public asset and secret review | Local | `git grep` for hosts, tokens, emails, workspace IDs, local paths | One Free Edition host found in `capability_report.md` and redacted; it remains in one earlier commit, so history must be squashed or accepted before publishing | — | open (owner decision) |
 
 ## Known deviations and corrections
 

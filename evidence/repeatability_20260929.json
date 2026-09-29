@@ -1,0 +1,68 @@
+{
+  "code_sha": "a188d458ad63f30ce191b89827816909eae9fe1d",
+  "complete_cells_per_repeat": {
+    "local": [
+      12,
+      12,
+      12
+    ],
+    "native": [
+      6,
+      6,
+      6
+    ]
+  },
+  "generated_at_utc": "2026-09-29T19:03:53.465456+00:00",
+  "native_queries_from_cache": 0,
+  "native_query_ids": [
+    "01f1bc38-45f0-1c25-8b79-b2857f712b25",
+    "01f1bc38-49d4-1386-bdc3-1d788a5dd754",
+    "01f1bc38-4d34-15f8-b95e-9b89a9d075cc",
+    "01f1bc38-50a6-1e67-91b5-96033a7d2f81",
+    "01f1bc38-53c3-1bfb-b455-d4c4b5388596",
+    "01f1bc38-57ec-116f-b1a4-9905dbcfd9f0",
+    "01f1bc38-5be1-18a6-82f0-44becdd70b97",
+    "01f1bc38-5ef5-1925-88e6-8f9926c900f9",
+    "01f1bc38-6210-138c-bf56-e0d6b13a273e",
+    "01f1bc38-652f-10ef-9ff3-39e4a3d54d1e",
+    "01f1bc38-684f-10bb-aee7-eab74c78b727",
+    "01f1bc38-6b91-1f56-8989-e281581f1f25",
+    "01f1bc38-6fff-11ab-9fb3-32ae7628aa05",
+    "01f1bc38-7330-14c8-80f2-88568a67106d",
+    "01f1bc38-7656-1c36-b632-afc5d2a97eea",
+    "01f1bc38-7a3c-1691-a1ce-ac87976bcc9c",
+    "01f1bc38-7d78-145b-9c51-e53138e7b490",
+    "01f1bc38-809a-1535-8795-30f43f8f2858"
+  ],
+  "origins": [
+    "2024-10-31",
+    "2024-11-30"
+  ],
+  "repeats": 3,
+  "series_ids": [
+    "BRONX|Illegal Parking",
+    "BROOKLYN|Illegal Parking",
+    "MANHATTAN|Illegal Parking"
+  ],
+  "spread": {
+    "ai_forecast_v2": {
+      "max_abs_diff_lower": 0.0,
+      "max_abs_diff_prediction": 0.0,
+      "max_abs_diff_upper": 0.0,
+      "predictions_compared": 168
+    },
+    "prophet_tuned": {
+      "max_abs_diff_lower": 14.672110113953067,
+      "max_abs_diff_prediction": 0.0,
+      "max_abs_diff_upper": 12.54122976806616,
+      "predictions_compared": 168
+    },
+    "snaive7": {
+      "max_abs_diff_lower": null,
+      "max_abs_diff_prediction": 0.0,
+      "max_abs_diff_upper": null,
+      "predictions_compared": 168
+    }
+  },
+  "status": "development_repeatability_check"
+}
