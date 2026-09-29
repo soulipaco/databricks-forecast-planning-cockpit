@@ -15,7 +15,7 @@ SMOKE_SQL = """WITH dates AS (
 )
 SELECT * FROM ai_forecast(
   TABLE(observed),
-  horizon => '2025-01-29',
+  horizon => '2025-01-28',
   time_col => 'ds',
   value_col => 'y',
   frequency => 'D',

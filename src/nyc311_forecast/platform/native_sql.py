@@ -25,7 +25,9 @@ def forecast_sql(*, catalog: str, schema: str, snapshot_id: str, series_id: str,
     snap = snapshot_id.replace("'", "''")
     series = series_id.replace("'", "''")
     first = origin - timedelta(days=1094)
-    end = origin + timedelta(days=29)  # right-exclusive, 28 result dates
+    # Observed 2026-09-29: v2 includes the horizon date despite documented right-exclusive
+    # semantics (docs/adr/native_v2_horizon.md). ForecastResult rejects any other row count.
+    end = origin + timedelta(days=28)
     return f"""WITH observed AS (
   SELECT ds, CAST(y AS DOUBLE) AS y
   FROM {catalog}.{schema}.daily_requests

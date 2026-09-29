@@ -32,3 +32,13 @@ At the owner's request the blocker was re-verified from scratch rather than rely
 - `ai_forecast` through serverless **job** compute (`spark.sql`) fails earlier with `UNSUPPORTED_FEATURE.AI_FUNCTION_PREVIEW`, so job environments, which can install PyPI packages, are not a route to v2.
 - `version => '1'` succeeds on the same warehouse in 10 s with 28 rows. This is a feasibility fact for a possible protocol revision, not v2 evidence.
 - Serverless job compute reaches arbitrary hosts (example.com, api.github.com, pypi.org), so the workspace already has the outbound access that LinkedIn verification grants; the owner sees no "Verify identity" button. That access does not extend to the SQL isolated environment. LinkedIn verification is therefore not a remaining remedy; the next route is a non-Free-Edition trial workspace.
+
+## Resolution in a non-Free-Edition workspace (2026-09-29)
+
+In a new Databricks trial workspace (profile `nyc311-trial`, serverless PRO warehouse) v2 works after three conditions were met:
+
+1. Predictive AI Functions preview enabled (owner).
+2. **Enable networking for isolated workloads in Serverless SQL Warehouses** preview enabled (owner), followed by a warehouse stop/start. Without the restart the earlier failed install result was returned again.
+3. Databricks finished provisioning the new metastore's system schemas (about one hour after creation). Before that, v2 failed with `Could not find forecaster package root under /Volumes/system/__internal_ai/ai_forecast_volume/forecaster_v5`. Manual system-schema enablement is refused ("can only be enabled by Databricks").
+
+Validated smoke: query `01f1bc2e-8aa0-19ec-91f5-79a6aee56a19`, 28 rows 2025-01-01..2025-01-28, ordered intervals, 6.5 s (`evidence/workspace_v2_smoke_trial_20260929.json`). The horizon boundary differs from the documentation; see `native_v2_horizon.md`. The Free Edition workspace remains blocked because condition 2 is unavailable there.
