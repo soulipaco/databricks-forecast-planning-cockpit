@@ -1,6 +1,6 @@
 # Evidence workspace
 
-This directory is currently a **template area**. No benchmark result is recorded by the files added for P06. Do not interpret an empty CSV as a zero result or a passed gate.
+This directory contains a verified local [data card](data_card.md) and release templates. No three-model benchmark result is recorded. A `development_smoke.json` file, when present, is a three-series adapter integration check with fixed, untuned Prophet settings; it is excluded from benchmark claims. Do not interpret an empty CSV as a zero result or a passed gate.
 
 For a release, trace each public claim through `claim → chart/table cell → metric calculation → prediction rows → run manifest → code/config/protocol → source snapshot`. The required artifacts and gates are defined in [08_EVIDENCE_RELEASE.md](../08_EVIDENCE_RELEASE.md). Only publish result assets after the release run and independent review have been completed.
 
@@ -14,4 +14,4 @@ Examples of claims requiring evidence: relative WAPE differences, series wins, r
 
 ## Data and validation records
 
-`data_card.md` and `validation_report.md` have unfilled fields. Populate them from actual extraction and check logs. Mark checks `passed`, `failed` or `blocked` with exact evidence; never turn an unavailable workspace check into a pass. Keep private workspace URLs, tokens and account details out of these public files.
+`data_card.md` records the real 2021–2024 development source and Silver checks. `validation_report.md` remains a release template. Mark checks `passed`, `failed` or `blocked` with exact evidence; never turn an unavailable workspace check into a pass. Keep private workspace URLs, tokens and account details out of these public files.
