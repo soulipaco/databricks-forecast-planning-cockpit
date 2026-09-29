@@ -103,3 +103,5 @@ In a three-repeat test, v2 produced identical outputs. Prophet's point forecasts
 ## Credits
 
 Data: [NYC Open Data, 311 Service Requests](https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9). This is an independent project with no NYC affiliation. The Prophet adapter reuses parts of [prophet-forecasting-mlops](https://github.com/soulipaco/prophet-forecasting-mlops) at commit `b2538be` ([adapter decision](docs/adr/prophet_adapter.md)). Git history was rewritten once to remove a private workspace host; the old-to-new commit map is in [`docs/history_rewrite.md`](docs/history_rewrite.md).
+
+Code is released under the [MIT License](LICENSE); data attribution is in [NOTICE](NOTICE). Changes are listed in [CHANGELOG.md](CHANGELOG.md).

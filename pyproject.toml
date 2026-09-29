@@ -4,8 +4,11 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nyc311-forecast"
-version = "0.1.0"
-description = "Reproducible NYC 311 forecasting benchmark"
+version = "1.0.0"
+description = "Frozen-protocol benchmark of Databricks ai_forecast v2, tuned Prophet and a seasonal baseline on NYC 311 daily requests"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Onur Uslu" }]
 requires-python = ">=3.12,<3.14"
 dependencies = ["PyYAML>=6.0.2,<7"]
 
@@ -14,6 +17,9 @@ prophet = ["prophet>=1.1.6,<2", "optuna>=4,<5", "pandas>=2.2,<4"]
 platform = ["databricks-sdk>=0.50,<1"]
 visualization = ["matplotlib>=3.9,<4"]
 dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+
+[project.urls]
+Repository = "https://github.com/soulipaco/databricks-forecast-planning-cockpit"
 
 [project.scripts]
 nyc311 = "nyc311_forecast.cli:main"

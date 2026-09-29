@@ -1,0 +1,29 @@
+NOTICE
+======
+
+The source code in this repository is licensed under the MIT License (see LICENSE).
+
+Third-party data
+----------------
+
+NYC 311 Service Requests (dataset erm2-nwe9), City of New York, NYC Open Data:
+https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9
+
+This repository redistributes only derived aggregates: monthly borough x complaint-type
+counts (`data/snapshots/`) and daily counts for 21 selected series (`data/silver/`).
+No individual service-request record, address or free text is included. NYC Open Data
+is published for public use under the City's Terms of Use:
+https://www.nyc.gov/main/terms-of-use
+This is an independent project with no affiliation with, or endorsement by, the City of
+New York.
+
+Third-party software
+--------------------
+
+The Prophet adapter adapts parts of prophet-forecasting-mlops
+(https://github.com/soulipaco/prophet-forecasting-mlops, commit b2538be, MIT License,
+Copyright (c) 2026 Onur Uslu); see docs/adr/prophet_adapter.md.
+
+Prophet, Optuna, the Databricks SDK and other dependencies are used under their own
+licences as resolved in uv.lock. Databricks `ai_forecast` is a managed Databricks SQL
+function; no Databricks model weights or code are redistributed here.
