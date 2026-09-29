@@ -1,0 +1,541 @@
+{
+  "datasets": [
+    {
+      "name": "leaderboard",
+      "displayName": "Paired leaderboard",
+      "queryLines": [
+        "SELECT CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, * FROM (WITH paired AS (\n  SELECT series_id, origin\n  FROM evaluation_cells\n  WHERE run_id = 'final-three-model-a8c5bcf1ed7d' AND paired_status = 'complete'\n  GROUP BY series_id, origin\n  HAVING COUNT(DISTINCT model_id) = 3\n), cells AS (\n  SELECT ec.*\n  FROM evaluation_cells AS ec\n  JOIN paired AS p ON p.series_id = ec.series_id AND p.origin = ec.origin\n  WHERE ec.run_id = 'final-three-model-a8c5bcf1ed7d'\n), series_wape AS (\n  SELECT model_id, series_id, SUM(abs_error_sum) / SUM(actual_sum) AS wape\n  FROM cells GROUP BY model_id, series_id\n), medians AS (\n  SELECT model_id, percentile_cont(0.5) WITHIN GROUP (ORDER BY wape) AS median_series_wape\n  FROM series_wape GROUP BY model_id\n), pooled AS (\n  SELECT model_id,\n    SUM(abs_error_sum) / SUM(actual_sum) AS pooled_wape,\n    SUM(signed_error_sum) / SUM(actual_sum) AS signed_bias,\n    SUM(interval_hits) / NULLIF(SUM(interval_n), 0) AS interval_coverage,\n    COUNT(*) AS paired_cells\n  FROM cells GROUP BY model_id\n)\nSELECT m.model_id, m.median_series_wape, p.pooled_wape, p.signed_bias,\n  p.interval_coverage, p.paired_cells\nFROM medians AS m JOIN pooled AS p USING (model_id)\nORDER BY m.median_series_wape) ORDER BY median_series_wape"
+      ]
+    },
+    {
+      "name": "series_wape",
+      "displayName": "Series WAPE by model",
+      "queryLines": [
+        "WITH paired AS (SELECT series_id, origin FROM evaluation_cells WHERE run_id = 'final-three-model-a8c5bcf1ed7d' AND paired_status = 'complete' GROUP BY series_id, origin HAVING COUNT(DISTINCT model_id) = 3), cells AS (SELECT ec.* FROM evaluation_cells ec JOIN paired p ON p.series_id = ec.series_id AND p.origin = ec.origin WHERE ec.run_id = 'final-three-model-a8c5bcf1ed7d') SELECT series_id, CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, SUM(abs_error_sum) / SUM(actual_sum) AS wape FROM cells GROUP BY series_id, model_id ORDER BY series_id, model"
+      ]
+    },
+    {
+      "name": "origin_wape",
+      "displayName": "Pooled WAPE by forecast origin",
+      "queryLines": [
+        "WITH paired AS (SELECT series_id, origin FROM evaluation_cells WHERE run_id = 'final-three-model-a8c5bcf1ed7d' AND paired_status = 'complete' GROUP BY series_id, origin HAVING COUNT(DISTINCT model_id) = 3), cells AS (SELECT ec.* FROM evaluation_cells ec JOIN paired p ON p.series_id = ec.series_id AND p.origin = ec.origin WHERE ec.run_id = 'final-three-model-a8c5bcf1ed7d') SELECT origin, CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, SUM(abs_error_sum) / SUM(actual_sum) AS wape, SUM(signed_error_sum) / SUM(actual_sum) AS signed_bias FROM cells GROUP BY origin, model_id ORDER BY origin, model"
+      ]
+    },
+    {
+      "name": "run_health",
+      "displayName": "Run health",
+      "queryLines": [
+        "SELECT CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, COUNT(*) AS attempts, SUM(CASE WHEN status = 'success' THEN 1 ELSE 0 END) AS successful, SUM(CASE WHEN status <> 'success' THEN 1 ELSE 0 END) AS failed, percentile_cont(0.5) WITHIN GROUP (ORDER BY wall_seconds) AS median_wall_seconds, percentile_cont(0.5) WITHIN GROUP (ORDER BY compute_seconds) AS median_warehouse_seconds FROM forecast_attempts WHERE run_id = 'final-three-model-a8c5bcf1ed7d' GROUP BY model_id ORDER BY model"
+      ]
+    },
+    {
+      "name": "featured_forecast",
+      "displayName": "Featured series, final origin",
+      "queryLines": [
+        "SELECT ds, CASE model_id WHEN 'ai_forecast_v2' THEN 'Databricks ai_forecast v2' WHEN 'prophet_tuned' THEN 'Tuned Prophet' ELSE 'Weekly seasonal naive' END AS model, prediction AS requests FROM forecast_values WHERE run_id = 'final-three-model-a8c5bcf1ed7d' AND series_id = 'MANHATTAN|HEAT/HOT WATER' AND origin = DATE '2025-11-30' UNION ALL SELECT fv.ds, 'Actual requests' AS model, CAST(dr.y AS DOUBLE) FROM forecast_values fv JOIN forecast_runs fr ON fr.run_id = fv.run_id JOIN daily_requests dr ON dr.snapshot_id = fr.snapshot_id AND dr.series_id = fv.series_id AND dr.ds = fv.ds WHERE fv.run_id = 'final-three-model-a8c5bcf1ed7d' AND fv.series_id = 'MANHATTAN|HEAT/HOT WATER' AND fv.origin = DATE '2025-11-30' AND fv.model_id = 'snaive7' ORDER BY ds, model"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "results",
+      "displayName": "2025 results",
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layout": [
+        {
+          "widget": {
+            "name": "title",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# NYC 311 daily requests: 2025 forecast benchmark"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "headline",
+            "multilineTextboxSpec": {
+              "lines": [
+                "**ai_forecast v2 had the lowest error** (median series WAPE 17.1% vs Prophet 19.5%, naive 25.0%) **but under-forecast by 14.3% of volume**, so it fails the pre-registered practically-competitive rule."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "leaderboard_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "leaderboard",
+                  "fields": [
+                    {
+                      "name": "model",
+                      "expression": "`model`"
+                    },
+                    {
+                      "name": "median_series_wape",
+                      "expression": "`median_series_wape`"
+                    },
+                    {
+                      "name": "pooled_wape",
+                      "expression": "`pooled_wape`"
+                    },
+                    {
+                      "name": "signed_bias",
+                      "expression": "`signed_bias`"
+                    },
+                    {
+                      "name": "interval_coverage",
+                      "expression": "`interval_coverage`"
+                    },
+                    {
+                      "name": "paired_cells",
+                      "expression": "`paired_cells`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "model",
+                    "displayName": "Model"
+                  },
+                  {
+                    "fieldName": "median_series_wape",
+                    "displayName": "Median series WAPE (primary)"
+                  },
+                  {
+                    "fieldName": "pooled_wape",
+                    "displayName": "Pooled WAPE"
+                  },
+                  {
+                    "fieldName": "signed_bias",
+                    "displayName": "Signed bias"
+                  },
+                  {
+                    "fieldName": "interval_coverage",
+                    "displayName": "80% interval coverage"
+                  },
+                  {
+                    "fieldName": "paired_cells",
+                    "displayName": "Paired cells"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Leaderboard on 252 paired series-origins (lower WAPE is better)"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "series_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "series_wape",
+                  "fields": [
+                    {
+                      "name": "series_id",
+                      "expression": "`series_id`"
+                    },
+                    {
+                      "name": "wape",
+                      "expression": "`wape`"
+                    },
+                    {
+                      "name": "model",
+                      "expression": "`model`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "series_id",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Series"
+                },
+                "y": {
+                  "fieldName": "wape",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "WAPE",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 1
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "model",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Model"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "WAPE by series, 12 origins pooled"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "origin_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "origin_wape",
+                  "fields": [
+                    {
+                      "name": "origin",
+                      "expression": "`origin`"
+                    },
+                    {
+                      "name": "wape",
+                      "expression": "`wape`"
+                    },
+                    {
+                      "name": "model",
+                      "expression": "`model`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "origin",
+                  "scale": {
+                    "type": "temporal"
+                  },
+                  "displayName": "Forecast origin"
+                },
+                "y": {
+                  "fieldName": "wape",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Pooled WAPE",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 1
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "model",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Model"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Pooled WAPE by monthly origin"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "bias_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "origin_wape",
+                  "fields": [
+                    {
+                      "name": "origin",
+                      "expression": "`origin`"
+                    },
+                    {
+                      "name": "signed_bias",
+                      "expression": "`signed_bias`"
+                    },
+                    {
+                      "name": "model",
+                      "expression": "`model`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "origin",
+                  "scale": {
+                    "type": "temporal"
+                  },
+                  "displayName": "Forecast origin"
+                },
+                "y": {
+                  "fieldName": "signed_bias",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Signed bias",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 1
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "model",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Model"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Signed bias by origin (negative = under-forecast)"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 15,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "featured_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "featured_forecast",
+                  "fields": [
+                    {
+                      "name": "ds",
+                      "expression": "`ds`"
+                    },
+                    {
+                      "name": "requests",
+                      "expression": "`requests`"
+                    },
+                    {
+                      "name": "model",
+                      "expression": "`model`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "ds",
+                  "scale": {
+                    "type": "temporal"
+                  },
+                  "displayName": "Date"
+                },
+                "y": {
+                  "fieldName": "requests",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Daily requests"
+                },
+                "color": {
+                  "fieldName": "model",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Model"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "MANHATTAN|HEAT/HOT WATER: forecasts from 2025-11-30 vs actual"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 21,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "health_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "run_health",
+                  "fields": [
+                    {
+                      "name": "model",
+                      "expression": "`model`"
+                    },
+                    {
+                      "name": "attempts",
+                      "expression": "`attempts`"
+                    },
+                    {
+                      "name": "successful",
+                      "expression": "`successful`"
+                    },
+                    {
+                      "name": "failed",
+                      "expression": "`failed`"
+                    },
+                    {
+                      "name": "median_wall_seconds",
+                      "expression": "`median_wall_seconds`"
+                    },
+                    {
+                      "name": "median_warehouse_seconds",
+                      "expression": "`median_warehouse_seconds`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "model",
+                    "displayName": "Model"
+                  },
+                  {
+                    "fieldName": "attempts",
+                    "displayName": "Attempts"
+                  },
+                  {
+                    "fieldName": "successful",
+                    "displayName": "Successful"
+                  },
+                  {
+                    "fieldName": "failed",
+                    "displayName": "Failed"
+                  },
+                  {
+                    "fieldName": "median_wall_seconds",
+                    "displayName": "Median wall s"
+                  },
+                  {
+                    "fieldName": "median_warehouse_seconds",
+                    "displayName": "Median warehouse s (v2 only)"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Run health (all attempts retained)"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 27,
+            "width": 6,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "method",
+            "multilineTextboxSpec": {
+              "lines": [
+                "Method: 21 borough × problem-family series, 1,095-day history per origin, twelve month-end origins from 2024-12-31 to 2025-11-30, 28-day horizon. Protocol frozen before any 2025 data was retrieved. Prophet and naive ran locally; v2 in a serverless SQL warehouse. Runtime is not like-for-like. Retrospective backtest; v2 pretraining corpus unknown. Run `final-three-model-a8c5bcf1ed7d`. The dashboard reads stored results only and never refits a model."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 31,
+            "width": 6,
+            "height": 3
+          }
+        }
+      ]
+    }
+  ]
+}
