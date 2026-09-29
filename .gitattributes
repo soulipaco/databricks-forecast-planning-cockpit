@@ -1,2 +1,10 @@
 *.json text eol=lf
 *.jsonl text eol=lf
+
+# Hashed artifacts: store the exact bytes that were hashed, so every recorded SHA-256
+# (freeze manifest, run lineage, release manifest) reproduces on any OS checkout.
+data/** -text
+evidence/** -text
+dashboards/*.lvdash.json -text
+conf/benchmark.yaml -text
+docs/design/03_BENCHMARK_PROTOCOL.md -text
