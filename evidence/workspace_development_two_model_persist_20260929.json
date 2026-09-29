@@ -1,0 +1,77 @@
+{
+  "status": "verified_partial_two_model_development_not_benchmark",
+  "run_id": "development-two-model-30862cc33ddc",
+  "stage_id": "development-two-model-30862cc33ddc",
+  "source_sha256": "c2a4368d24c907d627780d010845e2d9a10e78af69501b80712350320f80ec98",
+  "silver_snapshot_id": "development-silver-20260929",
+  "silver_sha256": "31c0f35672c43dac090063318eaec8e7741d9da85b27ba5b926fcc14f4097eef",
+  "selection_sha256": "6a859a26fa3092f357e2757f6978a76061cd887ae9d5468b3df8e368a75e57b0",
+  "tuning_manifest_sha256": "08d6e156f053e3aef2c209b241d77f2ce534492ab17b1a45dc06c2c8c86c8859",
+  "model_ids": [
+    "snaive7",
+    "prophet_tuned"
+  ],
+  "origins": [
+    "2024-10-31",
+    "2024-11-30"
+  ],
+  "expected_cells": 84,
+  "complete_cells": 84,
+  "failed_cells": 0,
+  "paired_two_model_cells": 42,
+  "evaluation_cells_include_failures": true,
+  "results": [
+    {
+      "table": "mlops_dev.nyc311_forecast.forecast_runs",
+      "expected_rows": 1,
+      "persisted_rows": 1,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc1a-6da9-186c-bea4-b62a978264d0",
+        "duplicates": "01f1bc1a-79e6-1a26-bd2f-f2287de83713",
+        "merge": "01f1bc1a-7b16-115e-aa07-2cfae53be477",
+        "readback": "01f1bc1a-7ee1-170f-a3d5-9d265e1227de"
+      }
+    },
+    {
+      "table": "mlops_dev.nyc311_forecast.forecast_attempts",
+      "expected_rows": 84,
+      "persisted_rows": 84,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc1a-8108-1e45-ba03-247852bf0f85",
+        "duplicates": "01f1bc1a-8207-1077-b869-818fc63567af",
+        "merge": "01f1bc1a-82dc-1a27-984c-1354a98a6a75",
+        "readback": "01f1bc1a-8503-1fde-91db-14c5e960d5f6"
+      }
+    },
+    {
+      "table": "mlops_dev.nyc311_forecast.forecast_values",
+      "expected_rows": 2352,
+      "persisted_rows": 2352,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc1a-87e4-142b-8096-b67ac264191f",
+        "duplicates": "01f1bc1a-8958-1cfc-8877-599108578977",
+        "merge": "01f1bc1a-8a63-1720-a6bb-cf487e471712",
+        "readback": "01f1bc1a-8cee-1801-aac7-36c609a888ea"
+      }
+    },
+    {
+      "table": "mlops_dev.nyc311_forecast.evaluation_cells",
+      "expected_rows": 84,
+      "persisted_rows": 84,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc1a-8ec5-109b-a45e-54ea75a012bc",
+        "duplicates": "01f1bc1a-8f9e-1b81-bece-6adcf8588418",
+        "merge": "01f1bc1a-9069-10fa-acde-d76e3ceec5f6",
+        "readback": "01f1bc1a-92c4-168a-8137-5670ed7b16bb"
+      }
+    }
+  ]
+}

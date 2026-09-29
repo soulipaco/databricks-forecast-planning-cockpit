@@ -1,0 +1,26 @@
+{
+  "complete_model_cells": 84,
+  "expected_model_cells": 84,
+  "expected_series_origin_pairs": 42,
+  "failed_model_cells": 0,
+  "limitation": "2024 development only; no ai_forecast v2 result or 2025 evaluation",
+  "models": {
+    "prophet_tuned": {
+      "paired_abs_error_sum": 97287.10742965783,
+      "paired_actual_sum": 267428.0,
+      "paired_pooled_wape": 0.3637880380126906,
+      "paired_series_median_wape": 0.24171881174461163,
+      "paired_series_with_defined_wape": 21
+    },
+    "snaive7": {
+      "paired_abs_error_sum": 121960.0,
+      "paired_actual_sum": 267428.0,
+      "paired_pooled_wape": 0.4560479830085107,
+      "paired_series_median_wape": 0.3165155695703587,
+      "paired_series_with_defined_wape": 21
+    }
+  },
+  "paired_series_origin_pairs": 42,
+  "run_id": "development-two-model-30862cc33ddc",
+  "status": "two_model_2024_development_diagnostic_only"
+}

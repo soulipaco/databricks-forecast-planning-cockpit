@@ -2,7 +2,7 @@
 
 **Question:** Can one Databricks SQL forecasting function be competitive with a tuned Prophet pipeline while requiring less model-specific engineering?
 
-This repository is an **in-progress portfolio implementation** of a planned benchmark and planning dashboard. It has no verified benchmark result, completed planning dashboard, or public release evidence yet. A limited, unpublished development-data dashboard draft exists. The question above is a test, not a conclusion.
+This repository is an **in-progress portfolio implementation** of a planned benchmark and planning dashboard. A full **2024 two-model development diagnostic** is verified; the three-model benchmark, 2025 evaluation and public release remain incomplete. An unpublished development dashboard draft exists. The question above is a test, not a conclusion.
 
 **For:** BI and analytics engineers deciding how much custom forecasting code a daily planning workload needs. **Start with:** the [benchmark protocol](03_BENCHMARK_PROTOCOL.md), then inspect the [evidence guide](evidence/README.md) as outputs become available.
 
@@ -20,10 +20,10 @@ The supplied documents are a build specification. See [PROJECT_STATE.md](PROJECT
 
 | Item | Current status | Where to inspect later |
 |---|---|---|
-| Method and intended comparison | Specified; implementation and freeze pending | [Protocol](03_BENCHMARK_PROTOCOL.md) |
+| Method and intended comparison | 2024 two-model development executed; three-model protocol freeze pending | [Protocol](03_BENCHMARK_PROTOCOL.md) |
 | Real source snapshot and selected series | Development data verified locally and in workspace; final 2025 holdout unopened | [Data card](evidence/data_card.md) and workspace load evidence |
-| Three-model forecast and score tables | Pending | `evidence/leaderboard.csv`, `series_scores.csv`, `failures.csv` |
-| Workspace dashboard inspection | Unpublished development-series and data-quality draft API verified; visual check deferred and full planning product pending | [Dashboard evidence](evidence/workspace_dashboard_quality_20260929.json), release validation report and screenshots |
+| Three-model forecast and score tables | Pending; [2024 two-model diagnostic](evidence/development_two_model_diagnostic_20260929.json) verified separately | `evidence/leaderboard.csv`, `series_scores.csv`, `failures.csv` |
+| Workspace dashboard inspection | Unpublished development-data, two-model coverage and paired-score draft API verified; visual check deferred and full planning product pending | [Dashboard evidence](evidence/workspace_dashboard_paired_scores_20260929.json), release validation report and screenshots |
 | Public result and reproducible release | Pending | Release manifest, claims ledger, chart data and code |
 
 The [evidence directory](evidence/README.md) contains source and workspace validation records, development smoke results, and benchmark templates. It contains no final benchmark outputs. Synthetic fixtures used for local tests must stay visibly labelled and excluded from result claims.
@@ -48,6 +48,10 @@ The locally reconciled selection data cover 2021–2023 and select 21 series; th
 
 A bounded local integration run covers three series and both 2024 development origins with seasonal naïve and fixed, untuned Prophet settings. It produced 12 complete cells and 336 forecast rows in `evidence/development_slice_20260929.json`, then persisted 1/12/336/12 run/attempt/value/score records to Delta with exact first and repeat readback ([workspace evidence](evidence/workspace_development_smoke_persist_20260929.json)). Run `uv run --extra prophet python -m nyc311_forecast.development_slice --series-limit 3 --output <new-evidence-path>` from a clean committed checkout to repeat it. This artifact is **smoke-only**, excludes native v2, and is not a benchmark result.
 
-A separate five-trial Prophet tuning smoke completed on three selected development series using the registered inner origins and seed 42. Its [manifest and per-series trials](evidence/development_tuning_smoke_20260929/manifest.json) are traceable to commit `31ee879fa73d0f4e7e81c88fa35ad481d8f96afb`. It verifies the tuning execution path; the primary protocol requires **20 trials for every selected series**, so these settings are excluded from benchmark and champion claims. The full run remains gated on a working native v2 path.
+A separate five-trial Prophet tuning smoke completed on three selected development series using the registered inner origins and seed 42. Its [manifest and per-series trials](evidence/development_tuning_smoke_20260929/manifest.json) are traceable to commit `31ee879fa73d0f4e7e81c88fa35ad481d8f96afb`. It verifies the tuning execution path; those settings are excluded from benchmark and champion claims.
+
+The registered **20-trial search completed for all 21 selected series** using three 2024 inner origins, with 420 completed trial records in [the tuning manifest and checkpoints](evidence/development_tuning_full_20260929/manifest.json). The resulting [full two-model 2024 development run](evidence/development_two_model_full_20260929.json) has 84/84 complete cells and 2,352 forecasts. Its [paired diagnostic calculation](evidence/development_two_model_diagnostic_20260929.json) uses the same 42 series-origin cells for each model and retains error sums and actual sums. The [Delta readback](evidence/workspace_development_two_model_persist_20260929.json) and repeat load each matched all 1 run, 84 attempts, 2,352 values and 84 evaluation cells. These are **development-only** results; they do not answer the three-model or 2025 test question. Databricks' managed v2 runtime still fails while installing `onnxruntime`, as recorded in [the blocker decision](docs/adr/native_v2_runtime_blocker.md).
+
+The [series-level development figure](portfolio/development_two_model_2024.png) is regenerated from those same score cells by [the chart script](portfolio/build_development_chart.py). It shows where the two available models differ by series without presenting a final winner.
 
 Once implemented and verified, this section should give an exact environment, configuration example, commands, snapshot/run identifiers, expected outputs and workspace prerequisites. A release will link every headline claim through a calculation and prediction rows to its source snapshot. The native model's training-corpus overlap with public historical data may be unknown even after the project pipeline's leakage checks.

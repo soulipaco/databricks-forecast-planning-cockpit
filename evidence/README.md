@@ -2,6 +2,12 @@
 
 This directory contains a verified local [data card](data_card.md), workspace validation records and release templates. No three-model benchmark result is recorded. `development_smoke.json` and `development_slice_20260929.json` are adapter integration checks with fixed, untuned Prophet settings; both are excluded from benchmark claims. The latter covers the two registered 2024 development origins for three series and stores all local forecast rows, scores and attempts. Do not interpret an empty CSV as a zero result or a passed gate.
 
+`development_tuning_full_20260929/` holds 21 per-series checkpoints with 20 completed Prophet trials each, using three 2024 inner origins. `development_two_model_full_20260929.json` contains the complete 2024 development output for weekly naive and tuned Prophet: 84 model cells and 2,352 forecast rows. `development_two_model_diagnostic_20260929.json` contains paired ratio-of-sums statistics and the actual/error numerators; `workspace_development_score_reconcile_20260929.json` verifies those sums in the serving view. `workspace_development_two_model_persist_20260929.json` and its repeat record exact Delta readback. `workspace_dashboard_development_20260929.json` records the unpublished dashboard API check. Every one of these is explicitly a **two-model, 2024 development artifact**, not the three-model benchmark or 2025 holdout evaluation.
+
+`development_prediction_arithmetic_20260929.json` records an independent recomputation of absolute error, actual volume, signed error and interval measures from all 2,352 prediction rows against the 84 stored score cells. The source is `scripts/verify_development_predictions.py`.
+
+`workspace_dashboard_paired_scores_20260929.json` is the latest unpublished dashboard API verification: both models have 42 paired 2024 development cells, and its score dataset agrees with the local and workspace numerator/denominator evidence. The older `workspace_dashboard_development_20260929.json` preserves the preceding coverage-only draft.
+
 For a release, trace each public claim through `claim → chart/table cell → metric calculation → prediction rows → run manifest → code/config/protocol → source snapshot`. The required artifacts and gates are defined in [08_EVIDENCE_RELEASE.md](../08_EVIDENCE_RELEASE.md). Only publish result assets after the release run and independent review have been completed.
 
 ## Claims ledger

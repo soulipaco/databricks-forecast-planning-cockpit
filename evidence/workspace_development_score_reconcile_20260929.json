@@ -1,0 +1,18 @@
+{
+  "status": "verified_two_model_development_scores_only",
+  "run_id": "development-two-model-30862cc33ddc",
+  "query_id": "01f1bc1d-58d4-180d-90c1-248ab493d51c",
+  "models": {
+    "prophet_tuned": {
+      "cells": 42,
+      "abs_error_sum": 97287.1074296578,
+      "actual_sum": 267428.0
+    },
+    "snaive7": {
+      "cells": 42,
+      "abs_error_sum": 121960.0,
+      "actual_sum": 267428.0
+    }
+  },
+  "limitation": "No native v2 or 2025 final evaluation"
+}

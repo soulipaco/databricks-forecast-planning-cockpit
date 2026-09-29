@@ -1,0 +1,61 @@
+{
+  "status": "draft_verified_partial_two_model_development_with_scores",
+  "dashboard_id": "01f1bc049aeb128d8436b7e841770d99",
+  "run_id": "development-two-model-30862cc33ddc",
+  "run_status": "partial_two_model_development_not_benchmark",
+  "dataset_query_id": "01f1bc1d-cbf3-1d37-80b0-c89db8868cfa",
+  "paired_score_query_id": "01f1bc1d-cd3c-1e79-b665-53a78103ed01",
+  "paired_score_rows": [
+    {
+      "model_id": "prophet_tuned",
+      "paired_cells": 42,
+      "abs_error_sum": 97287.1074296578,
+      "actual_sum": 267428.0,
+      "pooled_wape": 0.3637880380126905
+    },
+    {
+      "model_id": "snaive7",
+      "paired_cells": 42,
+      "abs_error_sum": 121960.0,
+      "actual_sum": 267428.0,
+      "pooled_wape": 0.4560479830085107
+    }
+  ],
+  "dataset_rows": [
+    {
+      "origin": "2024-10-31",
+      "model_id": "prophet_tuned",
+      "expected_cells": 21,
+      "complete_cells": 21,
+      "incomplete_cells": 0
+    },
+    {
+      "origin": "2024-10-31",
+      "model_id": "snaive7",
+      "expected_cells": 21,
+      "complete_cells": 21,
+      "incomplete_cells": 0
+    },
+    {
+      "origin": "2024-11-30",
+      "model_id": "prophet_tuned",
+      "expected_cells": 21,
+      "complete_cells": 21,
+      "incomplete_cells": 0
+    },
+    {
+      "origin": "2024-11-30",
+      "model_id": "snaive7",
+      "expected_cells": 21,
+      "complete_cells": 21,
+      "incomplete_cells": 0
+    }
+  ],
+  "expected_cells": 84,
+  "complete_cells": 84,
+  "definition_sha256": "de40647e3539ce92e6946cca97ac535fb924cc108ce686af7846b21a636a02c9",
+  "export_sha256": "a3478be983e95db2fca0820b6f65564a91530d681fec06a2abee1a4363b10b25",
+  "export_artifact": "evidence/development_paired_scores_export_20260929.lvdash.json",
+  "published": false,
+  "published_status_verified": true
+}

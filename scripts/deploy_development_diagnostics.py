@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import re
 from pathlib import Path
 
@@ -27,25 +28,29 @@ EXPECTED_ROWS = {
 }
 
 
-def render_definition(run_id: str) -> tuple[str, dict, str]:
+def render_definition(run_id: str) -> tuple[str, dict, dict[str, str]]:
     if not RUN_ID.fullmatch(run_id):
         raise ValueError("Expected a full two-model development run ID")
     template = TEMPLATE.read_text(encoding="utf-8")
-    if template.count("{{development_run_id}}") != 3:
+    if template.count("{{development_run_id}}") != 4:
         raise ValueError("Run placeholder count changed")
     content = template.replace("{{development_run_id}}", run_id)
     definition = json.loads(content)
     if [page["name"] for page in definition["pages"]] != ["readiness", "development_diagnostics"]:
         raise ValueError("Unexpected dashboard pages")
     datasets = {dataset["name"]: dataset for dataset in definition["datasets"]}
-    if set(datasets) != {"development_series", "data_quality", "development_diagnostics"}:
+    if set(datasets) != {"development_series", "data_quality", "development_diagnostics", "development_paired_scores"}:
         raise ValueError("Unexpected dashboard datasets")
-    query = "".join(datasets["development_diagnostics"]["queryLines"])
-    if query.count(run_id) != 3 or RUN_STATUS not in query:
+    queries = {name: "".join(dataset["queryLines"]) for name, dataset in datasets.items()}
+    if queries["development_diagnostics"].count(run_id) != 3 or queries["development_paired_scores"].count(run_id) != 1:
         raise ValueError("Development query is not scoped to the run and status")
-    if "ai_forecast(" in query.lower():
+    if any(RUN_STATUS not in queries[name] for name in ("development_diagnostics", "development_paired_scores")):
+        raise ValueError("Development queries must guard run status")
+    if "HAVING COUNT(DISTINCT model_id) = 2" not in queries["development_paired_scores"]:
+        raise ValueError("Score query must use two-model paired cells")
+    if any("ai_forecast(" in query.lower() for query in queries.values()):
         raise ValueError("Dashboard must read persisted tables only")
-    return content, definition, query
+    return content, definition, queries
 
 
 def check_rows(rows: list[list[str]] | None, run_id: str) -> list[dict]:
@@ -66,6 +71,52 @@ def check_rows(rows: list[list[str]] | None, run_id: str) -> list[dict]:
     return observed
 
 
+def check_score_rows(rows: list[list[str]] | None, run_id: str, workspace_scores: dict,
+                     diagnostic: dict) -> list[dict]:
+    if not rows or len(rows) != 2:
+        raise ValueError("Expected two paired score rows")
+    if workspace_scores.get("run_id") != run_id or diagnostic.get("run_id") != run_id:
+        raise ValueError("Score evidence run ID differs")
+    if (workspace_scores.get("status") != "verified_two_model_development_scores_only" or
+            diagnostic.get("status") != "two_model_2024_development_diagnostic_only" or
+            diagnostic.get("complete_model_cells") != 84):
+        raise ValueError("Score evidence is not the verified complete development diagnostic")
+    if diagnostic.get("paired_series_origin_pairs") != 42:
+        raise ValueError("Diagnostic evidence lacks 42 paired cells")
+    if set(workspace_scores.get("models", {})) != {"snaive7", "prophet_tuned"}:
+        raise ValueError("Workspace score evidence model set differs")
+    observed = []
+    for row in rows:
+        returned_run, status, model = row[:3]
+        cells = int(row[3])
+        abs_error, actual_sum, pooled_wape = map(float, row[4:7])
+        if returned_run != run_id or status != RUN_STATUS or cells != 42:
+            raise ValueError("Score query run, status or paired count differs")
+        if model not in workspace_scores["models"] or model not in diagnostic.get("models", {}):
+            raise ValueError("Score query returned an unexpected model")
+        reference = workspace_scores["models"][model]
+        metric = diagnostic["models"][model]
+        for actual, expected in (
+            (cells, reference["cells"]),
+            (abs_error, reference["abs_error_sum"]),
+            (actual_sum, reference["actual_sum"]),
+            (abs_error, metric["paired_abs_error_sum"]),
+            (actual_sum, metric["paired_actual_sum"]),
+            (pooled_wape, metric["paired_pooled_wape"]),
+            (pooled_wape, abs_error / actual_sum),
+        ):
+            if not math.isclose(actual, expected, rel_tol=1e-10, abs_tol=1e-8):
+                raise ValueError(f"Paired score differs from evidence for {model}")
+        observed.append({"model_id": model, "paired_cells": cells,
+                         "abs_error_sum": abs_error, "actual_sum": actual_sum,
+                         "pooled_wape": pooled_wape})
+    if {item["model_id"] for item in observed} != {"snaive7", "prophet_tuned"}:
+        raise ValueError("Paired score rows are incomplete")
+    if observed[0]["actual_sum"] != observed[1]["actual_sum"]:
+        raise ValueError("Models do not share the paired actual denominator")
+    return observed
+
+
 def assert_unpublished(client: WorkspaceClient, dashboard_id: str) -> None:
     try:
         client.lakeview.get_published(dashboard_id)
@@ -78,6 +129,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--persistence-evidence", type=Path, required=True)
+    parser.add_argument("--score-evidence", type=Path, required=True)
+    parser.add_argument("--diagnostic-evidence", type=Path, required=True)
     parser.add_argument("--prior-dashboard-evidence", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--export", type=Path, required=True)
@@ -99,7 +152,9 @@ def main() -> None:
     prior = json.loads(args.prior_dashboard_evidence.read_text(encoding="utf-8"))
     if prior.get("published") is not False or not prior.get("dashboard_id"):
         raise ValueError("Only a recorded unpublished dashboard may be updated")
-    content, definition, query = render_definition(run_id)
+    workspace_scores = json.loads(args.score_evidence.read_text(encoding="utf-8"))
+    diagnostic = json.loads(args.diagnostic_evidence.read_text(encoding="utf-8"))
+    content, definition, queries = render_definition(run_id)
     definition_sha = hashlib.sha256(content.encode("utf-8")).hexdigest()
     current = json.loads(args.output.read_text(encoding="utf-8")) if args.output.exists() else None
     if current and (current.get("definition_sha256") != definition_sha or current.get("dashboard_id") != prior["dashboard_id"]):
@@ -111,15 +166,23 @@ def main() -> None:
     client = WorkspaceClient(profile=config.workspace_profile)
     if client.config.host.rstrip("/") != config.workspace_host.rstrip("/"):
         raise ValueError("Authenticated workspace host differs from config")
-    query = re.sub(
-        r"\b(FROM|JOIN) (forecast_attempts|evaluation_cells|forecast_runs)\b",
-        lambda match: f"{match.group(1)} {config.catalog}.{config.schema}.{match.group(2)}",
-        query,
-    )
+    def qualify(query: str) -> str:
+        return re.sub(
+            r"\b(FROM|JOIN) (forecast_attempts|evaluation_cells|forecast_runs)\b",
+            lambda match: f"{match.group(1)} {config.catalog}.{config.schema}.{match.group(2)}",
+            query,
+        )
+
+    query = qualify(queries["development_diagnostics"])
     query_id, rows = run_query(client.statement_execution, config.warehouse_id, query)
     observed = check_rows(rows, run_id)
     if sum(item["complete_cells"] for item in observed) != persisted["complete_cells"]:
         raise ValueError("Dashboard complete-cell count differs from persistence evidence")
+    score_query_id, score_rows = run_query(
+        client.statement_execution, config.warehouse_id,
+        qualify(queries["development_paired_scores"]),
+    )
+    paired_scores = check_score_rows(score_rows, run_id, workspace_scores, diagnostic)
     existing = client.lakeview.get(prior["dashboard_id"])
     if existing.warehouse_id != config.warehouse_id:
         raise ValueError("Existing dashboard warehouse differs from config")
@@ -150,14 +213,16 @@ def main() -> None:
     args.export.parent.mkdir(parents=True, exist_ok=True)
     args.export.write_bytes(exported_bytes)
     evidence = {
-        "status": "draft_verified_partial_two_model_development",
+        "status": "draft_verified_partial_two_model_development_with_scores",
         "dashboard_id": prior["dashboard_id"], "run_id": run_id,
         "run_status": RUN_STATUS, "dataset_query_id": query_id,
+        "paired_score_query_id": score_query_id,
+        "paired_score_rows": paired_scores,
         "dataset_rows": observed, "expected_cells": sum(x["expected_cells"] for x in observed),
         "complete_cells": sum(x["complete_cells"] for x in observed),
         "definition_sha256": definition_sha,
         "export_sha256": hashlib.sha256(exported_bytes).hexdigest(),
-        "export_artifact": str(args.export.relative_to(ROOT)).replace("\\", "/"),
+        "export_artifact": str(args.export.resolve().relative_to(ROOT)).replace("\\", "/"),
         "published": False, "published_status_verified": True,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -4,79 +4,34 @@
       "name": "development_series",
       "displayName": "Verified 2021–2024 development series",
       "queryLines": [
-        "SELECT borough, problem_family, COUNT(*) AS observed_days, ",
-        "SUM(y) AS requests, SUM(CAST(is_zero_filled AS INT)) AS zero_filled_days ",
-        "FROM daily_requests ",
-        "WHERE snapshot_id = 'development-silver-20260929' ",
-        "GROUP BY borough, problem_family ORDER BY requests DESC"
-      ]
+        "SELECT borough, problem_family, COUNT(*) AS observed_days, SUM(y) AS requests, SUM(CAST(is_zero_filled AS INT)) AS zero_filled_days FROM daily_requests WHERE snapshot_id = 'development-silver-20260929' GROUP BY borough, problem_family ORDER BY requests DESC"
+      ],
+      "catalog": "mlops_dev",
+      "schema": "nyc311_forecast"
     },
     {
       "name": "data_quality",
       "displayName": "Reconciled source and selected-series quality",
       "queryLines": [
-        "SELECT snapshot_id, data_kind, expected_partitions, observed_partitions, ",
-        "reconciled_partitions, request_count, series_days, zero_filled_days ",
-        "FROM v_data_quality ",
-        "WHERE snapshot_id IN ('selection-2021-2023-20260929', ",
-        "'development-2024-20260929', 'development-silver-20260929') ",
-        "ORDER BY snapshot_id, data_kind"
-      ]
+        "SELECT snapshot_id, data_kind, expected_partitions, observed_partitions, reconciled_partitions, request_count, series_days, zero_filled_days FROM v_data_quality WHERE snapshot_id IN ('selection-2021-2023-20260929', 'development-2024-20260929', 'development-silver-20260929') ORDER BY snapshot_id, data_kind"
+      ],
+      "catalog": "mlops_dev",
+      "schema": "nyc311_forecast"
     },
     {
       "name": "development_diagnostics",
       "displayName": "Partial 2024 two-model development cell coverage",
       "queryLines": [
-        "WITH expected AS (SELECT model_id, origin, COUNT(DISTINCT series_id) AS expected_cells ",
-        "FROM forecast_attempts WHERE run_id = '",
-        "{{development_run_id}}",
-        "' AND model_id IN ('snaive7', 'prophet_tuned') ",
-        "AND origin IN (DATE '2024-10-31', DATE '2024-11-30') GROUP BY model_id, origin), ",
-        "scored AS (SELECT model_id, origin, COUNT(DISTINCT series_id) AS complete_cells ",
-        "FROM evaluation_cells WHERE run_id = '",
-        "{{development_run_id}}",
-        "' AND horizon_days = 28 ",
-        "AND paired_status = 'complete_two_model_development' AND n_expected = 28 ",
-        "AND n_actual = 28 AND n_predictions = 28 GROUP BY model_id, origin) ",
-        "SELECT r.run_id, r.status AS run_status, CAST(e.origin AS STRING) AS origin, ",
-        "e.model_id, e.expected_cells, COALESCE(s.complete_cells, 0) AS complete_cells, ",
-        "e.expected_cells - COALESCE(s.complete_cells, 0) AS incomplete_cells ",
-        "FROM expected e LEFT JOIN scored s ON s.model_id = e.model_id AND s.origin = e.origin ",
-        "JOIN forecast_runs r ON r.run_id = '",
-        "{{development_run_id}}",
-        "' AND r.status = '",
-        "partial_two_model_development_not_benchmark",
-        "' ",
-        "ORDER BY e.origin, e.model_id"
-      ]
-    },
-    {
-      "name": "development_paired_scores",
-      "displayName": "Verified paired 2024 two-model score sums",
-      "queryLines": [
-        "WITH run_scope AS (SELECT run_id, status FROM forecast_runs WHERE run_id = '",
-        "{{development_run_id}}",
-        "' AND status = 'partial_two_model_development_not_benchmark'), ",
-        "complete AS (SELECT ec.* FROM evaluation_cells ec JOIN run_scope r ON ec.run_id = r.run_id ",
-        "WHERE ec.horizon_days = 28 AND ec.paired_status = 'complete_two_model_development' ",
-        "AND ec.n_expected = 28 AND ec.n_actual = 28 AND ec.n_predictions = 28 ",
-        "AND ec.model_id IN ('snaive7', 'prophet_tuned') ",
-        "AND ec.origin IN (DATE '2024-10-31', DATE '2024-11-30')), ",
-        "paired AS (SELECT series_id, origin FROM complete GROUP BY series_id, origin ",
-        "HAVING COUNT(DISTINCT model_id) = 2) ",
-        "SELECT r.run_id, r.status AS run_status, c.model_id, COUNT(*) AS paired_cells, ",
-        "SUM(c.abs_error_sum) AS abs_error_sum, SUM(c.actual_sum) AS actual_sum, ",
-        "SUM(c.abs_error_sum) / NULLIF(SUM(c.actual_sum), 0) AS pooled_wape ",
-        "FROM complete c JOIN paired p ON p.series_id = c.series_id AND p.origin = c.origin ",
-        "CROSS JOIN run_scope r GROUP BY r.run_id, r.status, c.model_id ORDER BY c.model_id"
-      ]
+        "WITH expected AS (SELECT model_id, origin, COUNT(DISTINCT series_id) AS expected_cells FROM forecast_attempts WHERE run_id = 'development-two-model-30862cc33ddc' AND model_id IN ('snaive7', 'prophet_tuned') AND origin IN (DATE '2024-10-31', DATE '2024-11-30') GROUP BY model_id, origin), scored AS (SELECT model_id, origin, COUNT(DISTINCT series_id) AS complete_cells FROM evaluation_cells WHERE run_id = 'development-two-model-30862cc33ddc' AND horizon_days = 28 AND paired_status = 'complete_two_model_development' AND n_expected = 28 AND n_actual = 28 AND n_predictions = 28 GROUP BY model_id, origin) SELECT r.run_id, r.status AS run_status, CAST(e.origin AS STRING) AS origin, e.model_id, e.expected_cells, COALESCE(s.complete_cells, 0) AS complete_cells, e.expected_cells - COALESCE(s.complete_cells, 0) AS incomplete_cells FROM expected e LEFT JOIN scored s ON s.model_id = e.model_id AND s.origin = e.origin JOIN forecast_runs r ON r.run_id = 'development-two-model-30862cc33ddc' AND r.status = 'partial_two_model_development_not_benchmark' ORDER BY e.origin, e.model_id"
+      ],
+      "catalog": "mlops_dev",
+      "schema": "nyc311_forecast"
     }
   ],
   "pages": [
     {
       "name": "readiness",
       "displayName": "Development data",
-      "pageType": "PAGE_TYPE_CANVAS",
       "layout": [
         {
           "widget": {
@@ -101,9 +56,7 @@
             "name": "readiness_warning",
             "multilineTextboxSpec": {
               "lines": [
-                "**Development data only.** This draft contains no three-model benchmark, ",
-                "no 2025 evaluation results, and no operational staffing recommendation. ",
-                "The quality table separates source partitions from selected-series Silver."
+                "**Development data only.** This draft contains no three-model benchmark, no 2025 evaluation results, and no operational staffing recommendation. The quality table separates source partitions from selected-series Silver."
               ]
             }
           },
@@ -286,12 +239,12 @@
             "height": 7
           }
         }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
     },
     {
       "name": "development_diagnostics",
       "displayName": "2024 development diagnostics",
-      "pageType": "PAGE_TYPE_CANVAS",
       "layout": [
         {
           "widget": {
@@ -314,9 +267,7 @@
             "name": "development_warning",
             "multilineTextboxSpec": {
               "lines": [
-                "**Partial two-model development run only.** Weekly seasonal naïve and tuned Prophet; native SQL v2 is absent. ",
-                "This is not a three-model leaderboard, a 2025 evaluation, or capacity evidence. ",
-                "Incomplete cells remain in the expected denominator."
+                "**Partial two-model development run only.** Weekly seasonal naïve and tuned Prophet; native SQL v2 is absent. This is not a three-model leaderboard, a 2025 evaluation, or capacity evidence. Incomplete cells remain in the expected denominator."
               ]
             }
           },
@@ -416,114 +367,9 @@
             "width": 12,
             "height": 8
           }
-        },
-        {
-          "widget": {
-            "name": "paired_score_note",
-            "multilineTextboxSpec": {
-              "lines": [
-                "Pooled WAPE = sum of absolute errors / sum of actual requests on the same 42 paired 2024 series-origin cells. Lower is better. This is development evidence only."
-              ]
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 13,
-            "width": 12,
-            "height": 2
-          }
-        },
-        {
-          "widget": {
-            "name": "paired_score_table",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "development_paired_scores",
-                  "fields": [
-                    {
-                      "name": "run_id",
-                      "expression": "`run_id`"
-                    },
-                    {
-                      "name": "run_status",
-                      "expression": "`run_status`"
-                    },
-                    {
-                      "name": "model_id",
-                      "expression": "`model_id`"
-                    },
-                    {
-                      "name": "paired_cells",
-                      "expression": "`paired_cells`"
-                    },
-                    {
-                      "name": "abs_error_sum",
-                      "expression": "`abs_error_sum`"
-                    },
-                    {
-                      "name": "actual_sum",
-                      "expression": "`actual_sum`"
-                    },
-                    {
-                      "name": "pooled_wape",
-                      "expression": "`pooled_wape`"
-                    }
-                  ],
-                  "disaggregated": true
-                }
-              }
-            ],
-            "spec": {
-              "version": 2,
-              "widgetType": "table",
-              "encodings": {
-                "columns": [
-                  {
-                    "fieldName": "run_id",
-                    "displayName": "Run ID"
-                  },
-                  {
-                    "fieldName": "run_status",
-                    "displayName": "Run status"
-                  },
-                  {
-                    "fieldName": "model_id",
-                    "displayName": "Model"
-                  },
-                  {
-                    "fieldName": "paired_cells",
-                    "displayName": "Paired 2024 cells"
-                  },
-                  {
-                    "fieldName": "abs_error_sum",
-                    "displayName": "Absolute error sum"
-                  },
-                  {
-                    "fieldName": "actual_sum",
-                    "displayName": "Actual sum"
-                  },
-                  {
-                    "fieldName": "pooled_wape",
-                    "displayName": "Pooled WAPE (lower is better)"
-                  }
-                ]
-              },
-              "frame": {
-                "showTitle": true,
-                "title": "2024 paired two-model scores (42 cells per model)"
-              }
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 15,
-            "width": 12,
-            "height": 7
-          }
         }
-      ]
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
     }
   ],
   "uiSettings": {

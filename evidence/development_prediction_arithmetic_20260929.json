@@ -1,0 +1,15 @@
+{
+  "status": "verified_two_model_development_prediction_arithmetic",
+  "run_id": "development-two-model-30862cc33ddc",
+  "verified_cells": 84,
+  "verified_predictions": 2352,
+  "measures": [
+    "abs_error_sum",
+    "actual_sum",
+    "signed_error_sum",
+    "interval_n",
+    "interval_hits",
+    "interval_width_sum",
+    "interval_score_sum"
+  ]
+}

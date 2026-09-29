@@ -1,0 +1,44 @@
+{
+  "status": "draft_verified_partial_two_model_development",
+  "dashboard_id": "01f1bc049aeb128d8436b7e841770d99",
+  "run_id": "development-two-model-30862cc33ddc",
+  "run_status": "partial_two_model_development_not_benchmark",
+  "dataset_query_id": "01f1bc1a-c27d-1b0c-a1fe-ea6952c1f799",
+  "dataset_rows": [
+    {
+      "origin": "2024-10-31",
+      "model_id": "prophet_tuned",
+      "expected_cells": 21,
+      "complete_cells": 21,
+      "incomplete_cells": 0
+    },
+    {
+      "origin": "2024-10-31",
+      "model_id": "snaive7",
+      "expected_cells": 21,
+      "complete_cells": 21,
+      "incomplete_cells": 0
+    },
+    {
+      "origin": "2024-11-30",
+      "model_id": "prophet_tuned",
+      "expected_cells": 21,
+      "complete_cells": 21,
+      "incomplete_cells": 0
+    },
+    {
+      "origin": "2024-11-30",
+      "model_id": "snaive7",
+      "expected_cells": 21,
+      "complete_cells": 21,
+      "incomplete_cells": 0
+    }
+  ],
+  "expected_cells": 84,
+  "complete_cells": 84,
+  "definition_sha256": "3ba6e1c2a5805fa3c1410e7aabce01776bee21010b4dc4017bf4920dd358290e",
+  "export_sha256": "2197484983599195aa0e9d8e8c3f163ad8d6a6449dd6a782c5c91b517d71cbd7",
+  "export_artifact": "evidence/development_diagnostics_export_20260929.lvdash.json",
+  "published": false,
+  "published_status_verified": true
+}
