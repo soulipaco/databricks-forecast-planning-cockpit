@@ -49,7 +49,10 @@ def run_v2_smoke(api, warehouse_id: str, *, timeout_seconds: int = 600) -> Forec
         response = api.get_statement(statement_id)
     if not response.status or response.status.state != StatementState.SUCCEEDED:
         state = response.status.state if response.status else "missing status"
-        raise RuntimeError(f"v2 smoke failed with state {state}; query ID {statement_id}")
+        error = response.status.error if response.status else None
+        code = error.error_code if error else "unknown"
+        message = error.message.split("Installation logs:", 1)[0].strip() if error and error.message else "no detail"
+        raise RuntimeError(f"v2 smoke failed with state {state}, code {code}: {message}; query ID {statement_id}")
     if not response.manifest or response.manifest.truncated:
         raise ValueError("Smoke result manifest absent or truncated")
     columns = response.manifest.schema.columns if response.manifest.schema else None

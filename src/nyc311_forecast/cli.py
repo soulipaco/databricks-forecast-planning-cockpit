@@ -35,6 +35,9 @@ def main(argv: list[str] | None = None) -> int:
     materialize.add_argument("--series-manifest", type=Path, required=True)
     materialize.add_argument("--snapshot-id", required=True)
     materialize.add_argument("--output-dir", type=Path, default=Path("data/silver"))
+    deploy = sub.add_parser("deploy-tables", help="Create contract-v1 Delta tables in a project schema")
+    deploy.add_argument("--config", type=Path, required=True)
+    deploy.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.command == "doctor":
         try:
@@ -110,6 +113,32 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         print(json.dumps({"status": "workspace_verified", "model_id": result.model_id, "query_id": result.lineage["query_id"], "forecast_rows": len(result.predictions), "wall_seconds": result.wall_seconds}, indent=2))
         return 0
+    if args.command == "deploy-tables":
+        try:
+            from databricks.sdk import WorkspaceClient
+            from databricks.sdk.errors import DatabricksError
+
+            from nyc311_forecast.platform.deploy import deploy_tables
+        except ImportError as exc:
+            print(f"Table deployment requires the platform extra: {exc}", file=sys.stderr)
+            return 2
+        try:
+            config = load_config(args.config)
+            if not config.workspace_host or not config.warehouse_id:
+                raise ValueError("workspace_host and warehouse_id are required")
+            if args.output.exists():
+                raise ValueError("Output evidence file already exists")
+            client = WorkspaceClient(profile=config.workspace_profile) if config.workspace_profile else WorkspaceClient()
+            if client.config.host.rstrip("/") != config.workspace_host.rstrip("/"):
+                raise ValueError("Authenticated workspace host differs from config")
+            results = deploy_tables(client.statement_execution, config, Path("sql/tables.sql"))
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
+        except (OSError, ValueError, TypeError, RuntimeError, DatabricksError) as exc:
+            print(f"Table deployment failed: {exc}", file=sys.stderr)
+            return 2
+        print(json.dumps({"tables_attempted": len(results), "tables_succeeded": sum(r["status"] == "StatementState.SUCCEEDED" for r in results), "evidence": str(args.output)}, indent=2))
+        return 0 if len(results) == 10 and all(r["status"] == "StatementState.SUCCEEDED" for r in results) else 1
     return 2
 
 

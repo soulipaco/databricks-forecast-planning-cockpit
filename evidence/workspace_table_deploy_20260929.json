@@ -1,0 +1,72 @@
+[
+  {
+    "table": "mlops_dev.nyc311_forecast.source_partitions",
+    "query_id": "01f1bbf5-5a30-17d7-91f1-54d41c16e5d9",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 4.905999999959022,
+    "checked_at_utc": "2026-09-29T11:03:12.078352+00:00"
+  },
+  {
+    "table": "mlops_dev.nyc311_forecast.daily_requests",
+    "query_id": "01f1bbf5-5cce-12e8-a73c-27b921fc1dc2",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 4.094000000040978,
+    "checked_at_utc": "2026-09-29T11:03:16.171252+00:00"
+  },
+  {
+    "table": "mlops_dev.nyc311_forecast.series_manifest",
+    "query_id": "01f1bbf5-5f3b-1a41-9544-5892d934ca8d",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.265000000130385,
+    "checked_at_utc": "2026-09-29T11:03:18.433481+00:00"
+  },
+  {
+    "table": "mlops_dev.nyc311_forecast.forecast_runs",
+    "query_id": "01f1bbf5-6091-18f9-9027-f2aa78170059",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.0469999997876585,
+    "checked_at_utc": "2026-09-29T11:03:20.482846+00:00"
+  },
+  {
+    "table": "mlops_dev.nyc311_forecast.forecast_attempts",
+    "query_id": "01f1bbf5-61ca-144e-a2ec-9d6c517c4602",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.155999999959022,
+    "checked_at_utc": "2026-09-29T11:03:22.632726+00:00"
+  },
+  {
+    "table": "mlops_dev.nyc311_forecast.forecast_values",
+    "query_id": "01f1bbf5-6312-1662-b753-cb0da9b2e8e1",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.1570000001229346,
+    "checked_at_utc": "2026-09-29T11:03:24.783156+00:00"
+  },
+  {
+    "table": "mlops_dev.nyc311_forecast.evaluation_cells",
+    "query_id": "01f1bbf5-645c-15f7-8712-e4da7edb1651",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.030999999959022,
+    "checked_at_utc": "2026-09-29T11:03:26.827351+00:00"
+  },
+  {
+    "table": "mlops_dev.nyc311_forecast.champion_policy",
+    "query_id": "01f1bbf5-6592-144f-9b8f-02cf418a0c91",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.155999999959022,
+    "checked_at_utc": "2026-09-29T11:03:28.984511+00:00"
+  },
+  {
+    "table": "mlops_dev.nyc311_forecast.capacity_assumptions",
+    "query_id": "01f1bbf5-66db-1734-ad9b-15e86023a12c",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.0470000002533197,
+    "checked_at_utc": "2026-09-29T11:03:31.023536+00:00"
+  },
+  {
+    "table": "mlops_dev.nyc311_forecast.release_claims",
+    "query_id": "01f1bbf5-6812-1e48-83ee-0db798fc075b",
+    "status": "StatementState.SUCCEEDED",
+    "wall_seconds": 2.0619999999180436,
+    "checked_at_utc": "2026-09-29T11:03:33.079429+00:00"
+  }
+]

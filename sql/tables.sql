@@ -1,5 +1,5 @@
 -- Contract v1 table definitions. Render {{catalog}} and {{schema}} from
--- validated identifiers. Unexecuted until authenticated workspace validation.
+-- validated identifiers. Deployed to the authenticated project schema on 2026-09-29.
 -- Logical uniqueness must be enforced by loaders/tests; Delta does not enforce it.
 
 CREATE TABLE IF NOT EXISTS {{catalog}}.{{schema}}.source_partitions (

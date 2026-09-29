@@ -8,8 +8,11 @@
 
 ## Workspace
 
-- Existing Databricks host appears in local CLI profiles. `databricks auth profiles` lists all saved profiles as `NO` for validity on this machine at this time. No authenticated workspace API call or SQL smoke test has succeeded.
-- Workspace cloud/edition, permitted catalog/schema, warehouse ID, preview enrollment, table creation, bundle and dashboard rights, source egress and runtime versions remain unverified.
+- The `nyc311` CLI profile authenticated to `<workspace-host>`. The existing serverless SQL warehouse `c3f37b7054223373` executed ordinary SQL successfully (`01f1bbf5-163e-1852-b191-b298959a9eb2`). The dedicated schema is `mlops_dev.nyc311_forecast`.
+- All ten contract v1 Delta tables were created and listed in the catalog. Their query IDs are in `evidence/workspace_table_deploy_20260929.json`. A managed `artifacts` volume was created in the same schema.
+- The development Silver JSONL was uploaded to the volume. A `read_files` query (`01f1bbf5-df47-1dd0-9f62-2513dd91bb0d`) parsed 30,681 rows, 5,088,270 requests and 40 zero-filled rows, equal to the local snapshot. A keyed Delta merge loaded `daily_requests`; both the first load and a repeat run had no missing, extra or changed rows. Query IDs and checks are in `evidence/workspace_silver_load_20260929.json` and `evidence/workspace_silver_reload_20260929.json`.
+- The pinned `ai_forecast` v2 SQL was accepted for execution but failed during runtime environment setup. The first attempt (`01f1bbf4-5e41-113f-9e16-3e59df808595`) and retry (`01f1bbf5-0528-1ec3-9706-3dc43987d4d9`) reported `[ISOLATION_ENVIRONMENT_USER_ERROR.NO_MATCHING_DISTRIBUTION]` for `onnxruntime==1.20.1`; installation logs show repeated `pypi.org` connection timeouts. This does not establish whether the preview is available after the dependency issue is resolved. No v2 result exists.
+- Bundle and AI/BI dashboard deployment rights remain unverified. No paid resource or schedule was created.
 - Credential values are intentionally absent from this report and source configuration.
 
 ## NYC source probe
@@ -21,4 +24,4 @@
 
 ## Next workspace action
 
-Run `databricks auth login --host <workspace-host> --profile nyc311` in a local terminal, then provide a permitted catalog/schema and SQL warehouse ID. Put `workspace_host`, `workspace_profile: nyc311`, `warehouse_id`, `catalog` and `schema` into the untracked `conf/local.yaml` based on `conf/smoke.yaml`; the smoke command is `uv run nyc311 smoke --config conf/local.yaml`. Do not enable schedules or paid resources for this check.
+Resolve or diagnose the workspace runtime's access to the pinned `ai_forecast` v2 dependency, then rerun `uv run nyc311 smoke --config conf/local.yaml`. The local `conf/local.yaml` is ignored by Git and contains no credentials. Keep the 2025 holdout untouched until the protocol is frozen.

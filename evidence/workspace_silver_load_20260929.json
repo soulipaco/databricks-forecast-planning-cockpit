@@ -1,0 +1,17 @@
+{
+  "status": "verified",
+  "snapshot_id": "development-silver-20260929",
+  "payload_sha256": "31c0f35672c43dac090063318eaec8e7741d9da85b27ba5b926fcc14f4097eef",
+  "table": "mlops_dev.nyc311_forecast.daily_requests",
+  "volume_file": "/Volumes/mlops_dev/nyc311_forecast/artifacts/development-silver-20260929/daily_requests.jsonl",
+  "preflight_query_id": "01f1bbf6-2fdc-1114-9ffe-b82912c19f6e",
+  "merge_query_id": "01f1bbf6-31f7-12e2-8f27-b09e981673d6",
+  "postload_query_id": "01f1bbf6-34ca-1693-9ec8-961b56cb4682",
+  "source_rows": 30681,
+  "persisted_rows": 30681,
+  "persisted_requests": 5088270,
+  "persisted_zero_filled": 40,
+  "missing_keys": 0,
+  "extra_keys": 0,
+  "changed_rows": 0
+}
