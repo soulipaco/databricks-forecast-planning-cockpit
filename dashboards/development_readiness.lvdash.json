@@ -10,6 +10,18 @@
         "WHERE snapshot_id = 'development-silver-20260929' ",
         "GROUP BY borough, problem_family ORDER BY requests DESC"
       ]
+    },
+    {
+      "name": "data_quality",
+      "displayName": "Reconciled source and selected-series quality",
+      "queryLines": [
+        "SELECT snapshot_id, data_kind, expected_partitions, observed_partitions, ",
+        "reconciled_partitions, request_count, series_days, zero_filled_days ",
+        "FROM v_data_quality ",
+        "WHERE snapshot_id IN ('selection-2021-2023-20260929', ",
+        "'development-2024-20260929', 'development-silver-20260929') ",
+        "ORDER BY snapshot_id, data_kind"
+      ]
     }
   ],
   "pages": [
@@ -33,7 +45,8 @@
             "multilineTextboxSpec": {
               "lines": [
                 "**Development data only.** This draft contains no three-model benchmark, ",
-                "no 2025 evaluation results, and no operational staffing recommendation."
+                "no 2025 evaluation results, and no operational staffing recommendation. ",
+                "The quality table separates source partitions from selected-series Silver."
               ]
             }
           },
@@ -74,6 +87,48 @@
             }
           },
           "position": {"x": 0, "y": 4, "width": 12, "height": 8}
+        },
+        {
+          "widget": {
+            "name": "data_quality_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "data_quality",
+                  "fields": [
+                    {"name": "snapshot_id", "expression": "`snapshot_id`"},
+                    {"name": "data_kind", "expression": "`data_kind`"},
+                    {"name": "expected_partitions", "expression": "`expected_partitions`"},
+                    {"name": "observed_partitions", "expression": "`observed_partitions`"},
+                    {"name": "reconciled_partitions", "expression": "`reconciled_partitions`"},
+                    {"name": "request_count", "expression": "`request_count`"},
+                    {"name": "series_days", "expression": "`series_days`"},
+                    {"name": "zero_filled_days", "expression": "`zero_filled_days`"}
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {"fieldName": "snapshot_id", "displayName": "Snapshot"},
+                  {"fieldName": "data_kind", "displayName": "Population"},
+                  {"fieldName": "expected_partitions", "displayName": "Expected partitions"},
+                  {"fieldName": "observed_partitions", "displayName": "Observed partitions"},
+                  {"fieldName": "reconciled_partitions", "displayName": "Reconciled partitions"},
+                  {"fieldName": "request_count", "displayName": "Requests"},
+                  {"fieldName": "series_days", "displayName": "Series days"},
+                  {"fieldName": "zero_filled_days", "displayName": "Zero-filled days"}
+                ]
+              },
+              "frame": {"showTitle": true, "title": "Source and selected-series quality"}
+            }
+          },
+          "position": {"x": 0, "y": 12, "width": 12, "height": 7}
         }
       ]
     }

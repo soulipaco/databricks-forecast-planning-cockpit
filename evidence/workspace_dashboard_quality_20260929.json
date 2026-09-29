@@ -1,0 +1,56 @@
+{
+  "status": "draft_verified",
+  "dashboard_id": "01f1bc049aeb128d8436b7e841770d99",
+  "warehouse_id": "c3f37b7054223373",
+  "catalog": "mlops_dev",
+  "schema": "nyc311_forecast",
+  "definition_sha256": "34cc84f5ddd1cbf05e4eb56826f5d8acf90b277e6cfa57f1c90826a87d8aaeff",
+  "dataset_preflight_query_id": "01f1bc10-d272-1190-8a8f-e072a3cdcc29",
+  "data_quality_preflight_query_id": "01f1bc10-d342-1d70-a138-19b8c561c74d",
+  "dataset_rows": 21,
+  "dataset_requests": 5088270,
+  "dataset_zero_filled_days": 40,
+  "data_quality_rows": 3,
+  "data_quality_populations": [
+    {
+      "snapshot_id": "development-2024-20260929",
+      "data_kind": "source_partitions",
+      "values": [
+        12,
+        12,
+        12,
+        3456769,
+        null,
+        null
+      ]
+    },
+    {
+      "snapshot_id": "development-silver-20260929",
+      "data_kind": "selected_series_silver",
+      "values": [
+        null,
+        null,
+        null,
+        5088270,
+        30681,
+        40
+      ]
+    },
+    {
+      "snapshot_id": "selection-2021-2023-20260929",
+      "data_kind": "source_partitions",
+      "values": [
+        36,
+        36,
+        36,
+        9615565,
+        null,
+        null
+      ]
+    }
+  ],
+  "published": false,
+  "export_sha256": "0c241baa8fc958ab678e2aef06838187009b8e6b0407a0576500e3ec884d07be",
+  "export_artifact": "evidence/development_readiness_quality_export_20260929.lvdash.json",
+  "published_status_verified": true
+}

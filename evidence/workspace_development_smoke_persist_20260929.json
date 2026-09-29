@@ -1,0 +1,60 @@
+{
+  "status": "verified_smoke_only_not_benchmark",
+  "run_id": "development-slice-3986bbd7d742",
+  "stage_id": "development-smoke-20260929",
+  "source_sha256": "4b8fa099a4eea8c708eaef576bac4d782cf3f818668ff5d237ca619109cdb479",
+  "results": [
+    {
+      "table": "mlops_dev.nyc311_forecast.forecast_runs",
+      "expected_rows": 1,
+      "persisted_rows": 1,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc10-e205-19bc-8830-d0ed42a8a565",
+        "duplicates": "01f1bc10-e3e8-11d8-9650-7ced23fcbf65",
+        "merge": "01f1bc10-e4d0-11d3-87df-d981b8db6392",
+        "readback": "01f1bc10-e83a-1452-953c-3ed3f5d24924"
+      }
+    },
+    {
+      "table": "mlops_dev.nyc311_forecast.forecast_attempts",
+      "expected_rows": 12,
+      "persisted_rows": 12,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc10-ea59-1866-9d71-27d30c0474f9",
+        "duplicates": "01f1bc10-eb2c-1f44-863b-8b3cea440155",
+        "merge": "01f1bc10-ebf8-1f8a-9f0c-2c3cf885c5d1",
+        "readback": "01f1bc10-edc4-195a-a9e0-5765eae2b515"
+      }
+    },
+    {
+      "table": "mlops_dev.nyc311_forecast.forecast_values",
+      "expected_rows": 336,
+      "persisted_rows": 336,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc10-ef7e-10b2-825f-13d9ac9f348f",
+        "duplicates": "01f1bc10-f052-11b1-ab0a-8755db2db814",
+        "merge": "01f1bc10-f11f-1d65-a8cb-0ff2a9105310",
+        "readback": "01f1bc10-f30e-167c-9e63-d2f30bed82e5"
+      }
+    },
+    {
+      "table": "mlops_dev.nyc311_forecast.evaluation_cells",
+      "expected_rows": 12,
+      "persisted_rows": 12,
+      "missing_rows": 0,
+      "extra_rows": 0,
+      "query_ids": {
+        "preflight": "01f1bc10-f497-1731-af63-f13a080842df",
+        "duplicates": "01f1bc10-f55e-15c8-a13f-d0307137a5a6",
+        "merge": "01f1bc10-f69d-17aa-b08c-bca56d40b338",
+        "readback": "01f1bc10-f889-1833-b4e6-088abf82f9ba"
+      }
+    }
+  ]
+}
