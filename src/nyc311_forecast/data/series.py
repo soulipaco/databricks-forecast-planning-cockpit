@@ -18,12 +18,15 @@ def normalize(rows: list[dict], aliases: dict[str, str] | None = None):
     excluded = Counter()
     for row in rows:
         day = date.fromisoformat(row["request_date"][:10])
-        borough = row["borough"].strip().upper()
-        original = row["complaint_type"]
+        borough = (row.get("borough") or "").strip().upper()
+        original = row.get("complaint_type")
         family = aliases.get(original, original)
         amount = parse_count(row["request_count"])
+        if original is None or not str(original).strip():
+            excluded["<MISSING_COMPLAINT_TYPE>"] += amount
+            continue
         if borough not in BOROUGHS:
-            excluded[borough] += amount
+            excluded[borough or "<MISSING_BOROUGH>"] += amount
             continue
         counts[(borough, family, day)] += amount
     return counts, excluded

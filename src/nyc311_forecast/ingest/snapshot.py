@@ -50,11 +50,11 @@ def validate_rows(rows: list[dict], start: date, end: date) -> int:
     for row in rows:
         try:
             day = date.fromisoformat(row["request_date"][:10])
-            borough = row["borough"]
-            complaint = row["complaint_type"]
+            borough = row.get("borough")
+            complaint = row.get("complaint_type")
         except (KeyError, TypeError, ValueError) as exc:
             raise SourceError("aggregate key invalid") from exc
-        if not start <= day < end or not isinstance(borough, str) or not isinstance(complaint, str):
+        if not start <= day < end or not isinstance(borough, (str, type(None))) or not isinstance(complaint, (str, type(None))):
             raise SourceError("aggregate key outside partition or non-text")
         key = (day.isoformat(), borough, complaint)
         # Socrata text collation does not match Python's lexicographic order.

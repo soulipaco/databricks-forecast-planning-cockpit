@@ -22,6 +22,7 @@ class Config:
     max_retries: int = 2
     task_timeout_seconds: int = 1800
     workspace_host: str | None = None
+    workspace_profile: str | None = None
     warehouse_id: str | None = None
     catalog: str | None = None
     schema: str | None = None
@@ -44,6 +45,8 @@ class Config:
                 raise ValueError(f"Invalid SQL identifier for {name}")
         if self.workspace_host and not self.workspace_host.startswith("https://"):
             raise ValueError("workspace_host must use HTTPS")
+        if self.workspace_profile and not IDENTIFIER.fullmatch(self.workspace_profile):
+            raise ValueError("Invalid workspace_profile")
 
 
 def load_config(path: str | Path) -> Config:

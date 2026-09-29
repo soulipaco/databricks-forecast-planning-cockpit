@@ -13,6 +13,9 @@ def coverage_report(
     models: Iterable[str],
     forecasts: Iterable[Mapping[str, object]],
 ) -> dict:
+    series_ids = tuple(series_ids)
+    origins = tuple(origins)
+    models = tuple(models)
     expected = {(model, origin, series) for model in models for origin in origins for series in series_ids}
     if not expected:
         raise ValueError("Expected grid is empty")

@@ -1,0 +1,17 @@
+{
+  "daily_payload_hash": "31c0f35672c43dac090063318eaec8e7741d9da85b27ba5b926fcc14f4097eef",
+  "development_source_hash": "8095d1f296d152835f6920ee718dc517a9f46649312f9ae6529cc2e6136ebda4",
+  "development_source_id": "development-2024-20260929",
+  "excluded_request_counts": {
+    "<MISSING_BOROUGH>": 6962,
+    "UNSPECIFIED": 21107
+  },
+  "mapping_version": "exact-complaint-type-v1",
+  "row_count": 30681,
+  "selection_source_hash": "f22810dccdb2d3d71771914d639c72589528fdb6169753f5720cbce38508fb1d",
+  "selection_source_id": "selection-2021-2023-20260929",
+  "series_manifest_hash": "6a859a26fa3092f357e2757f6978a76061cd887ae9d5468b3df8e368a75e57b0",
+  "snapshot_id": "development-silver-20260929",
+  "status": "complete",
+  "zero_filled_rows": 40
+}

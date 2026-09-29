@@ -15,6 +15,16 @@ def test_unknown_borough_is_quarantined_and_alias_is_explicit():
     assert excluded["UNSPECIFIED"] == 7
 
 
+def test_missing_borough_and_complaint_are_quarantined():
+    counts, excluded = normalize([
+        {"request_date": "2021-01-01", "complaint_type": "Dirty Conditions", "request_count": "2"},
+        {"request_date": "2021-01-01", "borough": "BRONX", "request_count": "3"},
+    ])
+    assert not counts
+    assert excluded["<MISSING_BOROUGH>"] == 2
+    assert excluded["<MISSING_COMPLAINT_TYPE>"] == 3
+
+
 def test_incomplete_partition_stays_null():
     selected = [{"selected": True, "series_id": "BRONX|A", "borough": "BRONX", "problem_family": "A"}]
     rows = daily_spine(Counter(), selected, date(2023, 1, 31), date(2023, 2, 2), {"2023-01"})

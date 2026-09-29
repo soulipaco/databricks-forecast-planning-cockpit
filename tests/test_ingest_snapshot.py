@@ -6,7 +6,12 @@ from urllib.error import HTTPError
 import pytest
 
 from nyc311_forecast.ingest.client import SocrataClient, SourceError
-from nyc311_forecast.ingest.snapshot import extract_partition, extract_snapshot
+from nyc311_forecast.ingest.snapshot import extract_partition, extract_snapshot, validate_rows
+
+
+def test_null_group_key_kept_for_source_reconciliation():
+    rows = [{"request_date": "2021-01-01T00:00:00.000", "complaint_type": "Dirty Conditions", "request_count": "2"}]
+    assert validate_rows(rows, date(2021, 1, 1), date(2021, 2, 1)) == 2
 
 
 class FakeClient(SocrataClient):

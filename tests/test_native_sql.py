@@ -1,8 +1,8 @@
-from datetime import date
+from datetime import date, timedelta
 
 import pytest
 
-from nyc311_forecast.platform.native_sql import forecast_sql
+from nyc311_forecast.platform.native_sql import forecast_sql, normalize_native_rows
 
 
 def test_native_sql_bounds_version_and_escaping():
@@ -19,3 +19,16 @@ def test_native_sql_bounds_version_and_escaping():
 def test_native_sql_rejects_identifier_injection():
     with pytest.raises(ValueError):
         forecast_sql(catalog="main;drop", schema="x", snapshot_id="s", series_id="s", origin=date(2024, 1, 31))
+
+
+def test_native_result_requires_full_grid_and_keeps_query_lineage():
+    origin = date(2024, 12, 31)
+    rows = [
+        {"ds": origin + timedelta(days=i), "y_forecast": 2.0, "y_lower": 1.0, "y_upper": 3.0}
+        for i in range(1, 29)
+    ]
+    result = normalize_native_rows(rows, series_id="BRONX|A", origin=origin, query_id="q")
+    assert result.lineage["query_id"] == "q"
+    assert len(result.predictions) == 28
+    with pytest.raises(ValueError):
+        normalize_native_rows(rows[:-1], series_id="BRONX|A", origin=origin)

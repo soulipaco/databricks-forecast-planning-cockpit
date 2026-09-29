@@ -7,7 +7,10 @@ Execution and result publication must be supplied by a workspace adapter.
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable, Mapping
 from datetime import date, timedelta
+
+from nyc311_forecast.models.contracts import ForecastResult, publish_prediction
 
 IDENTIFIER = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
@@ -42,3 +45,33 @@ FROM ai_forecast(
   positive_only => true,
   version => '2'
 )"""
+
+
+def normalize_native_rows(
+    rows: Iterable[Mapping[str, object]],
+    *,
+    series_id: str,
+    origin: date,
+    query_id: str | None = None,
+    wall_seconds: float | None = None,
+) -> ForecastResult:
+    """Validate observed v2 result columns; never fill absent forecasts."""
+    parsed = []
+    for row in rows:
+        day = row["ds"]
+        if isinstance(day, str):
+            day = date.fromisoformat(day)
+        if not isinstance(day, date):
+            raise TypeError("Native forecast date must be a civil date")
+        lead = (day - origin).days
+        parsed.append(
+            publish_prediction(
+                day, lead, row["y_forecast"], raw_lower=row["y_lower"],
+                raw_upper=row["y_upper"], interval_level=0.8,
+            )
+        )
+    return ForecastResult(
+        model_id="ai_forecast_v2", series_id=series_id, origin=origin,
+        predictions=tuple(sorted(parsed, key=lambda value: value.ds)),
+        wall_seconds=wall_seconds, lineage={"query_id": query_id, "version": "2"},
+    )

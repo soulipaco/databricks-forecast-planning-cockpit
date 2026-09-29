@@ -11,7 +11,7 @@ def test_missing_and_fallback_rows_remain_visible_in_pairing():
         for i in range(1, 29)
     ]
     rows.append({"model_id": "prophet_tuned", "origin": origin, "series_id": "s", "ds": origin + timedelta(days=1), "prediction": 1.0, "is_fallback": True})
-    result = coverage_report(["s"], [origin], ["snaive7", "prophet_tuned", "ai_forecast_v2"], rows)
+    result = coverage_report(iter(["s"]), iter([origin]), iter(["snaive7", "prophet_tuned", "ai_forecast_v2"]), rows)
     assert result["paired_cells"] == 0
     assert result["per_model"]["prophet_tuned"] == {"expected": 1, "complete": 0}
     assert not result["unrestricted_comparison"]
