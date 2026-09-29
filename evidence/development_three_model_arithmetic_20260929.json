@@ -1,0 +1,16 @@
+{
+  "status": "verified_three_model_development_not_benchmark_prediction_arithmetic",
+  "actuals_checked_against_silver": true,
+  "run_id": "development-three-model-c2a4366752d2",
+  "verified_cells": 126,
+  "verified_predictions": 3528,
+  "measures": [
+    "abs_error_sum",
+    "actual_sum",
+    "signed_error_sum",
+    "interval_n",
+    "interval_hits",
+    "interval_width_sum",
+    "interval_score_sum"
+  ]
+}

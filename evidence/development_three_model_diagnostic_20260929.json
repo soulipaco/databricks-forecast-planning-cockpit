@@ -1,0 +1,186 @@
+{
+  "champion_counts": {
+    "ai_forecast_v2": 21,
+    "none": 0,
+    "prophet_tuned": 0,
+    "snaive7": 0
+  },
+  "development_champions": [
+    {
+      "development_wape": 0.10308486216746537,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BRONX|Illegal Parking"
+    },
+    {
+      "development_wape": 0.11145979968942271,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BROOKLYN|Illegal Parking"
+    },
+    {
+      "development_wape": 0.18400830802751933,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "MANHATTAN|Illegal Parking"
+    },
+    {
+      "development_wape": 0.07498452722000595,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "QUEENS|Illegal Parking"
+    },
+    {
+      "development_wape": 0.17907445644850342,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "STATEN ISLAND|Illegal Parking"
+    },
+    {
+      "development_wape": 0.6840421184317471,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BRONX|Noise - Residential"
+    },
+    {
+      "development_wape": 0.10084142745478918,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BROOKLYN|Noise - Residential"
+    },
+    {
+      "development_wape": 0.1200229337745846,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "MANHATTAN|Noise - Residential"
+    },
+    {
+      "development_wape": 0.15830607231734242,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "QUEENS|Noise - Residential"
+    },
+    {
+      "development_wape": 0.4342104240730613,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BRONX|HEAT/HOT WATER"
+    },
+    {
+      "development_wape": 0.4367465695766867,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BROOKLYN|HEAT/HOT WATER"
+    },
+    {
+      "development_wape": 0.44185043442821653,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "MANHATTAN|HEAT/HOT WATER"
+    },
+    {
+      "development_wape": 0.44129532578780895,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "QUEENS|HEAT/HOT WATER"
+    },
+    {
+      "development_wape": 0.41835714214377934,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BRONX|Noise - Street/Sidewalk"
+    },
+    {
+      "development_wape": 0.30219502449035646,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BROOKLYN|Noise - Street/Sidewalk"
+    },
+    {
+      "development_wape": 0.3040196254310702,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "MANHATTAN|Noise - Street/Sidewalk"
+    },
+    {
+      "development_wape": 0.40953916864777357,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "QUEENS|Noise - Street/Sidewalk"
+    },
+    {
+      "development_wape": 0.18376403369040156,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BRONX|UNSANITARY CONDITION"
+    },
+    {
+      "development_wape": 0.2362925597519023,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "BROOKLYN|UNSANITARY CONDITION"
+    },
+    {
+      "development_wape": 0.19215643100064936,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "MANHATTAN|UNSANITARY CONDITION"
+    },
+    {
+      "development_wape": 0.22481660457148187,
+      "model_id": "ai_forecast_v2",
+      "reason": "within_tolerance_then_simplicity",
+      "series_id": "QUEENS|UNSANITARY CONDITION"
+    }
+  ],
+  "expected_series_origin_pairs": 42,
+  "limitation": "Two 2024 development origins only; the 2025 evaluation is unopened. Native v2 ran in a trial workspace, Prophet and naive locally.",
+  "models": {
+    "ai_forecast_v2": {
+      "complete_cells": 42,
+      "interval_coverage": 0.7729591836734694,
+      "interval_hits": 909,
+      "interval_n": 1176,
+      "paired_abs_error_sum": 85807.93912506104,
+      "paired_actual_sum": 267428.0,
+      "paired_pooled_wape": 0.3208637058388091,
+      "paired_signed_bias": -0.20126142749603507,
+      "paired_signed_error_sum": -53822.94103240967,
+      "series_macro_median_wape": 0.22481660457148187
+    },
+    "prophet_tuned": {
+      "complete_cells": 42,
+      "interval_coverage": 0.7278911564625851,
+      "interval_hits": 856,
+      "interval_n": 1176,
+      "paired_abs_error_sum": 97287.10742965783,
+      "paired_actual_sum": 267428.0,
+      "paired_pooled_wape": 0.3637880380126906,
+      "paired_signed_bias": -0.11463560994207875,
+      "paired_signed_error_sum": -30656.771895590235,
+      "series_macro_median_wape": 0.24171881174461163
+    },
+    "snaive7": {
+      "complete_cells": 42,
+      "interval_coverage": null,
+      "interval_hits": 0,
+      "interval_n": 0,
+      "paired_abs_error_sum": 121960.0,
+      "paired_actual_sum": 267428.0,
+      "paired_pooled_wape": 0.4560479830085107,
+      "paired_signed_bias": -0.04083342058423202,
+      "paired_signed_error_sum": -10920.0,
+      "series_macro_median_wape": 0.3165155695703587
+    }
+  },
+  "paired_series_origin_pairs": 42,
+  "practically_competitive_rule_on_development": {
+    "abs_bias_gap_pp": 8.662581755395632,
+    "meets_illustrative_rule": false,
+    "native_cell_coverage": 1.0,
+    "pooled_wape_relative_to_prophet": -0.11799269818867475,
+    "primary_wape_relative_to_prophet": -0.06992507968716899
+  },
+  "run_id": "development-three-model-c2a4366752d2",
+  "status": "three_model_2024_development_diagnostic_only"
+}

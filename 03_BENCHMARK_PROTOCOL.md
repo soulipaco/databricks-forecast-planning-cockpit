@@ -114,3 +114,15 @@ Calendar enrichment: one separately versioned experiment with the same future-kn
 Weather: excluded from v1. Prophet regressors require future values, so historical-only weather is not automatically an equivalent input across approaches. Future weather experiments need archived forecasts available at each origin, or an explicit oracle label. Never give observed future weather to the headline benchmark.
 
 An 84-day horizon, 2018–2020 regime stress test, interval calibration and alternative training windows each require a separately identified protocol. Do not multiply experiments until an appealing story appears.
+
+## Registered deviations before freeze
+
+Recorded on 2026-09-29, after the 2024 development runs and before any 2025 data was retrieved.
+
+| ID | Deviation | Reason | Evidence |
+|---|---|---|---|
+| D1 | Native v2 runs in a non-Free-Edition Databricks trial workspace; naïve and Prophet run locally. Both read the same Silver payload (SHA-256 `31c0f356…`), verified by exact Delta readback in each workspace. | Free Edition cannot enable networking for isolated SQL workloads, which v2's managed runtime needs. | `docs/adr/native_v2_runtime_blocker.md`, `evidence/trial/workspace_silver_load_20260929.json` |
+| D2 | v2 `horizon` is `origin + 28 days`, not `origin + 29`. The adapter still requires exactly leads 1–28 and fails on any other row count. | v2 returned the horizon date despite the documented right-exclusive boundary. | `docs/adr/native_v2_horizon.md` |
+| D3 | Each native query text carries a unique run/series/origin comment, and query-history metadata must show `result_from_cache = false`. | Protocol forbids comparing cached SQL retrieval with fresh fits. | `evidence/development_native_v2_full_20260929.json` (`queries_from_cache: 0`) |
+
+The development results were inspected before this registration. None of D1–D3 changes a model setting, metric, series or tuning choice.

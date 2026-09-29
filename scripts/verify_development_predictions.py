@@ -8,17 +8,33 @@ import math
 from collections import defaultdict
 from pathlib import Path
 
+EXPECTED_CELLS = {
+    "partial_two_model_development_not_benchmark": 84,
+    "three_model_development_not_benchmark": 126,
+}
+SILVER = Path(__file__).resolve().parents[1] / (
+    "data/silver/development-silver-20260929/daily_requests.jsonl"
+)
 
-def verify(source: dict) -> dict:
-    if source.get("status") != "partial_two_model_development_not_benchmark":
-        raise ValueError("Expected two-model 2024 development output")
-    if source.get("expected_cells") != 84 or source.get("complete_cells") != 84:
+
+def verify(source: dict, silver_path: Path = SILVER) -> dict:
+    expected = EXPECTED_CELLS.get(source.get("status"))
+    if expected is None:
+        raise ValueError("Expected a labeled 2024 development output")
+    if source.get("expected_cells") != expected or source.get("complete_cells") != expected:
         raise ValueError("Full development grid is required")
     grouped = defaultdict(list)
     for row in source["forecast_values"]:
         grouped[(row["origin"], row["series_id"], row["model_id"])].append(row)
-    if len(grouped) != 84 or sum(map(len, grouped.values())) != 2352:
+    if len(grouped) != expected or sum(map(len, grouped.values())) != expected * 28:
         raise ValueError("Prediction population differs from expected grid")
+    silver = {}
+    with silver_path.open(encoding="utf-8") as stream:
+        for line in stream:
+            item = json.loads(line)
+            silver[(item["series_id"], item["ds"])] = item["y"]
+    if any(row["actual"] != silver[(row["series_id"], row["ds"])] for row in source["forecast_values"]):
+        raise ValueError("Stored actuals differ from the committed Silver payload")
     seen = set()
     for cell in source["evaluation_cells"]:
         key = (cell["origin"], cell["series_id"], cell["model_id"])
@@ -64,7 +80,8 @@ def verify(source: dict) -> dict:
     if seen != set(grouped):
         raise ValueError("Prediction and evaluation populations differ")
     return {
-        "status": "verified_two_model_development_prediction_arithmetic",
+        "status": f"verified_{source['status']}_prediction_arithmetic",
+        "actuals_checked_against_silver": True,
         "run_id": source["run_id"],
         "verified_cells": len(seen),
         "verified_predictions": sum(len(rows) for rows in grouped.values()),
