@@ -84,7 +84,7 @@ Use small fixtures for edge cases. Keep network and cloud tests explicitly marke
 | `evidence/claims.csv` | Claim ID, wording, evidence reference, reviewer and status |
 | `evidence/validation_report.md` | Checks, commands, actual outcomes and blocked tests |
 | `evidence/data_card.md` | Source, retrieval, aggregation, selection and limitations |
-| `portfolio/` | Final charts, editable sources, captions, alt text and demo script |
+| `portfolio/` | Final charts and the scripts that generate them. Captions and alt text for launch posts live with the external campaign and must cite `evidence/claims.csv`. |
 
 Store full predictions and data externally/Delta if too large for Git; provide hashes and regeneration commands. A small derived aggregate dataset may be included when reuse terms permit. Make the distinction explicit.
 

@@ -56,7 +56,7 @@ When showing totals, sum point forecasts only. Do not sum lower/upper bounds as 
 
 ## Layout and visuals
 
-Use a light background, dark text and generous white space. Keep actuals charcoal, seasonal naïve grey, Prophet blue and native SQL orange consistently across dashboard and posts. Use labels and line styles alongside color. Every figure needs units, date range, model labels, evidence run ID and a short takeaway. A practical result chart should be the focal point; stack logos and architectural decoration are secondary.
+Use a light background, dark text and generous white space. Keep actuals charcoal, seasonal naïve orange, Prophet green and native SQL (`ai_forecast` v2) blue consistently across the dashboard and the repository figures. Use labels and line styles alongside color. Every figure needs units, date range, model labels, evidence run ID and a short takeaway. A practical result chart should be the focal point; stack logos and architectural decoration are secondary.
 
 The public result card should survive viewing at approximately 360 px wide. Limit it to one main comparison and one limitation; move detail to the next slide or README. No generated images for numerical charts.
 

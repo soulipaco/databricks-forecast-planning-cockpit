@@ -40,7 +40,7 @@ A small real aggregate query against the current NYC endpoint returned HTTP 200 
 | Aggregate-first ingestion | Avoid unnecessary raw volume and irrelevant sensitive fields |
 | Static public evidence plus native dashboard | Removes audience login dependency without building another app |
 | 35–50-hour effort allowance | Estimate including communication and audit, not measured effort |
-| Launch targets | Stretch goals based on owner baseline, not predicted outcomes |
+| Launch targets | Managed outside this repository; no reach or engagement figure is a project claim |
 
 ## Claims corrected from the initial discussion
 

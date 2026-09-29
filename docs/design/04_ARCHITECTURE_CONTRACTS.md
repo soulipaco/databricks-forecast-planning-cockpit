@@ -13,7 +13,7 @@ flowchart TD
   E --> G
   F --> G
   G --> H["AI/BI planning dashboard"]
-  G --> I["Public evidence and launch assets"]
+  G --> I["Public evidence and figures"]
 ```
 
 Shared work: ingest, validate, prepare, schedule, score, monitor and explain. Model-specific work: fit/tune or invoke managed inference. Measure these separately so the comparison cannot attribute the shared pipeline only to Prophet.
@@ -38,7 +38,7 @@ Keep the planning Markdown at root for this implementation. Add:
 | `scripts/` | Thin job entry points and local command wrappers |
 | `tests/` | Unit, contract and opt-in workspace integration tests |
 | `evidence/` | Small release tables, checksums, manifests and charts |
-| `portfolio/` | Posts, carousel source, demo script and analytics log |
+| `portfolio/` | Figures generated from stored results, and their scripts. Launch copy and campaign material are kept outside this repository. |
 | `docs/adr/` | Decisions and protocol amendments |
 | `.github/workflows/` | Local checks; optional authorized deployment workflow |
 

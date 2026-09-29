@@ -27,7 +27,7 @@ All four are hypotheses. The release remains valuable if native SQL loses or pro
 | Planning product | Native AI/BI dashboard reading materialized tables; labelled capacity illustration |
 | Deployment as code | Bundle jobs, SQL, dashboard definition, configuration and supported permissions |
 | External evidence | Public README, score tables, methodology, real charts and short demo |
-| Communication campaign | Evidence-led posts, visual briefs, measurement sheet and follow-up decision rules |
+| Communication campaign | Run outside this repository in the owner's publication workflow; this repository supplies the evidence, claims ledger and figures it cites |
 
 ## Scope cuts
 
