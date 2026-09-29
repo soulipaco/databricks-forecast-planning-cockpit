@@ -1,6 +1,6 @@
 # Evidence workspace
 
-This directory contains a verified local [data card](data_card.md) and release templates. No three-model benchmark result is recorded. A `development_smoke.json` file, when present, is a three-series adapter integration check with fixed, untuned Prophet settings; it is excluded from benchmark claims. Do not interpret an empty CSV as a zero result or a passed gate.
+This directory contains a verified local [data card](data_card.md), workspace validation records and release templates. No three-model benchmark result is recorded. `development_smoke.json` and `development_slice_20260929.json` are adapter integration checks with fixed, untuned Prophet settings; both are excluded from benchmark claims. The latter covers the two registered 2024 development origins for three series and stores all local forecast rows, scores and attempts. Do not interpret an empty CSV as a zero result or a passed gate.
 
 For a release, trace each public claim through `claim → chart/table cell → metric calculation → prediction rows → run manifest → code/config/protocol → source snapshot`. The required artifacts and gates are defined in [08_EVIDENCE_RELEASE.md](../08_EVIDENCE_RELEASE.md). Only publish result assets after the release run and independent review have been completed.
 
