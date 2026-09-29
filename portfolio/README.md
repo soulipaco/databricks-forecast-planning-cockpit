@@ -4,6 +4,7 @@ All figures are drawn from stored results only; none is edited by hand.
 
 | Figure | Shows | Script |
 |---|---|---|
+| [`readme_banner.png`](readme_banner.png) | README banner and GitHub social preview (1280 × 640): headline, three score cards, fact chips | `build_readme_banner.py` (needs Chrome or Edge) |
 | [`hero_forecasts.png`](hero_forecasts.png) | Actuals and all three 28-day forecasts, with the v2 80% interval, for the protocol-selected featured series at the final origin | `build_readme_figures.py` |
 | [`scoreboard.png`](scoreboard.png) | Median series WAPE and signed bias, in two separate panels | `build_readme_figures.py` |
 | [`bias_by_origin.png`](bias_by_origin.png) | Pooled signed bias at each of the 12 origins | `build_readme_figures.py` |
