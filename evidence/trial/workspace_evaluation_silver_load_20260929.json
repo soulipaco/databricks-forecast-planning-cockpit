@@ -1,0 +1,17 @@
+{
+  "status": "verified",
+  "snapshot_id": "evaluation-silver-20260929",
+  "payload_sha256": "1c59885b2db584c0d3372793039889e36f7bf94d7d02b50dbcbe0459108e575e",
+  "table": "workspace.nyc311_forecast.daily_requests",
+  "volume_file": "/Volumes/workspace/nyc311_forecast/artifacts/evaluation-silver-20260929/daily_requests.jsonl",
+  "preflight_query_id": "01f1bc34-63b3-1930-896c-45ba775bd806",
+  "merge_query_id": "01f1bc34-6ba1-1c08-9c17-4efae9665728",
+  "postload_query_id": "01f1bc34-7332-1d0b-a412-8ebdf27e33b3",
+  "source_rows": 38346,
+  "persisted_rows": 38346,
+  "persisted_requests": 6717340,
+  "persisted_zero_filled": 40,
+  "missing_keys": 0,
+  "extra_keys": 0,
+  "changed_rows": 0
+}
