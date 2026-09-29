@@ -1,0 +1,8 @@
+{
+  "ready": false,
+  "blockers": [
+    "development run lacks candidate(s) ai_forecast_v2; a two-model run cannot freeze the three-model protocol",
+    "development grid has 84/126 complete three-model cells"
+  ],
+  "n_series": 21
+}

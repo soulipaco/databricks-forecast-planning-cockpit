@@ -1,0 +1,36 @@
+{
+  "status": "workspace_verified_development_jobs_only",
+  "cli": "Databricks CLI v0.280.0",
+  "deployment_engine": "direct (DATABRICKS_BUNDLE_ENGINE=direct); default Terraform engine failed: 'error downloading Terraform: unable to verify checksums signature: openpgp: key expired'",
+  "target": "dev (mode: development, profile nyc311)",
+  "validate": "Validation OK",
+  "serverless_environment": "client 3 (Python 3.12); client 2 rejected wheel with ERROR_UNSUPPORTED_PYTHON_VERSION (package requires >=3.12)",
+  "jobs": {
+    "prepare_data": {
+      "job_id": 885241890891371,
+      "schedule": null,
+      "max_concurrent_runs": 1,
+      "runs": [
+        {"run_id": 52045650234506, "result": "FAILED", "reason": "environment client 2 Python 3.11 incompatible with wheel", "wall_seconds": 38.9},
+        {"run_id": 674664618781380, "result": "SUCCESS", "wall_seconds": 40.7,
+         "output": {"row_count": 30681, "expected_row_count": 30681,
+                    "daily_payload_hash": "31c0f35672c43dac090063318eaec8e7741d9da85b27ba5b926fcc14f4097eef",
+                    "expected_payload_hash": "31c0f35672c43dac090063318eaec8e7741d9da85b27ba5b926fcc14f4097eef",
+                    "reproduced": true}}
+      ]
+    },
+    "development_gate": {
+      "job_id": 279900183266001,
+      "schedule": null,
+      "max_concurrent_runs": 1,
+      "runs": [
+        {"run_id": 546925834639854, "task_run_id": 658782272437876, "result": "FAILED (expected: freeze blocked)", "wall_seconds": 68.6,
+         "output": {"ready": false, "n_series": 21, "blockers": [
+           "development run lacks candidate(s) ai_forecast_v2; a two-model run cannot freeze the three-model protocol",
+           "development grid has 84/126 complete three-model cells"]}}
+      ]
+    }
+  },
+  "not_deployed": ["benchmark", "publish_results"],
+  "limitation": "Reproduces committed 2021-2024 Silver and reports freeze blockers only. No model fit, no v2 call, no 2025 data, no Delta write."
+}

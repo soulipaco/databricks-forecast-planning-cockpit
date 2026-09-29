@@ -1,0 +1,30 @@
+# Deployment as code for the NYC 311 forecasting benchmark (Free Edition, serverless).
+# Jobs are unscheduled, single-run and read committed 2021-2024 artifacts only.
+# benchmark and publish_results are intentionally absent until the protocol is frozen.
+bundle:
+  name: nyc311_forecast
+
+include:
+  - resources/*.yml
+
+artifacts:
+  nyc311_wheel:
+    type: whl
+    build: uv build --wheel --quiet
+    path: .
+
+sync:
+  exclude:
+    - .venv
+    - data/workspace_stage
+    - data/silver/**/daily_requests.jsonl
+    - data/snapshots/jan-2023-20260929
+    - evidence/*.lvdash.json
+    - portfolio
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      profile: nyc311

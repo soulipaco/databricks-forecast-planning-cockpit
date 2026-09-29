@@ -8,3 +8,4 @@ dist/
 conf/local.yaml
 *.parquet
 evidence/runs/
+.databricks/

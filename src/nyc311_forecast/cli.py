@@ -51,7 +51,25 @@ def main(argv: list[str] | None = None) -> int:
     )
     views.add_argument("--config", type=Path, required=True)
     views.add_argument("--output", type=Path, required=True)
+    freeze = sub.add_parser(
+        "freeze", help="Check development prerequisites and write the protocol freeze manifest"
+    )
+    freeze.add_argument("--config", type=Path, required=True)
+    freeze.add_argument(
+        "--series-manifest", type=Path, default=Path("data/series_manifest/selection-v1.json")
+    )
+    freeze.add_argument(
+        "--tuning-dir", type=Path, default=Path("evidence/development_tuning_full_20260929")
+    )
+    freeze.add_argument("--development-run", type=Path, required=True)
+    freeze.add_argument("--protocol", type=Path, default=Path("03_BENCHMARK_PROTOCOL.md"))
+    freeze.add_argument("--output", type=Path, default=Path("evidence/freeze_manifest.json"))
+    freeze.add_argument(
+        "--check-only", action="store_true", help="Report blockers without writing a manifest"
+    )
     args = parser.parse_args(argv)
+    if args.command == "freeze":
+        return _freeze(args)
     if args.command == "doctor":
         try:
             config = load_config(args.config)
@@ -255,6 +273,45 @@ def main(argv: list[str] | None = None) -> int:
             else 1
         )
     return 2
+
+
+def _freeze(args: argparse.Namespace) -> int:
+    import subprocess
+
+    from nyc311_forecast.freeze import check_freeze_readiness, write_freeze_manifest
+
+    try:
+        config = load_config(args.config)
+        paths = {
+            "series_manifest": args.series_manifest,
+            "tuning_dir": args.tuning_dir,
+            "development_run": args.development_run,
+            "protocol_path": args.protocol,
+            "freeze_manifest": args.output,
+        }
+        report = check_freeze_readiness(**paths)
+        print(json.dumps(report, indent=2))
+        if args.check_only or not report["ready"]:
+            return 0 if report["ready"] else 1
+        dirty = subprocess.run(
+            ["git", "status", "--porcelain"], capture_output=True, text=True, check=True
+        ).stdout
+        if dirty.strip():
+            raise ValueError("Freeze requires a clean Git worktree")
+        code_sha = subprocess.run(
+            ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
+        ).stdout.strip()
+        write_freeze_manifest(
+            **paths,
+            config_path=args.config,
+            code_sha=code_sha,
+            protocol_version=config.protocol_version,
+        )
+    except (OSError, ValueError, TypeError, KeyError, subprocess.CalledProcessError) as exc:
+        print(f"Freeze failed: {exc}", file=sys.stderr)
+        return 2
+    print(args.output)
+    return 0
 
 
 if __name__ == "__main__":

@@ -20,4 +20,4 @@ Examples of claims requiring evidence: relative WAPE differences, series wins, r
 
 ## Data and validation records
 
-`data_card.md` records the real 2021–2024 development source and Silver checks. `validation_report.md` remains a release template. Mark checks `passed`, `failed` or `blocked` with exact evidence; never turn an unavailable workspace check into a pass. Keep private workspace URLs, tokens and account details out of these public files.
+`data_card.md` records the real 2021–2024 development source and Silver checks. `validation_report.md` records the current pre-release status of each check; it is not a release sign-off. `freeze_readiness_20260929.json` is the refused freeze check, and `workspace_bundle_jobs_20260929.json` records the bundle deployment and serverless job runs (Silver reproduction passed; freeze gate blocked). Mark checks `passed`, `failed` or `blocked` with exact evidence; never turn an unavailable workspace check into a pass. Keep private workspace URLs, tokens and account details out of these public files.

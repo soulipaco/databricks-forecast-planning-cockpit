@@ -1,0 +1,43 @@
+# Proposed stage names follow 07_WORKSPACE_OPERATIONS.md. No schedules or triggers.
+resources:
+  jobs:
+    prepare_data:
+      name: nyc311_prepare_data
+      description: >-
+        Rebuild the 2021-2024 development Silver rows from committed monthly snapshots
+        and fail unless row count and payload hash match the committed manifest.
+        Reads no 2025 data and performs no network extraction.
+      max_concurrent_runs: 1
+      timeout_seconds: 1800
+      tasks:
+        - task_key: reproduce_silver
+          environment_key: nyc311
+          spark_python_task:
+            python_file: ../jobs/reproduce_silver.py
+            parameters: ["--root", "${workspace.file_path}"]
+      environments:
+        - environment_key: nyc311
+          spec:
+            client: "3"
+            dependencies:
+              - ../dist/*.whl
+
+    development_gate:
+      name: nyc311_development_gate
+      description: >-
+        Protocol freeze readiness check. Fails, listing blockers, while any three-model
+        development prerequisite is missing. Never writes a freeze manifest.
+      max_concurrent_runs: 1
+      timeout_seconds: 600
+      tasks:
+        - task_key: freeze_readiness
+          environment_key: nyc311
+          spark_python_task:
+            python_file: ../jobs/freeze_gate.py
+            parameters: ["--root", "${workspace.file_path}"]
+      environments:
+        - environment_key: nyc311
+          spec:
+            client: "3"
+            dependencies:
+              - ../dist/*.whl
