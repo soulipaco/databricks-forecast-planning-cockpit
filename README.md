@@ -1,18 +1,35 @@
 # Can one Databricks SQL function replace a forecasting pipeline?
 
+![One SQL function beat my tuned forecasting pipeline](portfolio/readme_banner.png)
+
 [![CI](https://github.com/soulipaco/databricks-forecast-planning-cockpit/actions/workflows/ci.yml/badge.svg)](https://github.com/soulipaco/databricks-forecast-planning-cockpit/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-informational.svg)](LICENSE)
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](pyproject.toml)
 [![Protocol](https://img.shields.io/badge/protocol-frozen%20before%202025-success.svg)](evidence/freeze_manifest.json)
 [![Cells](https://img.shields.io/badge/scored%20cells-756%2F756-success.svg)](evidence/leaderboard.csv)
+[![Release](https://img.shields.io/github/v/release/soulipaco/databricks-forecast-planning-cockpit)](https://github.com/soulipaco/databricks-forecast-planning-cockpit/releases)
 
-> A frozen-protocol benchmark of Databricks **`ai_forecast` v2** against a **tuned Prophet** pipeline and a **weekly seasonal baseline** on NYC 311 daily service requests. It covers 21 series, 12 monthly forecast origins in 2025 and a 28-day horizon, with every prediction stored in Delta and served through a code-managed AI/BI dashboard.
+> A frozen-protocol benchmark of Databricks **`ai_forecast` v2** against a **tuned Prophet** pipeline and a **weekly seasonal baseline** on NYC 311 daily service requests: 21 series, 12 monthly forecast origins in 2025, a 28-day horizon. Every prediction is stored in Delta and served through a code-managed AI/BI dashboard.
 
-**One SQL function, with no training code and no tuning, was more accurate than a tuned Prophet pipeline.** It had the lowest error on 17 of 21 series. The one thing to watch is bias: it forecast about 14% less demand than actually arrived. Under the stricter rule written down before any 2025 data was downloaded, which requires low bias as well as accuracy, it therefore does not yet qualify as a drop-in replacement. A bias check or calibration closes that gap.
+**One SQL function, with no training code and no tuning, was more accurate than a tuned Prophet pipeline.** It had the lowest error on 17 of 21 series and in every complaint family. The one thing to watch is bias: it forecast about 14% less demand than actually arrived. Under the stricter rule written down before any 2025 data was downloaded, which requires low bias as well as accuracy, it does not yet qualify as a drop-in replacement. A bias check or calibration closes that gap.
+
+```sql
+-- the entire model step on the v2 side
+SELECT * FROM ai_forecast(TABLE(history), horizon => '2025-12-28',
+  time_col => 'ds', value_col => 'y', version => '2')
+```
+
+## If you forecast on Databricks
+
+1. **Start with the one-function route.** Here it beat a pipeline with 420 tuning trials (median series error 17.1% vs 19.5%), with no training code to maintain.
+2. **Check the bias before you plan capacity with it.** It ran low at all 12 origins, and its heating and residential-noise forecasts were about 25% below actual demand.
+3. **Budget for setup, not for modelling.** v2 needed two previews, a warehouse restart and a fully provisioned workspace, and it does not run on Free Edition ([details](#running-ai_forecast-v2-what-it-actually-needed)).
+
+## What the forecasts look like
 
 ![28-day forecasts against actual demand](portfolio/hero_forecasts.png)
 
-*Above: the two heating series that the protocol's featured-series rule selects, forecast on 30 Nov 2025. The v2 forecast (blue) follows the level well, but in Brooklyn it sits under almost every cold-weather spike.*
+*The two heating series selected by the protocol's featured-series rule, forecast from 30 Nov 2025. v2 (blue) tracks the typical level; in Brooklyn most demand spikes land above it.*
 
 ## Result
 
@@ -24,13 +41,23 @@
 | Tuned Prophet (20 trials/series) | 19.5% | 34.2% | +0.5% | 77.7% | 4 / 21 |
 | Databricks `ai_forecast` v2 | **17.1%** | **25.3%** | −14.3% | 77.9% | **17 / 21** |
 
-- **Verdict under the pre-registered rule:** "practically competitive" means error no more than 5% worse than Prophet **and** absolute bias no more than 2 points worse. v2 is 12% better on error but 13.8 points worse on bias, so it does **not** qualify.
-- **The shortfall is not one bad month.** v2 was below actual demand at every one of the 12 origins, most sharply in winter:
+**By complaint family** (pooled over 12 origins; lowest error in bold):
+
+| Family | v2 error | Prophet error | Baseline error | v2 bias | Prophet bias |
+|---|---|---|---|---|---|
+| Illegal parking | **10.9%** | 12.3% | 13.9% | −2.4% | −0.5% |
+| Unsanitary condition | **16.4%** | 16.5% | 23.5% | −3.1% | −2.5% |
+| Street noise | **29.8%** | 40.8% | 41.8% | −10.0% | +3.7% |
+| Heat / hot water | **37.9%** | 41.9% | 45.4% | −25.4% | 0.0% |
+| Residential noise | **35.3%** | 58.4% | 45.4% | −25.9% | +1.7% |
+
+- **Verdict under the pre-registered rule:** "practically competitive" means error no more than 5% worse than Prophet **and** absolute bias no more than 2 points worse. v2 is 12% better on error but 13.8 points worse on bias, so it does **not** qualify yet.
+- **The shortfall is not one bad month.** v2 was below actual demand at every one of the 12 origins; the largest gap was at the December 2024 origin (−39.4%):
 
 ![Signed bias by forecast origin](portfolio/bias_by_origin.png)
 
-- **One series behaves like a different process.** Bronx residential-noise complaints jump to as much as eight times their usual monthly volume, for example about 52,000 in January 2025 against roughly 6,000 normally. That series produces Prophet's worst errors (above 100% WAPE) and dominates the volume-weighted figures. This is why the protocol ranks models by the *median* series.
-- **Runtime is not like-for-like.** v2 took a median of 5.3 s per series-origin in a serverless SQL warehouse, and Prophet refits took 0.26 s locally, excluding the separate tuning. No monetary cost was measured.
+- **One series behaves like a different process.** Bronx residential-noise complaints jump to as much as eight times their usual monthly volume (52,688 in January 2025 against a median month of 6,247). That series produces Prophet's worst errors (above 100% WAPE) and dominates the volume-weighted figures. This is why the protocol ranks models by the *median* series.
+- **Runtime is not like-for-like.** v2 took a median of 5.3 s per series-origin in a serverless SQL warehouse; Prophet refits took 0.26 s locally, excluding the separate tuning. No monetary cost was measured.
 
 <details>
 <summary>Error for every series (21 × 3 models)</summary>
@@ -39,7 +66,7 @@
 
 </details>
 
-Every number above is recomputed three ways: the Python summary, SQL over the persisted Delta tables, and plain arithmetic on [`evidence/series_scores.csv`](evidence/series_scores.csv). See [`evidence/`](evidence/README.md).
+Every number above is recomputed three ways (the Python summary, SQL over the persisted Delta tables, and plain arithmetic on [`evidence/series_scores.csv`](evidence/series_scores.csv)) and listed in the [claims ledger](evidence/claims.csv).
 
 ## How the test was kept fair
 
