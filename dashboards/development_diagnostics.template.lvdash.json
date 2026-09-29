@@ -1,0 +1,430 @@
+{
+  "datasets": [
+    {
+      "name": "development_series",
+      "displayName": "Verified 2021–2024 development series",
+      "queryLines": [
+        "SELECT borough, problem_family, COUNT(*) AS observed_days, ",
+        "SUM(y) AS requests, SUM(CAST(is_zero_filled AS INT)) AS zero_filled_days ",
+        "FROM daily_requests ",
+        "WHERE snapshot_id = 'development-silver-20260929' ",
+        "GROUP BY borough, problem_family ORDER BY requests DESC"
+      ]
+    },
+    {
+      "name": "data_quality",
+      "displayName": "Reconciled source and selected-series quality",
+      "queryLines": [
+        "SELECT snapshot_id, data_kind, expected_partitions, observed_partitions, ",
+        "reconciled_partitions, request_count, series_days, zero_filled_days ",
+        "FROM v_data_quality ",
+        "WHERE snapshot_id IN ('selection-2021-2023-20260929', ",
+        "'development-2024-20260929', 'development-silver-20260929') ",
+        "ORDER BY snapshot_id, data_kind"
+      ]
+    },
+    {
+      "name": "development_diagnostics",
+      "displayName": "Partial 2024 two-model development cell coverage",
+      "queryLines": [
+        "WITH expected AS (SELECT model_id, origin, COUNT(DISTINCT series_id) AS expected_cells ",
+        "FROM forecast_attempts WHERE run_id = '",
+        "{{development_run_id}}",
+        "' AND model_id IN ('snaive7', 'prophet_tuned') ",
+        "AND origin IN (DATE '2024-10-31', DATE '2024-11-30') GROUP BY model_id, origin), ",
+        "scored AS (SELECT model_id, origin, COUNT(DISTINCT series_id) AS complete_cells ",
+        "FROM evaluation_cells WHERE run_id = '",
+        "{{development_run_id}}",
+        "' AND horizon_days = 28 ",
+        "AND paired_status = 'complete_two_model_development' AND n_expected = 28 ",
+        "AND n_actual = 28 AND n_predictions = 28 GROUP BY model_id, origin) ",
+        "SELECT r.run_id, r.status AS run_status, CAST(e.origin AS STRING) AS origin, ",
+        "e.model_id, e.expected_cells, COALESCE(s.complete_cells, 0) AS complete_cells, ",
+        "e.expected_cells - COALESCE(s.complete_cells, 0) AS incomplete_cells ",
+        "FROM expected e LEFT JOIN scored s ON s.model_id = e.model_id AND s.origin = e.origin ",
+        "JOIN forecast_runs r ON r.run_id = '",
+        "{{development_run_id}}",
+        "' AND r.status = '",
+        "partial_two_model_development_not_benchmark",
+        "' ",
+        "ORDER BY e.origin, e.model_id"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "readiness",
+      "displayName": "Development data",
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layout": [
+        {
+          "widget": {
+            "name": "readiness_title",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# NYC 311 forecast planning\n",
+                "\n",
+                "Development data readiness"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "readiness_warning",
+            "multilineTextboxSpec": {
+              "lines": [
+                "**Development data only.** This draft contains no three-model benchmark, ",
+                "no 2025 evaluation results, and no operational staffing recommendation. ",
+                "The quality table separates source partitions from selected-series Silver."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "development_series_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "development_series",
+                  "fields": [
+                    {
+                      "name": "borough",
+                      "expression": "`borough`"
+                    },
+                    {
+                      "name": "problem_family",
+                      "expression": "`problem_family`"
+                    },
+                    {
+                      "name": "observed_days",
+                      "expression": "`observed_days`"
+                    },
+                    {
+                      "name": "requests",
+                      "expression": "`requests`"
+                    },
+                    {
+                      "name": "zero_filled_days",
+                      "expression": "`zero_filled_days`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "borough",
+                    "displayName": "Borough"
+                  },
+                  {
+                    "fieldName": "problem_family",
+                    "displayName": "Problem family"
+                  },
+                  {
+                    "fieldName": "observed_days",
+                    "displayName": "Days"
+                  },
+                  {
+                    "fieldName": "requests",
+                    "displayName": "Requests"
+                  },
+                  {
+                    "fieldName": "zero_filled_days",
+                    "displayName": "Zero-filled days"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Selected development series"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 12,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "data_quality_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "data_quality",
+                  "fields": [
+                    {
+                      "name": "snapshot_id",
+                      "expression": "`snapshot_id`"
+                    },
+                    {
+                      "name": "data_kind",
+                      "expression": "`data_kind`"
+                    },
+                    {
+                      "name": "expected_partitions",
+                      "expression": "`expected_partitions`"
+                    },
+                    {
+                      "name": "observed_partitions",
+                      "expression": "`observed_partitions`"
+                    },
+                    {
+                      "name": "reconciled_partitions",
+                      "expression": "`reconciled_partitions`"
+                    },
+                    {
+                      "name": "request_count",
+                      "expression": "`request_count`"
+                    },
+                    {
+                      "name": "series_days",
+                      "expression": "`series_days`"
+                    },
+                    {
+                      "name": "zero_filled_days",
+                      "expression": "`zero_filled_days`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "snapshot_id",
+                    "displayName": "Snapshot"
+                  },
+                  {
+                    "fieldName": "data_kind",
+                    "displayName": "Population"
+                  },
+                  {
+                    "fieldName": "expected_partitions",
+                    "displayName": "Expected partitions"
+                  },
+                  {
+                    "fieldName": "observed_partitions",
+                    "displayName": "Observed partitions"
+                  },
+                  {
+                    "fieldName": "reconciled_partitions",
+                    "displayName": "Reconciled partitions"
+                  },
+                  {
+                    "fieldName": "request_count",
+                    "displayName": "Requests"
+                  },
+                  {
+                    "fieldName": "series_days",
+                    "displayName": "Series days"
+                  },
+                  {
+                    "fieldName": "zero_filled_days",
+                    "displayName": "Zero-filled days"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Source and selected-series quality"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 12,
+            "height": 7
+          }
+        }
+      ]
+    },
+    {
+      "name": "development_diagnostics",
+      "displayName": "2024 development diagnostics",
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layout": [
+        {
+          "widget": {
+            "name": "development_title",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Partial 2024 development diagnostics"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "development_warning",
+            "multilineTextboxSpec": {
+              "lines": [
+                "**Partial two-model development run only.** Weekly seasonal naïve and tuned Prophet; native SQL v2 is absent. ",
+                "This is not a three-model leaderboard, a 2025 evaluation, or capacity evidence. ",
+                "Incomplete cells remain in the expected denominator."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 12,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "development_diagnostics_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "development_diagnostics",
+                  "fields": [
+                    {
+                      "name": "run_id",
+                      "expression": "`run_id`"
+                    },
+                    {
+                      "name": "run_status",
+                      "expression": "`run_status`"
+                    },
+                    {
+                      "name": "origin",
+                      "expression": "`origin`"
+                    },
+                    {
+                      "name": "model_id",
+                      "expression": "`model_id`"
+                    },
+                    {
+                      "name": "expected_cells",
+                      "expression": "`expected_cells`"
+                    },
+                    {
+                      "name": "complete_cells",
+                      "expression": "`complete_cells`"
+                    },
+                    {
+                      "name": "incomplete_cells",
+                      "expression": "`incomplete_cells`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "run_id",
+                    "displayName": "Run ID"
+                  },
+                  {
+                    "fieldName": "run_status",
+                    "displayName": "Run status"
+                  },
+                  {
+                    "fieldName": "origin",
+                    "displayName": "2024 origin"
+                  },
+                  {
+                    "fieldName": "model_id",
+                    "displayName": "Model"
+                  },
+                  {
+                    "fieldName": "expected_cells",
+                    "displayName": "Expected cells"
+                  },
+                  {
+                    "fieldName": "complete_cells",
+                    "displayName": "Complete cells"
+                  },
+                  {
+                    "fieldName": "incomplete_cells",
+                    "displayName": "Incomplete cells"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Expected versus complete development cells"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 12,
+            "height": 8
+          }
+        }
+      ]
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#F7F9FC",
+        "dark": "#161D29"
+      },
+      "widgetBackgroundColor": {
+        "light": "#FFFFFF",
+        "dark": "#1F2937"
+      },
+      "fontColor": {
+        "light": "#17263C",
+        "dark": "#EAF0F7"
+      },
+      "selectionColor": {
+        "light": "#1764A6",
+        "dark": "#78B9EB"
+      },
+      "visualizationColors": [
+        "#496A93",
+        "#E18A39",
+        "#648C79",
+        "#A66A9D",
+        "#8F7781"
+      ],
+      "widgetHeaderAlignment": "LEFT"
+    }
+  }
+}

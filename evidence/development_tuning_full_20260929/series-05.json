@@ -1,0 +1,215 @@
+{
+  "n_trials": 20,
+  "parameters": {
+    "changepoint_prior_scale": 0.05462121640282172,
+    "seasonality_mode": "additive",
+    "seasonality_prior_scale": 0.12376329701511488
+  },
+  "pooled_wape": 0.44522026270906845,
+  "seed": 42,
+  "series_id": "BRONX|Noise - Residential",
+  "status": "complete",
+  "trials": [
+    {
+      "number": 0,
+      "parameters": {
+        "changepoint_prior_scale": 0.010253509690168494,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 7.114476009343421
+      },
+      "state": "COMPLETE",
+      "value": 0.6377293130860351
+    },
+    {
+      "number": 1,
+      "parameters": {
+        "changepoint_prior_scale": 0.0026368755339723046,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.029375384576328288
+      },
+      "state": "COMPLETE",
+      "value": 0.45623572770369003
+    },
+    {
+      "number": 2,
+      "parameters": {
+        "changepoint_prior_scale": 0.041917115166952006,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 1.3311216080736887
+      },
+      "state": "COMPLETE",
+      "value": 0.560791986836664
+    },
+    {
+      "number": 3,
+      "parameters": {
+        "changepoint_prior_scale": 0.1764971584817571,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.04335281794951567
+      },
+      "state": "COMPLETE",
+      "value": 0.4702878105436609
+    },
+    {
+      "number": 4,
+      "parameters": {
+        "changepoint_prior_scale": 0.006624310605949983,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.3752055855124282
+      },
+      "state": "COMPLETE",
+      "value": 0.6593448589958828
+    },
+    {
+      "number": 5,
+      "parameters": {
+        "changepoint_prior_scale": 0.044809759182149515,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.02621087878265441
+      },
+      "state": "COMPLETE",
+      "value": 0.5397198051382495
+    },
+    {
+      "number": 6,
+      "parameters": {
+        "changepoint_prior_scale": 0.01701841881702917,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 2.267398652378039
+      },
+      "state": "COMPLETE",
+      "value": 0.6928534813023612
+    },
+    {
+      "number": 7,
+      "parameters": {
+        "changepoint_prior_scale": 0.039710847107924725,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.013783237455007183
+      },
+      "state": "COMPLETE",
+      "value": 0.44567780128778367
+    },
+    {
+      "number": 8,
+      "parameters": {
+        "changepoint_prior_scale": 0.0014982086432155466,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 7.025166339242156
+      },
+      "state": "COMPLETE",
+      "value": 0.6819763424681904
+    },
+    {
+      "number": 9,
+      "parameters": {
+        "changepoint_prior_scale": 0.00663962307985946,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.019634341572933336
+      },
+      "state": "COMPLETE",
+      "value": 0.6464243934056192
+    },
+    {
+      "number": 10,
+      "parameters": {
+        "changepoint_prior_scale": 0.3955576357442717,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.20383789292063154
+      },
+      "state": "COMPLETE",
+      "value": 0.6435207636877422
+    },
+    {
+      "number": 11,
+      "parameters": {
+        "changepoint_prior_scale": 0.0011962106658550786,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.010966565202412095
+      },
+      "state": "COMPLETE",
+      "value": 0.5701231405712746
+    },
+    {
+      "number": 12,
+      "parameters": {
+        "changepoint_prior_scale": 0.003277925793826975,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.06968223245446509
+      },
+      "state": "COMPLETE",
+      "value": 0.45743080229936944
+    },
+    {
+      "number": 13,
+      "parameters": {
+        "changepoint_prior_scale": 0.05462121640282172,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.12376329701511488
+      },
+      "state": "COMPLETE",
+      "value": 0.44522026270906845
+    },
+    {
+      "number": 14,
+      "parameters": {
+        "changepoint_prior_scale": 0.07460628180001552,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.14324391067103806
+      },
+      "state": "COMPLETE",
+      "value": 0.4811457120697781
+    },
+    {
+      "number": 15,
+      "parameters": {
+        "changepoint_prior_scale": 0.10883499550206013,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.5761966236816387
+      },
+      "state": "COMPLETE",
+      "value": 0.5499355176481222
+    },
+    {
+      "number": 16,
+      "parameters": {
+        "changepoint_prior_scale": 0.02329235675124595,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.07300886496518136
+      },
+      "state": "COMPLETE",
+      "value": 0.588842525376916
+    },
+    {
+      "number": 17,
+      "parameters": {
+        "changepoint_prior_scale": 0.2362895924256542,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.11172368784871083
+      },
+      "state": "COMPLETE",
+      "value": 0.5763880357294168
+    },
+    {
+      "number": 18,
+      "parameters": {
+        "changepoint_prior_scale": 0.02860345417286653,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.012611236054600728
+      },
+      "state": "COMPLETE",
+      "value": 0.5243707690835046
+    },
+    {
+      "number": 19,
+      "parameters": {
+        "changepoint_prior_scale": 0.08348466944441689,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.3488741324399331
+      },
+      "state": "COMPLETE",
+      "value": 0.46794907837182337
+    }
+  ],
+  "wall_seconds": 28.067287200130522
+}

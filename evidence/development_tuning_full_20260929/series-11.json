@@ -1,0 +1,215 @@
+{
+  "n_trials": 20,
+  "parameters": {
+    "changepoint_prior_scale": 0.3282643106145393,
+    "seasonality_mode": "multiplicative",
+    "seasonality_prior_scale": 0.20650948019458254
+  },
+  "pooled_wape": 0.4598514445621849,
+  "seed": 42,
+  "series_id": "MANHATTAN|HEAT/HOT WATER",
+  "status": "complete",
+  "trials": [
+    {
+      "number": 0,
+      "parameters": {
+        "changepoint_prior_scale": 0.010253509690168494,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 7.114476009343421
+      },
+      "state": "COMPLETE",
+      "value": 0.4824178298000347
+    },
+    {
+      "number": 1,
+      "parameters": {
+        "changepoint_prior_scale": 0.0026368755339723046,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.029375384576328288
+      },
+      "state": "COMPLETE",
+      "value": 0.6332935528128719
+    },
+    {
+      "number": 2,
+      "parameters": {
+        "changepoint_prior_scale": 0.041917115166952006,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 1.3311216080736887
+      },
+      "state": "COMPLETE",
+      "value": 0.4900091895803426
+    },
+    {
+      "number": 3,
+      "parameters": {
+        "changepoint_prior_scale": 0.1764971584817571,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.04335281794951567
+      },
+      "state": "COMPLETE",
+      "value": 0.9271449285779778
+    },
+    {
+      "number": 4,
+      "parameters": {
+        "changepoint_prior_scale": 0.006624310605949983,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.3752055855124282
+      },
+      "state": "COMPLETE",
+      "value": 0.4863659076650061
+    },
+    {
+      "number": 5,
+      "parameters": {
+        "changepoint_prior_scale": 0.044809759182149515,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.02621087878265441
+      },
+      "state": "COMPLETE",
+      "value": 0.8959337033068747
+    },
+    {
+      "number": 6,
+      "parameters": {
+        "changepoint_prior_scale": 0.01701841881702917,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 2.267398652378039
+      },
+      "state": "COMPLETE",
+      "value": 0.478842911733185
+    },
+    {
+      "number": 7,
+      "parameters": {
+        "changepoint_prior_scale": 0.039710847107924725,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.013783237455007183
+      },
+      "state": "COMPLETE",
+      "value": 0.4845431703450007
+    },
+    {
+      "number": 8,
+      "parameters": {
+        "changepoint_prior_scale": 0.0014982086432155466,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 7.025166339242156
+      },
+      "state": "COMPLETE",
+      "value": 0.5052227251473581
+    },
+    {
+      "number": 9,
+      "parameters": {
+        "changepoint_prior_scale": 0.00663962307985946,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.019634341572933336
+      },
+      "state": "COMPLETE",
+      "value": 0.4934648869740607
+    },
+    {
+      "number": 10,
+      "parameters": {
+        "changepoint_prior_scale": 0.37238862307131065,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.1476818281024216
+      },
+      "state": "COMPLETE",
+      "value": 0.46643940979929144
+    },
+    {
+      "number": 11,
+      "parameters": {
+        "changepoint_prior_scale": 0.3282643106145393,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.20650948019458254
+      },
+      "state": "COMPLETE",
+      "value": 0.4598514445621849
+    },
+    {
+      "number": 12,
+      "parameters": {
+        "changepoint_prior_scale": 0.4565681550107345,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.1504383897839578
+      },
+      "state": "COMPLETE",
+      "value": 0.5059942143234256
+    },
+    {
+      "number": 13,
+      "parameters": {
+        "changepoint_prior_scale": 0.49146549359087977,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.19272877616826561
+      },
+      "state": "COMPLETE",
+      "value": 0.46027514261785235
+    },
+    {
+      "number": 14,
+      "parameters": {
+        "changepoint_prior_scale": 0.1427287262051746,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.34059462422691833
+      },
+      "state": "COMPLETE",
+      "value": 0.4730969360220306
+    },
+    {
+      "number": 15,
+      "parameters": {
+        "changepoint_prior_scale": 0.1772538997152251,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.17908895700294591
+      },
+      "state": "COMPLETE",
+      "value": 0.4707224158385046
+    },
+    {
+      "number": 16,
+      "parameters": {
+        "changepoint_prior_scale": 0.09683709606238299,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.8661025596666062
+      },
+      "state": "COMPLETE",
+      "value": 0.482749809543844
+    },
+    {
+      "number": 17,
+      "parameters": {
+        "changepoint_prior_scale": 0.4974759637131155,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.0674207977330418
+      },
+      "state": "COMPLETE",
+      "value": 0.8723318853602765
+    },
+    {
+      "number": 18,
+      "parameters": {
+        "changepoint_prior_scale": 0.26669607968108455,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.08336906469748914
+      },
+      "state": "COMPLETE",
+      "value": 0.7824079417017532
+    },
+    {
+      "number": 19,
+      "parameters": {
+        "changepoint_prior_scale": 0.08348466944441689,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.586155481930092
+      },
+      "state": "COMPLETE",
+      "value": 0.48060579282242055
+    }
+  ],
+  "wall_seconds": 29.120709700044245
+}

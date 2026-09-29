@@ -1,0 +1,37 @@
+{
+  "code_sha": "3afb8b112a160c75db2c173cfdb564af26702fea",
+  "inner_origins": [
+    "2024-01-31",
+    "2024-05-31",
+    "2024-09-30"
+  ],
+  "n_trials": 20,
+  "seed": 42,
+  "selection_sha256": "6a859a26fa3092f357e2757f6978a76061cd887ae9d5468b3df8e368a75e57b0",
+  "series_ids": [
+    "BRONX|Illegal Parking",
+    "BROOKLYN|Illegal Parking",
+    "MANHATTAN|Illegal Parking",
+    "QUEENS|Illegal Parking",
+    "STATEN ISLAND|Illegal Parking",
+    "BRONX|Noise - Residential",
+    "BROOKLYN|Noise - Residential",
+    "MANHATTAN|Noise - Residential",
+    "QUEENS|Noise - Residential",
+    "BRONX|HEAT/HOT WATER",
+    "BROOKLYN|HEAT/HOT WATER",
+    "MANHATTAN|HEAT/HOT WATER",
+    "QUEENS|HEAT/HOT WATER",
+    "BRONX|Noise - Street/Sidewalk",
+    "BROOKLYN|Noise - Street/Sidewalk",
+    "MANHATTAN|Noise - Street/Sidewalk",
+    "QUEENS|Noise - Street/Sidewalk",
+    "BRONX|UNSANITARY CONDITION",
+    "BROOKLYN|UNSANITARY CONDITION",
+    "MANHATTAN|UNSANITARY CONDITION",
+    "QUEENS|UNSANITARY CONDITION"
+  ],
+  "silver_sha256": "31c0f35672c43dac090063318eaec8e7741d9da85b27ba5b926fcc14f4097eef",
+  "silver_snapshot_id": "development-silver-20260929",
+  "status": "development_tuning"
+}

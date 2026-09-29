@@ -16,6 +16,10 @@ Databricks [documents `ai_forecast` v2](https://docs.databricks.com/aws/en/sql/l
 
 Databricks [Free Edition limitations](https://docs.databricks.com/aws/en/getting-started/free-edition-limitations) explicitly restrict outbound internet access to trusted domains. The same page says eligible accounts may obtain outbound internet access after optional LinkedIn identity verification; this does **not** establish that the managed v2 package environment gains access. Free Edition also has no account console or private networking configuration. Neither changing the function version nor supplying a local wheel is an evidenced way to alter the managed `ai_forecast` runtime. Do not run the 2025 evaluation until a real v2 smoke returns 28 validated dates.
 
+## Wheel workaround check
+
+The owner asked whether `onnxruntime` could be uploaded as a wheel. [Unity Catalog UDF documentation](https://docs.databricks.com/aws/en/udf/unity-catalog) supports wheels in a volume when a **user-defined function** declares them in its `ENVIRONMENT dependencies`. The documented [`ai_forecast` v2 interface](https://docs.databricks.com/aws/en/sql/language-manual/functions/ai_forecast) has no dependency or wheel-path argument. Uploading a wheel would therefore make it available to functions we define, but provides no documented way to alter Databricks' managed `ai_forecast` environment. This is a limitation of the documented interface, not proof that Databricks has no internal remedy. We will not substitute a custom UDF or local model under the v2 name.
+
 ## Next bounded test
 
 Treat native v2 as blocked in the current Free Edition workspace and keep the three-way benchmark unreleased. The owner need not install anything or keep searching for the absent preview. If an independently confirmed Free Edition entitlement/egress change later occurs, run **one** `uv run nyc311 smoke --config conf/local.yaml`; retain its query ID and 28-row validation result or new exact error. Optional LinkedIn identity verification is an owner choice, not a guaranteed fix or prerequisite to use the existing dashboard/data work.

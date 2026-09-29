@@ -1,0 +1,215 @@
+{
+  "n_trials": 20,
+  "parameters": {
+    "changepoint_prior_scale": 0.013192079364924933,
+    "seasonality_mode": "multiplicative",
+    "seasonality_prior_scale": 3.4232597200703205
+  },
+  "pooled_wape": 0.0782119083100556,
+  "seed": 42,
+  "series_id": "QUEENS|Illegal Parking",
+  "status": "complete",
+  "trials": [
+    {
+      "number": 0,
+      "parameters": {
+        "changepoint_prior_scale": 0.010253509690168494,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 7.114476009343421
+      },
+      "state": "COMPLETE",
+      "value": 0.08052678960456512
+    },
+    {
+      "number": 1,
+      "parameters": {
+        "changepoint_prior_scale": 0.0026368755339723046,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.029375384576328288
+      },
+      "state": "COMPLETE",
+      "value": 0.08216924764802792
+    },
+    {
+      "number": 2,
+      "parameters": {
+        "changepoint_prior_scale": 0.041917115166952006,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 1.3311216080736887
+      },
+      "state": "COMPLETE",
+      "value": 0.07903853745381184
+    },
+    {
+      "number": 3,
+      "parameters": {
+        "changepoint_prior_scale": 0.1764971584817571,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.04335281794951567
+      },
+      "state": "COMPLETE",
+      "value": 0.08017712309140378
+    },
+    {
+      "number": 4,
+      "parameters": {
+        "changepoint_prior_scale": 0.006624310605949983,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.3752055855124282
+      },
+      "state": "COMPLETE",
+      "value": 0.08221399173991381
+    },
+    {
+      "number": 5,
+      "parameters": {
+        "changepoint_prior_scale": 0.044809759182149515,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.02621087878265441
+      },
+      "state": "COMPLETE",
+      "value": 0.07932137176379003
+    },
+    {
+      "number": 6,
+      "parameters": {
+        "changepoint_prior_scale": 0.01701841881702917,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 2.267398652378039
+      },
+      "state": "COMPLETE",
+      "value": 0.07840459502535002
+    },
+    {
+      "number": 7,
+      "parameters": {
+        "changepoint_prior_scale": 0.039710847107924725,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.013783237455007183
+      },
+      "state": "COMPLETE",
+      "value": 0.08072998797618589
+    },
+    {
+      "number": 8,
+      "parameters": {
+        "changepoint_prior_scale": 0.0014982086432155466,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 7.025166339242156
+      },
+      "state": "COMPLETE",
+      "value": 0.08406940377246877
+    },
+    {
+      "number": 9,
+      "parameters": {
+        "changepoint_prior_scale": 0.00663962307985946,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 0.019634341572933336
+      },
+      "state": "COMPLETE",
+      "value": 0.08229761816086192
+    },
+    {
+      "number": 10,
+      "parameters": {
+        "changepoint_prior_scale": 0.37238862307131065,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.1476818281024216
+      },
+      "state": "COMPLETE",
+      "value": 0.07895021814232082
+    },
+    {
+      "number": 11,
+      "parameters": {
+        "changepoint_prior_scale": 0.3282643106145393,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.20650948019458254
+      },
+      "state": "COMPLETE",
+      "value": 0.07930028747361112
+    },
+    {
+      "number": 12,
+      "parameters": {
+        "changepoint_prior_scale": 0.12792283077338415,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 1.1048426057802572
+      },
+      "state": "COMPLETE",
+      "value": 0.0801639454313225
+    },
+    {
+      "number": 13,
+      "parameters": {
+        "changepoint_prior_scale": 0.4862453487325991,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.17655270080744787
+      },
+      "state": "COMPLETE",
+      "value": 0.0793450734489057
+    },
+    {
+      "number": 14,
+      "parameters": {
+        "changepoint_prior_scale": 0.017695146820274243,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 1.7800234731507887
+      },
+      "state": "COMPLETE",
+      "value": 0.07849905305950258
+    },
+    {
+      "number": 15,
+      "parameters": {
+        "changepoint_prior_scale": 0.020689898105143534,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 1.8660605466197275
+      },
+      "state": "COMPLETE",
+      "value": 0.07851613059599075
+    },
+    {
+      "number": 16,
+      "parameters": {
+        "changepoint_prior_scale": 0.013192079364924933,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 3.4232597200703205
+      },
+      "state": "COMPLETE",
+      "value": 0.0782119083100556
+    },
+    {
+      "number": 17,
+      "parameters": {
+        "changepoint_prior_scale": 0.0028496879495167205,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 2.700439350424176
+      },
+      "state": "COMPLETE",
+      "value": 0.08148546011813998
+    },
+    {
+      "number": 18,
+      "parameters": {
+        "changepoint_prior_scale": 0.07805789099500486,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 0.6022093310519416
+      },
+      "state": "COMPLETE",
+      "value": 0.07952567256449777
+    },
+    {
+      "number": 19,
+      "parameters": {
+        "changepoint_prior_scale": 0.017891014635239087,
+        "seasonality_mode": "multiplicative",
+        "seasonality_prior_scale": 3.475268550073196
+      },
+      "state": "COMPLETE",
+      "value": 0.07836254425935833
+    }
+  ],
+  "wall_seconds": 28.340894100256264
+}
