@@ -11,7 +11,7 @@ import json
 import subprocess
 from collections.abc import Callable, Mapping
 from dataclasses import asdict
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 from time import monotonic, sleep
 from typing import Any
@@ -46,12 +46,14 @@ def run_native(
     run_tag: str,
     max_retries: int = 2,
     retry_wait_seconds: float = 10.0,
+    origins: tuple[date, ...] = DEVELOPMENT_ORIGINS,
+    status: str = STATUS,
 ) -> dict:
     """Keep every expected cell and attempt; retry only transient warehouse failures."""
     if not series_ids or len(set(series_ids)) != len(series_ids):
         raise ValueError("series_ids must be nonempty and unique")
     attempts, values, cells = [], [], []
-    for origin in DEVELOPMENT_ORIGINS:
+    for origin in origins:
         dates = future_dates(origin)
         for series_id in series_ids:
             rows = by_series.get(series_id, [])
@@ -125,15 +127,15 @@ def run_native(
                 )
                 break
             cells.append(cell)
-    expected = len(series_ids) * len(DEVELOPMENT_ORIGINS)
+    expected = len(series_ids) * len(origins)
     if len(cells) != expected:
         raise AssertionError("Expected series/origin grid was lost")
     assert_unique("forecast_values", ({"run_id": "native", **row} for row in values))
     complete = sum(cell["status"] == "complete" for cell in cells)
     return {
-        "status": STATUS,
+        "status": status,
         "model_ids": [MODEL_ID],
-        "origins": [origin.isoformat() for origin in DEVELOPMENT_ORIGINS],
+        "origins": [origin.isoformat() for origin in origins],
         "series_ids": list(series_ids),
         "expected_cells": expected,
         "complete_cells": complete,

@@ -20,11 +20,22 @@ STATUS = "three_model_development_not_benchmark"
 SHARED_KEYS = ("series_ids", "origins", "silver_sha256", "silver_snapshot_id", "selection_sha256")
 
 
-def combine(two_model: dict, native: dict, *, source_hashes: dict[str, str]) -> dict:
-    if two_model.get("status") != "partial_two_model_development_not_benchmark":
-        raise ValueError("Expected the labeled two-model development run")
-    if native.get("status") != "native_v2_development_not_benchmark":
-        raise ValueError("Expected the labeled native v2 development run")
+def combine(
+    two_model: dict,
+    native: dict,
+    *,
+    source_hashes: dict[str, str],
+    input_statuses: tuple[str, str] = (
+        "partial_two_model_development_not_benchmark",
+        "native_v2_development_not_benchmark",
+    ),
+    status: str = STATUS,
+    run_prefix: str = "development-three-model",
+) -> dict:
+    if two_model.get("status") != input_statuses[0]:
+        raise ValueError("Expected the labeled two-model run")
+    if native.get("status") != input_statuses[1]:
+        raise ValueError("Expected the labeled native v2 run")
     if native.get("series_limit"):
         raise ValueError("A series-limited pilot cannot enter the development grid")
     for key in SHARED_KEYS:
@@ -43,8 +54,8 @@ def combine(two_model: dict, native: dict, *, source_hashes: dict[str, str]) -> 
         for o in two_model["origins"] for s in two_model["series_ids"]
     )
     return {
-        "status": STATUS,
-        "run_id": f"development-three-model-{source_hashes['two_model'][:6]}"
+        "status": status,
+        "run_id": f"{run_prefix}-{source_hashes['two_model'][:6]}"
                   f"{source_hashes['native'][:6]}",
         "source_runs": {"two_model": two_model["run_id"], "native": native["run_id"]},
         "source_sha256": source_hashes,

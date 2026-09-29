@@ -39,6 +39,8 @@ def load_inputs(
     selection_path: Path = SELECTION_PATH,
     silver_path: Path = SILVER_PATH,
     tuning_dir: Path = TUNING_DIR,
+    *,
+    last_year: int = 2024,
 ) -> tuple[tuple[str, ...], dict[str, list[dict]], dict[str, ProphetParameters], dict]:
     """Require complete 20-trial checkpoints and matching immutable inputs."""
     selection = json.loads(selection_path.read_text(encoding="utf-8"))
@@ -91,8 +93,8 @@ def load_inputs(
             if row["series_id"] not in by_series:
                 continue
             ds = date.fromisoformat(row["ds"])
-            if ds.year >= 2025:
-                raise ValueError("Development comparison input contains 2025 data")
+            if ds.year > last_year:
+                raise ValueError(f"Comparison input contains data after {last_year}")
             by_series[row["series_id"]].append({"ds": ds, "y": row["y"]})
     provenance = {
         "selection_sha256": selection_sha,
@@ -114,6 +116,8 @@ def run_comparison(
     prophet_parameters: Mapping[str, ProphetParameters],
     *,
     adapters: Mapping[str, Any] | None = None,
+    origins: tuple[date, ...] = DEVELOPMENT_ORIGINS,
+    status: str = STATUS,
 ) -> dict:
     """Preserve all expected attempts and score only complete 28-day outputs."""
     if not series_ids or len(set(series_ids)) != len(series_ids):
@@ -124,7 +128,7 @@ def run_comparison(
     if set(adapters) != set(MODEL_IDS):
         raise ValueError("Only snaive7 and prophet_tuned are allowed")
     attempts, values, cells = [], [], []
-    for origin in DEVELOPMENT_ORIGINS:
+    for origin in origins:
         dates = future_dates(origin)
         for series_id in series_ids:
             rows = by_series.get(series_id, [])
@@ -227,7 +231,7 @@ def run_comparison(
                     cell["error_class"] = type(exc).__name__
                 attempts.append(attempt)
                 cells.append(cell)
-    expected = len(series_ids) * len(DEVELOPMENT_ORIGINS) * len(MODEL_IDS)
+    expected = len(series_ids) * len(origins) * len(MODEL_IDS)
     if len(attempts) != expected or len(cells) != expected:
         raise AssertionError("Expected model/series/origin grid was lost")
     assert_unique("forecast_values", ({"run_id": "development", **row} for row in values))
@@ -236,13 +240,13 @@ def run_comparison(
     }
     paired = sum(
         all((origin.isoformat(), series_id, model_id) in successful for model_id in MODEL_IDS)
-        for origin in DEVELOPMENT_ORIGINS
+        for origin in origins
         for series_id in series_ids
     )
     return {
-        "status": STATUS,
+        "status": status,
         "model_ids": list(MODEL_IDS),
-        "origins": [origin.isoformat() for origin in DEVELOPMENT_ORIGINS],
+        "origins": [origin.isoformat() for origin in origins],
         "series_ids": list(series_ids),
         "expected_cells": expected,
         "complete_cells": len(successful),
