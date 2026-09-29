@@ -1,10 +1,27 @@
 {
+  "attempts": [
+    {
+      "query_id": "01f1bc26-3a8f-18ab-a0f6-7bebac6962eb",
+      "result": "FAILED",
+      "error": "ISOLATION_ENVIRONMENT_USER_ERROR.NO_MATCHING_DISTRIBUTION; installation log: two ConnectTimeoutError to pypi.org (/simple/onnxruntime/), then no matching distribution for onnxruntime==1.20.1",
+      "interpretation": "Same failure as Free Edition. A default trial workspace also gives the SQL isolated environment no internet egress. Databricks UDF documentation states internet dependency installation on serverless SQL warehouses requires the Public Preview 'Enable networking for isolated workloads in Serverless SQL Warehouses'. Whether that toggle also governs ai_forecast's managed dependency install is unverified until it is enabled and one smoke is rerun."
+    },
+    {
+      "query_id": "01f1bc27-5364-1b6a-bad6-3bd13e38f3de",
+      "context": "owner enabled 'Enable networking for isolated workloads in Serverless SQL Warehouses'; warehouse not restarted",
+      "result": "FAILED",
+      "error": "same onnxruntime install failure; installation log identical to previous attempt (apparently cached)"
+    },
+    {
+      "query_id": "01f1bc27-66ff-12c6-8953-5cbc278c0e0f",
+      "context": "after warehouse stop/start",
+      "result": "FAILED at model load (dependency installation passed)",
+      "error": "RuntimeError: Could not find forecaster package root under /Volumes/system/__internal_ai/ai_forecast_volume/forecaster_v5. SQLSTATE 38000",
+      "interpretation": "Networking preview + warehouse restart removes the egress blocker. The new workspace's system catalog contains only information_schema; system.__internal_ai does not exist there, whereas it exists (access-restricted) in the Free Edition workspace. Likely system-schema provisioning lag in a brand-new workspace; unverified."
+    }
+  ],
   "workspace": "Databricks trial workspace (non-Free-Edition), profile nyc311-trial; host kept out of public evidence",
   "warehouse": "Serverless Starter Warehouse, type PRO, serverless, size Small",
   "preview": "Owner reported Predictive AI Functions preview enabled",
-  "query_id": "01f1bc26-3a8f-18ab-a0f6-7bebac6962eb",
-  "sql": "src/nyc311_forecast/platform/smoke.py SMOKE_SQL (version => '2')",
-  "result": "FAILED",
-  "error": "ISOLATION_ENVIRONMENT_USER_ERROR.NO_MATCHING_DISTRIBUTION; installation log: two ConnectTimeoutError to pypi.org (/simple/onnxruntime/), then no matching distribution for onnxruntime==1.20.1",
-  "interpretation": "Same failure as Free Edition. A default trial workspace also gives the SQL isolated environment no internet egress. Databricks UDF documentation states internet dependency installation on serverless SQL warehouses requires the Public Preview 'Enable networking for isolated workloads in Serverless SQL Warehouses'. Whether that toggle also governs ai_forecast's managed dependency install is unverified until it is enabled and one smoke is rerun."
+  "sql": "src/nyc311_forecast/platform/smoke.py SMOKE_SQL (version => '2')"
 }
